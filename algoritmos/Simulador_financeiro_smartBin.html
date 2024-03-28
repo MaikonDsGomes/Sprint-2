@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+
+    <style>
+        *
+        {
+            text-align: center;
+            border-color: black;
+        }
+
+        .resposta 
+        {
+            text-align: center;
+            border-color: black;
+            background-color: lightgreen;
+        }
+    </style>
+            <h1>Trash Bin - calculator</h1>
+
+           Digite o valor do combustivel: <input type="text" id="input_combustivel"> <br><br>
+           Digite quantos km são feitos por litro: <input type="text" id="input_gasto"> <br><br>
+           Digite quantos km são feitos a cada viagem de coleta: <input type="text" id="input_km"><br><br>
+
+           <button onclick="calcular()">Veja aqui quanto você economizaria</button><br><br>
+
+           <div id="div_resposta" class="resposta"></div>
+
+           <script>
+                function calcular() {
+                    var combustivel = Number(input_combustivel.value)
+                    var km = Number(input_km.value)
+                    var gasto_km = Number(input_gasto.value)
+
+                    
+                    var combu_gasto  =  km / gasto_km
+                    var total = combustivel * combu_gasto 
+
+                    var economizar = total * 20 / 100
+                    var total_economizando = total - economizar
+
+                    div_resposta.innerHTML = `Você gasta R$ ${total} por viagem <br>
+                    Com o sistema de lixeira inteligente você pode econonomizar até R$ ${economizar} <br>
+                    Gasto por viagem se tornaria = R$ ${total_economizando}`
+                }
+            
+           </script>
+</body>
+</html>
