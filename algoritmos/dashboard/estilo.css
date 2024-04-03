@@ -15,11 +15,15 @@
     font-size: 15px;
     
 }
-
 .content {
     display: flex;
 }
-
+.logo{
+    position: absolute;
+    right: 0%;
+    width: 7%;
+    top: 0%;
+}
 /* CSS DO MENU */
 
 /*TEXTOS DO MENU*/
