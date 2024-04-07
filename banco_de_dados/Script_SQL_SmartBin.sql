@@ -2,15 +2,16 @@ create database SmartBin;
 use SmartBin;
 
 create table Empresa (
-IdEmpresa int primary key auto_increment,
-Cnpj char (14),
+Cnpj char (14) primary key,
+email varchar(60),
+	constraint chkemail check (email like '%@%' and email like '%.com'),
 Senha varchar (50),
 RazaoSocial varchar (50),
 QtdLixeiras int);
 desc Empresa;
 
 insert into Empresa values
- (default, 012345678965412, 'Binlixeira321', 'Sustentavel', 3);
+ (012345678965412, 'smartbin@gmail.com', 'Binlixeira321', 'Sustentavel', 3);
  
  select * from Empresa;
 
@@ -19,29 +20,38 @@ IdLixeira int primary key auto_increment,
 Logradouro varchar (50),
 Bairro varchar(50),
 DtTime datetime,
-Nivel varchar (50));
+Metade bit(1),
+Cheia bit(1),
+fkEmpresa char(14),
+	constraint fkLixeiraEmpresa foreign key (fkEmpresa)
+    references Empresa(Cnpj)
+);
 desc lixeira;
 
-insert into Lixeira (Logradouro, Bairro, DtTime, Nivel) 
+insert into Lixeira (Logradouro, Bairro, DtTime, Nivel,fkEmpresa) 
 values 
-('Rua Principal', 'Centro', '2024-04-04 08:30:00', 'Baixo'),
-('Avenida dos Pássaros', 'Parque das Árvores', '2024-04-04 09:45:00', 'Médio'),
-('Rua das Flores', 'Jardim Botânico', '2024-04-04 10:20:00', 'Alto');
+('Rua Principal', 'Centro', '2024-04-04 08:30:00', 'Baixo', 012345678965412),
+('Avenida dos Pássaros', 'Parque das Árvores', '2024-04-04 09:45:00', 'Médio', 012345678965412),
+('Rua das Flores', 'Jardim Botânico', '2024-04-04 10:20:00', 'Alto', 012345678965412);
 
 select * from Lixeira;
 
-create table Usuário (
-IdUsuario int primary key auto_increment,
+create table Usuario (
+cpf char(11) primary key,
 TipoUsuario varchar (50),
 NomeUsuario varchar (50),
 EmailUsuario varchar (50),
+	constraint chkemail check (email like '%@%' and email like '%.com'),
 Senha varchar (15),
-constraint chkTipo check (TipoUsuario in ('Administrador', 'Comum'))
+constraint chkTipo check (TipoUsuario in ('Administrador', 'Comum')),
+fkEmpresa int, 
+	constraint fkUsuarioEmpresa foreign key (fkEmpresa)
+    references empresa(Cnpj)
 );
 desc Usuário;
 
 Insert into Usuário values
-(Default, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321');
+(12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 012345678965412);
 
 select * from Usuário;
 
