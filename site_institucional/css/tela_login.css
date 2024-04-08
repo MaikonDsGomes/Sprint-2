@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f12711;
+  background: -webkit-linear-gradient(to right, #2ceab1, #46f661); 
+  background: linear-gradient(to right, #41d739, #30d892); color: black;
+  background-image: url(https://png.pngtree.com/background/20210716/original/pngtree-cartoon-scene-mountain-sunset-glow-background-low-poly-3d-rendering-picture-image_1343851.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative; 
+}
+
+body:after {
+  position: absolute;
+  content: ""; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  opacity: .8;
+  z-index: -1;
+  background: #0ed1f3;
+  background: -webkit-linear-gradient(to right, #14db74, #24de58);
+  background: linear-gradient(to right, #036c3e, #5eba39, #0c8104); 
+}
+
+.login-container {
+  width: 420px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  color: #f1f1f1;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 0 3px 1.5px #f8f8f8 ;
+  
+}
+
+h2 {
+  margin-bottom: 3%;
+  color: #ffffff;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #0fe36e;
+  border-radius: 3px;
+  color: #000;
+
+}
+
+.login-form input:hover {
+  transform: scale(1.08);
+  transition: transform 0.4s ease;
+}
+
+.login-form input ::placeholder{
+  color: #f7e9e9;
+}
+
+.login-form button {
+  background-color: #038020;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  /* transform: scale(1.0); */
+  transition: transform 0.3s ease;
+}
+
+.login-form button:hover {
+  background: linear-gradient(to right, #12f295, #68ec34);
+  color: #000;
+  transform: scale(1.05);
+
+}
+
+
+.se-cadastre{
+  color: #ffffff;
+}
