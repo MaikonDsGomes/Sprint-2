@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <!-- icon github -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Smart Bin</title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <img src="img/logo.png" alt="">
+
+        <ul class="info">
+            <li><a href="#QuemSomos">Quem Somos</a></li>
+            <li><a href="#Contato">Contate-nos</a></li>
+
+        </ul>
+
+        <ul class="info negrito">
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Cadastro</a></li>
+        </ul>
+    </div>
+
+    <div class="nome">
+        <img src="img/SM.png" alt="">
+    </div>
+
+    <div class="boxes">
+
+        <a href="#Projeto">
+            <div class="box">
+                <h2>O Projeto</h2>
+                <img src="img/mao.png" alt="">
+            </div>
+        </a>
+
+        <a href="pagina2.html">
+            <div class="box">
+                <h2>Simulador <br> Financeiro</h2>
+                <img src="img/calc.png" alt="">
+            </div>
+        </a>
+    </div>
+
+    <div id="QuemSomos" class="resp">
+        <h1 class="inicio">Quem Somos</h1>
+        <br><br>
+        <p> A Smart Bin é uma empresa pioneira em soluções de monitoramento de resíduos sólidos urbanos diretamente nas
+            lixeiras. Nosso time é formado por especialistas em tecnologia e sustentabilidade, unidos por uma visão
+            comum: revolucionar a gestão de resíduos em áreas urbanas.
+            <br><br>
+            Através de nossa tecnologia de sensores avançados e plataformas de dados inovadoras, capacitamos governos
+            municipais e empresas de gestão de resíduos a monitorarem o nível de preenchimento das lixeiras em tempo
+            real. Isso permite uma otimização significativa das rotas de coleta, reduzindo custos operacionais e
+            minimizando os impactos ambientais.
+            <br><br>
+            Nossa missão é criar cidades mais limpas, eficientes e sustentáveis para as gerações futuras. Junte-se a nós
+            nessa jornada para reinventar a gestão de resíduos com a Smart Bin.
+        </p>
+    </div>
+
+    <div id="Projeto" class="resp fim">
+        <h1 class="fim">O Projeto</h1>
+        <br><br>
+        <p class="fim">Bem-vindo ao Projeto Smart Bin!
+            <br><br>
+            O Projeto Smart Bin utiliza tecnologia de sensores inteligentes em lixeiras de grande capacidade para
+            otimizar a coleta de lixo em áreas urbanas. Esses sensores, conectados a um sistema centralizado, fornecem
+            dados em tempo real que permitem um planejamento de rotas de coleta mais eficiente. Com isso, esperamos
+            reduzir custos operacionais, promover a sustentabilidade e melhorar a qualidade de vida nas cidades.
+            Junte-se a nós nessa jornada rumo a uma gestão de resíduos mais inteligente e eficaz!
+        </p>
+    </div>
+
+
+    <div id="Contato" class="contato">
+        <div class="titulo">
+            <h1>Contate-nos</h1>
+            <div class="cards">
+                <div class="cardsP">
+                    <input type="text" required id="input_nome" placeholder="Nome">
+                    <input type="text" required id="input_sobrenome" placeholder="Sobrenome">
+                </div>
+                <div class="cardsP">
+                    <input type="email" required id="input_email" placeholder="Email">
+                    <input type="telefone" required id="input_telefone" placeholder="Telefone">
+                </div>
+            </div>
+            <div class=" cardsU">
+                <input type="text" id="input_msg" required placeholder="Digite aqui sua mensagem">
+
+                <button onclick="enviar()">Enviar</button>
+            </div>
+        </div>
+
+        <div class="imgF">
+            <img src="img/teste2.avif" alt="">
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <ul class="info">
+            <li><a href="#QuemSomos">Quem Somos</a></li>
+            <br>
+            <li><a href="#Projeto">Projeto</a></li>
+        </ul>
+
+        <a href="https://github.com/MaikonDsGomes/Sprint-2"><i class="fa fa-github"
+                style="font-size:70px; padding-right: 150px;"></i></a>
+    </div>
+
+    <div class="copy">
+        <p>© Copyright, Smart Bin</p>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    function enviar() {
+        input_nome.value = '';
+        input_sobrenome.value = '';
+        input_email.value = '';
+        input_telefone.value = '';
+        input_msg.value = '';
+    }
+</script>
