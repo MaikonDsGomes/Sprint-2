@@ -15,9 +15,6 @@
     font-size: 15px;
     
 }
-.content {
-    display: flex;
-}
 .logo{
     position: absolute;
     right: 0%;
@@ -51,9 +48,10 @@
 
 .menu {
     background-color: #297011;
-    
     width: 10%;
     padding-left: 15px;
+    height: 100vh;
+    position: fixed;
 }
 
 .menu_list {
@@ -75,8 +73,7 @@
 
 /*ajustes div*/
 .conteudo {
-    width: 90%;
-    padding: 1% 5%;
+    padding: 1% 0% 0% 13%;
 }
 
 .cards_grid {
@@ -178,13 +175,19 @@
 
 
 
+/* */
+
 /* TODO CODIGO ABAIXO É RESPONSIVO (NOTEBOOK DISPLAY)*/
+
 @media only screen and (max-width: 1600px){
     .cards_grid {
         display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Altere conforme necessário */
             gap: 20px;
             justify-items: center;
+    }
+    .menu {
+        width: 12%;
     }
 }
 
@@ -199,7 +202,7 @@
         width: 85%;
         padding: 1% 5%;
     }
-    .menu {
-        width: 15%;
-    }
-}
+    
+} 
+
+
