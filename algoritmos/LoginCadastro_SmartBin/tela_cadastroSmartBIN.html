@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
 
 <head>
   <meta charset="UTF-8">
@@ -9,26 +9,95 @@
 </head>
 
 <body>
-  <div class="register-container">
+  <div id="pai" class="register-container">
 
     <h1>Cadastro</h1>
 
     <label style="display: inline-block;" name="usuario" for="usuario">Tipo de usuário:</label>
 
-    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" name="usuario" id="usuario">
+    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" name="usuario" id="select_usuario" onchange="mudar()">
 
       <option value="Tipo de usuário:" disabled selected>Tipo de usuário</option>
-      <option value="colaborador">Colaborador</option>
-      <option value="gerente">Gerente</option>
-      <option value="cliente">Cliente</option>
+      <option value="Empresa">Empresa</option>
+      <option value="Administrador">Administrador</option>
+      <option value="Comum">Comum</option>
     </select>
 
+    <div id="divcadastro">
+      
+    </div>
     <form class="register-form">
+    
+      <a class="jatemlogin" href="tela_loginSmartBIN.html">
+        <span class="jatemlogin">Já tem um login? Entre aqui</span>
+      </a>
+    </form>
+    
+  </div>
+</body>
+
+</html>
+
+<script>
+  
+  function mudar(){
+    var select = select_usuario.value;
+    
+    if (select == 'Empresa'){
+      divcadastro.innerHTML = `<form class="register-form">
+        <label for="Nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+        
+        <label for="CNPJ">CNPJ:</label>
+        <input type="number" id="cnpj" name="cnpj" required><br>
+        
+        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso" required><br>
+        
+        
+        <button type="menu" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" onclick="adm()">Cadastrar</button>
+        </form>
+        `;
+
+    }else if (select == 'Administrador'){
+      divcadastro.innerHTML = `<form class="register-form">
       <label for="Nome">Nome:</label>
       <input type="text" id="nome" name="nome" required><br>
 
       <label for="CPF">CPF:</label>
       <input type="number" id="cpf" name="cpf" required><br>
+
+      <label for="CPF">CNPJ:</label>
+      <input type="number" id="cnpj" name="cnpj" required><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="mail" name="email" required><br>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="password" name="senha" required><br>
+
+      <label for="telefone">Telefone:</label>
+      <input type="number" id="tel" name="telefone" required><br>
+
+      <label for="dataNascimento">Data de nascimento:</label>
+      <input type="date" id="Data" name="dataNascimento" required><br>
+
+      <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+      <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso" required><br>
+
+      <button type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;"
+        href="index.html">Cadastrar</button>`;
+
+    }else if(select == 'comum'){
+      divcadastro.innerHTML = `<form class="register-form">
+      <label for="Nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required><br>
+
+      <label for="CPF">CPF:</label>
+      <input type="number" id="cpf" name="cpf" required><br>
+
+      <label for="CPF">CNPJ:</label>
+      <input type="number" id="cnpj" name="cnpj" required><br>
 
       <label for="email">Email:</label>
       <input type="email" id="mail" name="email" required><br>
@@ -47,14 +116,44 @@
       <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso" required><br>
 
       <button type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;"
-        href="index.html">Cadastrar</button>
+        href="index.html">Cadastrar</button>`;
+  }
 
-      <a class="jatemlogin" href="tela_loginSmartBIN.html">
-        <span class="jatemlogin">Já tem um login? Entre aqui</span>
-      </a>
-    </form>
-  </div>
-</body>
+}
 
-</html>
+  function adm(){
+    pai.innerHTML = `<h1>Cadastro de Administrador</h1> 
 
+<div id="divcadastro">
+    <form class="register-form">
+<label for="Nome">Nome:</label>
+<input type="text" id="nome" name="nome" required><br>
+
+<label for="CPF">CPF:</label>
+<input type="number" id="cpf" name="cpf" required><br>
+
+<label for="CPF">CNPJ:</label>
+<input type="number" id="cnpj" name="cnpj" required><br>
+
+<label for="email">Email:</label>
+<input type="email" id="mail" name="email" required><br>
+
+<label for="senha">Senha:</label>
+<input type="password" id="password" name="senha" required><br>
+
+<label for="telefone">Telefone:</label>
+<input type="number" id="tel" name="telefone" required><br>
+
+<label for="dataNascimento">Data de nascimento:</label>
+<input type="date" id="Data" name="dataNascimento" required><br>
+
+<label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+<input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso" required><br>
+
+<button type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;"
+href="index.html">Cadastrar</button>
+</div>
+</form>
+`;
+  }
+</script>
