@@ -40,6 +40,7 @@
     font-family: "Karla", sans-serif;
     color: white;
     transition: all 0.5s;
+    text-align: left;
 }
 .menu_list li:hover{
     background-color: #29701191;
@@ -74,6 +75,33 @@
 /*ajustes div*/
 .conteudo {
     padding: 1% 0% 0% 13%;
+}
+
+.conteudo_inp{
+    padding-top: 12%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
+
+.form input{
+    border: 2px solid #297011;
+    border-radius: 4px;
+    box-shadow: 0px 3px 4px rgb(122, 122, 122);
+}
+
+.btForm{
+    float: right;
+    background-color: #297011;
+    color: white;
+}
+
+.btForm input{
+    box-shadow: none;
 }
 
 .cards_grid {
@@ -204,5 +232,3 @@
     }
     
 } 
-
-
