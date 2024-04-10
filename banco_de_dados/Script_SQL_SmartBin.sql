@@ -34,8 +34,8 @@ select * from Usuario;
 
 create table Lixeira (
 IdLixeira int primary key auto_increment,
-Logradouro varchar (50),
-Bairro varchar(50),
+cep char(9),
+numero varchar(45),
 Complemento varchar(45),
 fkEmpresa char(14),
 	constraint fkLixeiraEmpresa foreign key (fkEmpresa)
@@ -43,10 +43,10 @@ fkEmpresa char(14),
 );
 desc lixeira;
 
-insert into Lixeira (Logradouro,Bairro,Complemento,fkEmpresa) values 
-('Rua Principal', 'Centro', 'Ao lado do MacDonalds', 012345678965412),
-('Avenida dos Pássaros', 'Parque das Árvores', 'Em frente ao Bar do Zé', 012345678965412),
-('Rua das Flores', 'Jardim Botânico', 'Ao lado da Faculdade SPTech', 012345678965412);
+insert into Lixeira (cep,numero,Complemento,fkEmpresa) values 
+('123456789', '2801', '1 andar', 012345678965412),
+('123456787', '589', '20 andar', 012345678965412),
+('123456788', '257', '11 andar', 012345678965412);
 
 select * from Lixeira;
 
@@ -63,10 +63,14 @@ fkLixeira int,
 insert into historico (DtTime, Metade, Cheia, fkLixeira) values
 ('2024-08-04 11:00', 1, 0, 1),
 ('2024-05-24 12:00', 1, 1, 2),
-('2024-04-08 15:37', 0, 0, 3)
-;
+('2024-04-08 15:37', 0, 0, 3);
 
-select historico.DtTime, historico.Metade, historico.cheia, Lixeira.Logradouro, Lixeira.Bairro, Lixeira.Complemento, Lixeira.fkEmpresa 
+select historico.DtTime, historico.Metade, historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Lixeira.fkEmpresa 
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join empresa on lixeira.fkEmpresa = empresa.Cnpj;
+
+drop table historico;
+drop table Lixeira;
+drop table Usuario;
+drop table Empresa;
