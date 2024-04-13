@@ -170,11 +170,14 @@
 </html>
 
 <script>
-    document.getElementById('openModal').addEventListener('click', function () {
-        document.getElementById('modal').style.display = 'block';
-    });
+document.getElementById('openModal').addEventListener('click', function () {
+    document.getElementById('modal').style.display = 'block';
+    document.querySelector('.conteudo').style.display = 'none'; // Oculta a div conteudo
+});
 
-    document.querySelector('.close').addEventListener('click', function () {
-        document.getElementById('modal').style.display = 'none';
-    });
+document.querySelector('.close').addEventListener('click', function () {
+    document.getElementById('modal').style.display = 'none';
+    document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
+});
+
 </script>
