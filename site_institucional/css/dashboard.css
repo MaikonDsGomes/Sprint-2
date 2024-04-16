@@ -78,7 +78,7 @@
     width: 100%;
     left: 0%;
 }
-.foto_user_box img{
+.foto_user_box img, .img_edit_user img{
     width: 75px;
     border-radius: 50%;
 }
@@ -227,7 +227,14 @@
     font-size: 100px;
 }
 
-
+/*Css Edit funcionario*/
+.edit_user_box{
+    display: flex;
+    flex-direction: column;
+}
+.img_edit_user{
+    align-self: center;
+}
 
 /* */
 

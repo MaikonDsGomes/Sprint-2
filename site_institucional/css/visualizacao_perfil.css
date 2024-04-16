@@ -50,7 +50,7 @@
 
 .menu {
     background-color: #297011;
-    width: 12%;
+    width: 10%;
     padding-left: 15px;
     height: 100%; /*100 vh siginifico 100% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
     position: fixed; /*Ao colocar fixed o menu lateral fica literalmente fixo e imovel verticalmente*/
@@ -207,6 +207,7 @@ button {
     color: #fff;
     text-align: center;
     background-color: #297011;
+    cursor: pointer;
 }
 
 .texto {
