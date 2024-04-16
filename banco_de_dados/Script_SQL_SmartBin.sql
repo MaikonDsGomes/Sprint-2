@@ -34,6 +34,7 @@ select * from Usuario;
 
 create table Lixeira (
 IdLixeira int primary key auto_increment,
+nomeLixeira varchar(45),
 cep char(9),
 numero varchar(45),
 Complemento varchar(45),
