@@ -2,19 +2,21 @@ create database SmartBin;
 use SmartBin;
 
 create table Empresa (
-Cnpj char (14) primary key,
+idEmpresa int primary key auto_increment,
+Cnpj char (14),
 NomeEmpresa varchar(45),
 RazaoSocial varchar (50),
 QtdLixeiras int);
 desc Empresa;
 
-insert into Empresa values
+insert into Empresa(Cnpj, NomeEmpresa, RazaoSocial, QtdLixeiras) values
  (012345678965412, 'Smartbin','Sustentavel', 3);
  
  select * from Empresa;
 
 create table Usuario (
-cpf char(11) primary key,
+idUsuario int primary key auto_increment,
+cpf char(11),
 TipoUsuario varchar (50),
 constraint chkTipo check (TipoUsuario in ('Administrador', 'Comum')),
 NomeUsuario varchar (50),
