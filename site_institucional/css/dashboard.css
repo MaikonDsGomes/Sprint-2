@@ -11,9 +11,14 @@
     font-family: "Karla", sans-serif;
 }
 
-.fa-pen{
+.area_edit .fa-pen{
     color: #297011;
-    font-size: 15px;
+    font-size: 35px;
+    margin: 10px;
+}
+
+.area_edit {
+    display: flex;
 }
 
 .logo{
@@ -78,7 +83,7 @@
     width: 100%;
     left: 0%;
 }
-.foto_user_box img, .img_edit_user img{
+.foto_user_box img{
     width: 75px;
     border-radius: 50%;
 }
@@ -191,7 +196,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 500px;
+    height: 520px;
 }
 
 .modal-content {
@@ -214,6 +219,15 @@
     font-size: 24px;
     cursor: pointer;
 }
+
+.closeEdit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .modal h3 {
     font-size: 50px
 }
@@ -227,14 +241,7 @@
     font-size: 100px;
 }
 
-/*Css Edit funcionario*/
-.edit_user_box{
-    display: flex;
-    flex-direction: column;
-}
-.img_edit_user{
-    align-self: center;
-}
+
 
 /* */
 
@@ -265,3 +272,19 @@
     }
     
 } 
+
+/* testes */
+.botao {
+    background-color: #297011;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.btn {
+    display: flex;
+   justify-content: end;
+}
