@@ -42,6 +42,7 @@
             var economizar = total * 20 / 100
             var total_economizando = total - economizar
 
+
             div_resposta.innerHTML = `O cálculo feito é com o valor do combustível (diesel) + o valor gasto na viagem feita.<br>
                     Você gasta R$${total},00 por viagem.<br><br><br>
 
@@ -49,13 +50,17 @@
                     Com o sistema de lixeira inteligente você pode econonomizar até R$${economizar},00. <br><br><br>
 
                     O cálculo feito é com o valor que poder ser economizado - o valor total gasto.<br>
-                    Gasto por viagem se tornaria R$${total_economizando},00.<br><br><br>
+                    Gasto por viagem se tornaria R$${total_economizando},00.<br><br><br>`
 
-                    É feito o cálculo do valor gasto x a quantidade de meses passados.<br>
-                    Após ${mes} mes/meses, você pode perder R$${total * mes},00.<br>
-                    Com o sistema você economizaria R$${mes*total_economizando}`
-                   
-        }
+                    
+                }
+            for (var index = 0; index < mes; index++) {
+                div_resposta.innerHTML +=
+                
+            }
+                // É feito o cálculo do valor gasto x a quantidade de meses passados.<br>
+                // Após ${mes} mes/meses, você pode perder R$${total * mes},00.<br>
+                // Com o sistema você economizaria R$${mes*total_economizando}`
 
     </script>
 </body>

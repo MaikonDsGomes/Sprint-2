@@ -45,23 +45,36 @@
             var combu_gasto = km / gasto_km
             var total = combustivel * combu_gasto
 
-            var economizar = total * 20 / 100
+            var economizar = total * 0.2
             var total_economizando = total - economizar
-
+            
+            
             div_resposta.innerHTML = `<br> O cálculo é realizado considerando o valor do combustível (diesel) somado ao valor gasto durante a viagem.<br>
             O custo total por viagem é de R$${total},00.<br><br>
-
+            
             O cálculo é baseado na subtração de 20% do valor que pode ser economizado, conforme mencionado anteriormente.<br>
             Com a implementação do sistema de lixeira inteligente, é possível economizar até R$${economizar},00.<br><br>
-
+            
             O cálculo considera o valor que pode ser economizado subtraído do custo total da viagem.<br>
             Dessa forma, o custo por viagem seria reduzido para R$${total_economizando},00.<br><br>
+            
+            
+            É feita uma projeção do valor gasto multiplicado pela quantidade de meses decorridos.<br><br>
+            
+            Supondo que a coleta passe 30 dias no mês.<br><br>`
 
-            É feita uma projeção do valor gasto multiplicado pela quantidade de meses decorridos.<br>
-            Após ${mes} mês/meses, o potencial prejuízo alcançaria R$${total * mes},00.<br>
-            No entanto, com a adoção do sistema, você poderia economizar até R$${mes * total_economizando}.<br>`
+            var mensal = 30
+        
+            for (var index = 1; index <= mes; index++) {
+                div_resposta.innerHTML += `
+                ${index}° MÊS - Após ${index} mês/meses, o potencial prejuízo alcançaria R$${total * mensal},00.<br> 
+            No entanto, com a adoção do sistema, você poderia economizar até R$${economizar * mensal}.<br><br>`
+            mensal += 30
         }
 
+        }
+        
+        
     </script>
 </body>
 
