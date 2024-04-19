@@ -57,7 +57,7 @@
     background-color: #297011;
     width: 10%;
     padding-left: 15px;
-    height: 100vh; /*100 vh siginifico 100% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
+    height: 85vh; /*100 vh siginifico 100% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
     position: fixed; /*Ao colocar fixed o menu lateral fica literalmente fixo e imovel verticalmente*/
 }
 
@@ -127,12 +127,11 @@
 
 /*ajustes div, definindo seu espaço */
 .conteudo {
-    padding: 1% 0% 0% 13%;
+    padding: 1% 0% 11% 13%;
 }
 
 .conteudo_usuario{
     text-align: center;
-    padding: 50px;
 }
 
 .conteudo_usuario h1{
@@ -153,9 +152,6 @@
     border-radius: 50%;
 }
 
-.conteudo_inp{
-    padding-top: 12%;
-}
 
 .form{
     display: flex;
@@ -294,8 +290,50 @@
 }
 
 
+/* Footer */
 
-/* */
+.footer {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #dddddd;
+    display: flex;
+    flex-direction: column;
+    height: 15vh;
+    position: fixed;
+    bottom: 0%;
+}
+
+.topico {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75%;
+}
+
+.footer ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 150px;
+    list-style-type: none;
+    font-size: large;
+}
+
+.footer .info a {
+    color: #000;
+    font-size: larger;
+}
+
+.footer .topico img{
+    width: 100px;
+    padding: 100px;
+}
+
+
+.copy p {
+    color: #4BBC25;
+    font-size: 22px;
+    text-align: center;
+}
 
 /* TODO CODIGO ABAIXO É RESPONSIVO (NOTEBOOK DISPLAY)*/
 
