@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Bin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="content">
+        <!-- <div class="menu">
+            <h3>Bairros</h3>
+            <ul class="menu_list">
+                <a href="../html/tela_dashboard.html">
+                    <li>Todos os bairros</li>
+                </a>
+                <a href="../html/boa_vista.html">
+                    <li>Boa Vista</li>
+                </a>
+                <a href="../html/jardim_paulista.html">
+                    <li>Jardim Paulista</li>
+                </a>
+                <a href="../html/jabaquara.html">
+                    <li>Jabaquara</li>
+                </a>
+                <a href="../html/santa_cecilia.html">
+                    <li>Santa Cecília</li>
+                </a>
+                <a href="../html/santo_amaro.html">
+                    <li>Santo Amaro</li>
+                </a>
+            </ul>
+            <h3>Configurações</h3>
+            <ul class="menu_list">
+                <a href="tela_cadastro_lixeira.html">
+                    <li>Adicionar lixeira</li>
+                </a>
+                <a href="Visualizacao_perfil.html">
+                    <li>Usuário</li>
+                </a>
+            </ul>
+            <div class="foto_user_box">
+                <img src="../img/perfil.png" alt="">
+                <h4>Elho Muric</h4>
+                <h5>Administrador</h5>
+            </div>
+        </div> -->
+
+        <div class="conteudo">
+            <h1>Todos os bairros</h1>
+            <img class="logo" src="img/logo_smartBin-removebg-preview.png" alt="">
+
+            <div class="box_dados">
+                <div>
+                    <h3>Lixeira Média</h3>
+                    <p>20%</p>
+                </div>
+
+                <div>
+                    <h3>Lixeira Nível</h3>
+                    <p>60%</p>
+                </div>
+            </div>
+            <div class="cards_grid">
+                <div id="card" class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <a href="#" id="openModal">
+                        <h3>Lixeira 1</h3>
+                    </a>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: Consolação, 101, Boa vista</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </div> -->
+                    <h3>Lixeira 2</h3>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: bento alves, 544, Jabaquara</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+                <div class="card">
+                    <h3>Lixeira 3</h3>
+                    <i style="color: #297011;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: owald melo, 2584, Boa Vista</h4>
+                    <h4>Nível: <span style="color: #297011;">Baixo</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 4</h3>
+                    <i style="color: #d1ce00;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: santos drummond, 1047, Santa Cecília</h4>
+                    <h4>Nível: <span style="color: #d1ce00;">Medio</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </div> -->
+                    <h3>Lixeira 5</h3>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: Domingos, 54, Santo Amaro</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 6</h3>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: carlos de campos, 105, Boa vista</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 7</h3>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: Haiti 32, Jardim paulista</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 8</h3>
+                    <i style="color: #297011;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: Freire farto, 254, Jabaquara</h4>
+                    <h4>Nível: <span style="color: #297011;">Baixo</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 9</h3>
+                    <i style="color: #d1ce00;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: Alameda franca, 1047, Jardim paulista </h4>
+                    <h4>Nível: <span style="color: #d1ce00;">Medio</span></h4>
+                </div>
+                <div class="card">
+                    <!-- <div class="area_edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </div> -->
+                    <h3>Lixeira 10</h3>
+                    <i style="color: red;" class="fa-solid fa-dumpster"></i>
+                    <h4>Rua: santinho freitas, 5487, Santo Amaro</h4>
+                    <h4>Nível: <span style="color: red;">Alto</span></h4>
+                </div>
+            </div>
+
+            <h1 class="titulo_grafico">Gráficos:</h1>
+            <div class="grafico_box">
+                <canvas id="myChart"></canvas>
+                <canvas id="myChart2"></canvas>
+            </div>
+
+        </div>
+
+        <div class="footer">
+
+            <div class="topico">
+                <ul class="info">
+                    <li><a href="../html/tela_dashboard.html">Home</a></li>
+                    <br>
+                    <li><a href="../html/Visualizacao_perfil.html">Usuário</a></li>
+                </ul>
+                <img src="logo.png">
+            </div>
+
+            <div class="copy">
+                <p>© Copyright, Smart Bin</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+
+        <div class="area_edit">
+            <h3>Lixeira 1</h3>
+            <a href="#" id="EditModal"><i class="fa-solid fa-pen"></i></a>
+        </div>
+        <!-- <i class="fa-solid fa-pen"></i> -->
+
+
+        <i style="color: red;" class="fa-solid fa-dumpster"></i>
+        <h4>Rua: Consolação, 101, Boa vista</h4>
+        <h4>Nível: <span style="color: red;">Alto</span></h4>
+        <h3>Horarios</h3>
+        <div>
+            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
+            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+        </div>
+    </div>
+</div>
+
+<div id="ModalEdicao" class="modal">
+    <div class="modal-content">
+        <span class="closeEdit">&times;</span>
+        <h3 contenteditable="true">Lixeira 1</h3>
+        <i style="color: red;" class="fa-solid fa-dumpster"></i>
+        <h4 contenteditable="true">Rua: Consolação, 101, Boa vista</h4>
+        <h4>Nível: <span style="color: red;">Alto</span></h4>
+        <h3>Horarios</h3>
+        <div>
+            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
+            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+
+        </div>
+        <div class="btn">
+            <button class="botao" id="saveButton">salvar</button>
+        </div>
+    </div>
+</div>
+
+</html>
+
+<script>
+    document.getElementById('openModal').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'block';
+        document.querySelector('.conteudo').style.display = 'none'; // Oculta a div conteudo
+    });
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'none';
+        document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
+    });
+
+    document.getElementById('EditModal').addEventListener('click', function () {
+        document.getElementById('ModalEdicao').style.display = 'block';
+        document.querySelector('.openModal').style.display = 'none'; // Oculta a div conteudo
+    });
+
+    document.querySelector('.closeEdit').addEventListener('click', function () {
+        document.getElementById('ModalEdicao').style.display = 'none';
+        document.querySelector('.openModal').style.display = 'block'; // Mostra a div conteudo novamente
+    });
+
+    // Adiciona um evento de clique ao botão "Salvar" no modal de edição
+    document.getElementById('saveButton').addEventListener('click', function () {
+        // Obtém o conteúdo modificado da div ModalEdicao
+        var novoTitulo = document.getElementById('ModalEdicao').querySelector('h3').innerText;
+        var novaRua = document.getElementById('ModalEdicao').querySelector('h4').innerText;
+
+        // Atualiza o conteúdo correspondente na div modal
+        document.getElementById('modal').querySelector('h3').innerText = novoTitulo;
+        document.getElementById('modal').querySelector('h4').innerText = novaRua;
+
+        document.getElementById('card').querySelector('h3').innerText = novoTitulo;
+        document.getElementById('card').querySelector('h4').innerText = novaRua;
+
+        // Esconde o modal de edição
+        document.getElementById('ModalEdicao').style.display = 'none';
+    });
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Boa vista', 'Jardim paulista', 'Jabaquara', 'Santa cecília', 'Santo amaro'],
+            datasets: [{
+                label: 'Lixeira nivel médio',
+                data: [15, 19, 3, 5, 2],
+                borderWidth: 1,
+                backgroundColor: 'yellow'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Boa vista', 'Jardim paulista', 'Jabaquara', 'Santa cecília', 'Santo amaro'],
+            datasets: [{
+                label: 'Lixeira nivel médio',
+                data: [5, 14, 9, 7, 5],
+                borderWidth: 1,
+                backgroundColor: 'Red'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
