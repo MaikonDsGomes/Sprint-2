@@ -24,6 +24,7 @@ const serial = async (
 ) => {
     let poolBancoDados = ''
 
+    
     // Conexão com o banco de dados MySQL
     poolBancoDados = mysql.createPool(
         {
