@@ -54,19 +54,17 @@
             <h1>Santo Amaro</h1>
             <img class="logo" src="img/logo_smartBin-removebg-preview.png" alt="">
             <div class="cards_grid">
-                <div class="card">
-                    <div class="area_edit">
-                        <i class="fa-solid fa-pen"></i>
-                    </div>
-                    <h3><a href="#" id="openModal">Lixeira 5</a></h3>
+                <div id="card" class="card">
+                    <a href="#" id="openModal">
+                        <h3>
+                            Lixeira 5
+                        </h3>
+                    </a>
                     <i style="color: red;" class="fa-solid fa-dumpster"></i>
                     <h4>Rua: Domingos, 54, Santo Amaro</h4>
                     <h4>Nível: <span style="color: red;">Alto</span></h4>
                 </div>
                 <div class="card">
-                    <div class="area_edit">
-                        <i class="fa-solid fa-pen"></i>
-                    </div>
                     <h3>Lixeira 10</h3>
                     <i style="color: red;" class="fa-solid fa-dumpster"></i>
                     <h4>Rua: santinho freitas, 5487, Santo Amaro</h4>
@@ -74,14 +72,17 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </body>
 
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>Lixeira 5</h3>
+        <div class="area_edit">
+            <h3>Lixeira 5</h3>
+            <a href="#" id="EditModal"><i class="fa-solid fa-pen"></i></a>
+        </div>
         <i style="color: red;" class="fa-solid fa-dumpster"></i>
         <h4>Rua: Domingos, 54, Santo Amaro</h4>
         <h4>Nível: <span style="color: red;">Alto</span></h4>
@@ -94,18 +95,63 @@
 </div>
 
 
+<div id="ModalEdicao" class="modal">
+    <div class="modal-content">
+        <span class="closeEdit">&times;</span>
+        <h3 contenteditable="true">Lixeira 5</h3>
+        <i style="color: red;" class="fa-solid fa-dumpster"></i>
+        <h4 contenteditable="true">Rua: Domingos, 54, Santo Amaro</h4>
+        <h4>Nível: <span style="color: red;">Alto</span></h4>
+        <h3>Horarios</h3>
+        <div>
+            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
+            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+        </div>
+        <div class="btn">
+            <button class="botao" id="saveButton">salvar</button>
+        </div>
+    </div>
+</div>
 
 </html>
 
 <script>
-        document.getElementById('openModal').addEventListener('click', function () {
+    document.getElementById('openModal').addEventListener('click', function () {
         document.getElementById('modal').style.display = 'block';
-        document.querySelector('.conteudo').style.display = 'none'; 
+        document.querySelector('.conteudo').style.display = 'none';
     });
 
     document.querySelector('.close').addEventListener('click', function () {
         document.getElementById('modal').style.display = 'none';
-        document.querySelector('.conteudo').style.display = 'block'; 
+        document.querySelector('.conteudo').style.display = 'block';
     });
+
+    document.getElementById('EditModal').addEventListener('click', function () {
+        document.getElementById('ModalEdicao').style.display = 'block';
+        document.querySelector('.openModal').style.display = 'none'; // Oculta a div conteudo
+    });
+
+    document.querySelector('.closeEdit').addEventListener('click', function () {
+        document.getElementById('ModalEdicao').style.display = 'none';
+        document.querySelector('.openModal').style.display = 'block'; // Mostra a div conteudo novamente
+    });
+
+    // Adiciona um evento de clique ao botão "Salvar" no modal de edição
+    document.getElementById('saveButton').addEventListener('click', function () {
+        // Obtém o conteúdo modificado da div ModalEdicao
+        var novoTitulo = document.getElementById('ModalEdicao').querySelector('h3').innerText;
+        var novaRua = document.getElementById('ModalEdicao').querySelector('h4').innerText;
+
+        // Atualiza o conteúdo correspondente na div modal
+        document.getElementById('modal').querySelector('h3').innerText = novoTitulo;
+        document.getElementById('modal').querySelector('h4').innerText = novaRua;
+
+        document.getElementById('card').querySelector('h3').innerText = novoTitulo;
+        document.getElementById('card').querySelector('h4').innerText = novaRua;
+
+        // Esconde o modal de edição
+        document.getElementById('ModalEdicao').style.display = 'none';
+    });
+
 
 </script>

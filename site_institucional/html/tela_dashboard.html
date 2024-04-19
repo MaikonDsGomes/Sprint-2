@@ -41,7 +41,7 @@
                 <a href="tela_cadastro_lixeira.html">
                     <li>Adicionar lixeira</li>
                 </a>
-                <a href="tela_usuario.html">
+                <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
                 </a>
             </ul>
@@ -159,7 +159,8 @@
                     <h4>Nível: <span style="color: red;">Alto</span></h4>
                 </div>
             </div>
-            <H1 class="titulo-grafico">GRÁFICOS:</H1>
+
+            <h1 class="titulo_grafico">Gráficos:</h1>
             <div class="grafico_box">
                 <canvas id="myChart"></canvas>
                 <canvas id="myChart2"></canvas>
@@ -252,44 +253,47 @@
         document.getElementById('ModalEdicao').style.display = 'none';
     });
 
-  const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Boa vista', 'Jardim paulista', 'Jabaquara', 'Santa cecília', 'Santo amaro'],
+            datasets: [{
+                label: 'Lixeira nivel médio',
+                data: [15, 19, 3, 5, 2],
+                borderWidth: 1,
+                backgroundColor: 'yellow'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
-    }
-  });
-  const ctx2 = document.getElementById('myChart2');
+    });
 
-  new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Boa vista', 'Jardim paulista', 'Jabaquara', 'Santa cecília', 'Santo amaro'],
+            datasets: [{
+                label: 'Lixeira nivel médio',
+                data: [5, 14, 9, 7, 5],
+                borderWidth: 1,
+                backgroundColor: 'Red'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
-    }
-  });
+    });
 </script>
