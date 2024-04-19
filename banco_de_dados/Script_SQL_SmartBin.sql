@@ -23,9 +23,9 @@ NomeUsuario varchar (50),
 EmailUsuario varchar (50),
 	constraint chEmailUsuario check (EmailUsuario like '%@%' and EmailUsuario like '%.com'),
 Senha varchar (15),
-fkEmpresa char(14), 
+fkEmpresa int, 
 	constraint fkUsuarioEmpresa foreign key (fkEmpresa)
-    references empresa(Cnpj)
+    references empresa(idEmpresa)
 );
 desc Usuario;
 
@@ -40,9 +40,9 @@ nomeLixeira varchar(45),
 cep char(9),
 numero varchar(45),
 Complemento varchar(45),
-fkEmpresa char(14),
+fkEmpresa int,
 	constraint fkLixeiraEmpresa foreign key (fkEmpresa)
-    references Empresa(Cnpj)
+    references Empresa(idEmpresa)
 );
 desc lixeira;
 
@@ -72,8 +72,11 @@ select historico.DtTime, historico.Metade, historico.cheia, Lixeira.cep, Lixeira
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join empresa on lixeira.fkEmpresa = empresa.Cnpj;
+    
+select * from historico;
 
 drop table historico;
 drop table Lixeira;
 drop table Usuario;
 drop table Empresa;
+drop database smartbin;
