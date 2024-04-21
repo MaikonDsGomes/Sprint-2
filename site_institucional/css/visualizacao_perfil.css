@@ -52,7 +52,7 @@
     background-color: #297011;
     width: 10%;
     padding-left: 15px;
-    height: 85vh; /*85vh siginifico 85% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
+    height: 100vh; /*85vh siginifico 85% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
     position: fixed; /*Ao colocar fixed o menu lateral fica literalmente fixo e imovel verticalmente*/
 }
 
@@ -279,45 +279,3 @@ button {
     padding-top: 10px;
 }
 
-/* Footer */
-
-.footer {
-    margin-top: 50px;
-    width: 100%;
-    background-color: #dddddd;
-    display: flex;
-    flex-direction: column;
-    height: 15vh;
-    position: fixed;
-    bottom: 0%;
-}
-
-.topico {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 75%;
-}
-
-.footer ul {
-    display: flex;
-    flex-direction: column;
-    padding-left: 150px;
-    list-style-type: none;
-    font-size: large;
-}
-
-.footer .info a {
-    color: #000;
-    font-size: larger;
-}
-
-.footer .topico img{
-    width: 100px;
-    padding: 100px;
-}
-.copy p {
-    color: #4BBC25;
-    font-size: 22px;
-    text-align: center;
-}
