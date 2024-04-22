@@ -148,14 +148,12 @@
 
 .conteudo_usuario h1 {
     color: #297011;
-    border: solid 2px #297011;
     border-radius: 15px;
     padding: 10px;
     margin: 0px 42%;
 }
 
 .img_edit_user {
-    padding: 40px;
     text-align: center;
 }
 
