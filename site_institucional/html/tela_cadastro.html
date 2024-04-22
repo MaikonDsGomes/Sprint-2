@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/tela_cadastro.css">
-  <title>Smart Bin - cadastro</title>
+  <title>Tela de cadastro</title>
 </head>
 
 <body>
@@ -20,8 +20,8 @@
 
       <option value="Tipo de usuário:" disabled selected>Tipo de usuário</option>
       <option value="Empresa">Empresa</option>
-      <option value="Administrador">Administrador</option>
-      <option value="Comum">Comum</option>
+        <option value="Administrador">Administrador</option>
+      <!-- <option value="Comum">Comum</option> -->
     </select>
 
     <div id="divcadastro">
@@ -29,7 +29,7 @@
     </div>
     <form class="register-form">
 
-      <a class="jatemlogin" href="tela_login.html">
+      <a class="jatemlogin" href="tela_loginSmartBIN.html">
         <span class="jatemlogin">Já tem um login? Entre aqui</span>
       </a>
       <!-- <button type="button" onclick="validarFormulario()">Cadastrar</button> -->
@@ -89,43 +89,44 @@
         <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
         <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
   
-        <button  onclick="validarFormulario()"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+        <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
 
-      } else if (select == 'Comum') {
-        divcadastro.innerHTML = `<form class="register-form">
-        <label for="Nome">Nome:</label>
-        <input type="text" id="inp_nome" name="nome"><br>
+      } 
+      // else if (select == 'Comum') {
+      //   divcadastro.innerHTML = `<form class="register-form">
+      //   <label for="Nome">Nome:</label>
+      //   <input type="text" id="inp_nome" name="nome"><br>
   
-        <label for="CPF">CPF:</label>
-        <input type="text" id="inp_cpf" name="cpf"><br>
+      //   <label for="CPF">CPF:</label>
+      //   <input type="text" id="inp_cpf" name="cpf"><br>
   
-        <label for="CPF">CNPJ:</label>
-        <input type="text" id="inp_cnpj" name="cnpj"><br>
+      //   <label for="CPF">CNPJ:</label>
+      //   <input type="text" id="inp_cnpj" name="cnpj"><br>
   
-        <label for="email">Email:</label>
-        <input type="text" id="inp_email" name="email"><br>
+      //   <label for="email">Email:</label>
+      //   <input type="text" id="inp_email" name="email"><br>
   
-        <label for="senha">Senha:</label>
-        <input type="password" id="inp_password" name="senha"><br>
+      //   <label for="senha">Senha:</label>
+      //   <input type="password" id="inp_password" name="senha"><br>
   
-        <label for="telefone">Telefone:</label>
-        <input type="number" id="inp_tel" name="telefone"><br>
+      //   <label for="telefone">Telefone:</label>
+      //   <input type="number" id="inp_tel" name="telefone"><br>
   
-        <label for="dataNascimento">Data de nascimento:</label>
-        <input type="date" id="inp_Data" name="dataNascimento"><br>
+      //   <label for="dataNascimento">Data de nascimento:</label>
+      //   <input type="date" id="inp_Data" name="dataNascimento"><br>
   
-        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
-        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+      //   <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+      //   <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
   
-        <button onclick="validarFormulario()" type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
-      }
+      //   <button onclick="validarFormulario(event)" type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+      // }
     }
 
     function adm() {
       var inputNome = inp_nome.value;
-      
+
       var inputCnpj = inp_cnpj.value;
-      
+
       var termosCheckbox = document.getElementById("termos");
 
       var char14CNPJ = inputCnpj.length;
@@ -164,44 +165,41 @@
   <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
   <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
   
-  <button  onclick="validarFormulario()"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>
+  <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>
   </div>
   </form>
   `
       };
     }
 
-    function validarFormulario() {
-      var inputNome = inp_nome.value;
-      var inputCpf = inp_cpf.value;
-      var inputCnpj = inp_cnpj.value;
-      var inputEmail = inp_email.value;
-      var inputPassword = Number(inp_password.value);
-      var inputTel = Number(inp_tel.value);
-      var inputData = Number(inp_Data.value);
-      var termosCheckbox = document.getElementById("termos");
+    function validarFormulario(event) {
+    event.preventDefault(); // Impede o comportamento padrão de envio do formulário
 
-      // Trim() verifica sem tem espaços vazios, na teoria ele é mais útil que o if (inputNome == ""), porque ele é uma função especifica pra isso
+    var inputNome = inp_nome.value;
+    var inputCpf = inp_cpf.value;
+    var inputCnpj = inp_cnpj.value;
+    var inputEmail = inp_email.value;
+    var inputPassword = inp_password.value;
+    var inputTel = inp_tel.value;
+    var inputData = inp_Data.value;
+    var termosCheckbox = document.getElementById("termos");
 
-      // O IsNaN é auto-explicativo, ele vai verificar se o valor é realmente número, eu coloquei Number(****), mas isso deve ser mais direto no objetivo
+    var indice_arroba = inputEmail.indexOf('@'); 
+    var indice_com = inputEmail.indexOf('.com');
 
-      var indice_arroba = inputEmail.indexOf('@'); 
-      var indice_com = inputEmail.indexOf('.com');
-      var char11CPF = inputCpf.length;
-      var char14CNPJ = inputCnpj.length;
-
-      inputCpf = Number(inp_cpf.value);
-      inputCnpj = Number(inp_cnpj.value);
-
-
-      if (inputNome == "" || char11CPF < 11 || char14CNPJ < 14 || inputEmail == "" || inputPassword == "" || isNaN(Number(inputTel)) || !termosCheckbox.checked || indice_arroba < 0 || indice_com < 0) {
+    if (inputNome.trim() === "" || inputCpf.length < 11 || inputCnpj.length < 14 || inputEmail === "" || inputPassword === "" || isNaN(inputTel) || !termosCheckbox.checked || indice_arroba < 0 || indice_com < 0) {
         alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
         return false;
-      }
-
-      alert("Formulário enviado com sucesso!");
-      return true;
+    } else {
+        alert("Formulário enviado com sucesso!");
+        window.location.href = "tela_login.html"; 
+        return true;
     }
+}
+
+
+
+
   </script>
 </body>
 
