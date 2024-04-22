@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/tela_cadastro.css">
+  <title>Tela de cadastro</title>
+</head>
+
+<body>
+  <div id="pai" class="register-container">
+
+    <h1>Cadastro de novo usuário</h1>
+
+    <label style="display: inline-block;" name="usuario" for="usuario">Tipo de usuário:</label>
+
+    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" name="usuario"
+      id="select_usuario" onchange="mudar()">
+
+      <option value="Tipo de usuário:" disabled selected>Tipo de usuário</option>
+      <!-- <option value="Empresa">Empresa</option> -->
+        <option value="Administrador">Administrador</option>
+      <option value="Comum">Comum</option>
+    </select>
+
+    <div id="divcadastro">
+
+    </div>
+    <form class="register-form">
+
+      <a class="jatemlogin" href="tela_loginSmartBIN.html">
+        <span class="jatemlogin">Já tem um login? Entre aqui</span>
+      </a>
+      <!-- <button type="button" onclick="validarFormulario()">Cadastrar</button> -->
+    </form>
+
+  </div>
+
+  <script>
+
+    // Igual eu disse, se fosse uma função para validar só nesse formulário em especifico, provavelmente daria certo, mas ele dá um alert para verificar e em seguida já roda o innerHTML, porque ele sobrepõe o conteúdo inserido, é meio que automático
+
+    // Não sei real, se essa lógica de usar innerHTML seja a mais correta.
+
+    function mudar() {
+      var select = select_usuario.value;
+
+    //   if (select == 'Empresa') {
+    //     divcadastro.innerHTML = `<form class="register-form">
+    //       <label for="Nome">Nome:</label>
+    //       <input type="text" id="inp_nome" name="nome"><br>
+          
+    //       <label for="CNPJ">CNPJ:</label>
+    //       <input type="text" id="inp_cnpj" name="cnpj"><br>  <!-- Coloquei "text" para verificar quantos caracteres tem e transformo para numero na verificação -->
+          
+    //       <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+    //       <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+          
+          
+    //       <button type="menu" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" onclick="adm()">Cadastrar</button>
+    //       </form>
+    //       `;
+
+    //   } else
+      
+      if (select == 'Administrador') {
+        divcadastro.innerHTML = `<form class="register-form">
+        <label for="Nome">Nome:</label>
+        <input type="text" id="inp_nome" name="nome"><br>
+  
+        <label for="CPF">CPF:</label>
+        <input type="text" id="inp_cpf" name="cpf"><br>
+  
+        <label for="CPF">CNPJ:</label>
+        <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+        <label for="email">Email:</label>
+        <input type="text" id="inp_email" name="email"><br>
+  
+        <label for="senha">Senha:</label>
+        <input type="password" id="inp_password" name="senha"><br>
+  
+        <label for="telefone">Telefone:</label>
+        <input type="number" id="inp_tel" name="telefone"><br>
+  
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+        <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+
+      } 
+      else if (select == 'Comum') {
+        divcadastro.innerHTML = `<form class="register-form">
+        <label for="Nome">Nome:</label>
+        <input type="text" id="inp_nome" name="nome"><br>
+  
+        <label for="CPF">CPF:</label>
+        <input type="text" id="inp_cpf" name="cpf"><br>
+  
+        <label for="CPF">CNPJ:</label>
+        <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+        <label for="email">Email:</label>
+        <input type="text" id="inp_email" name="email"><br>
+  
+        <label for="senha">Senha:</label>
+        <input type="password" id="inp_password" name="senha"><br>
+  
+        <label for="telefone">Telefone:</label>
+        <input type="number" id="inp_tel" name="telefone"><br>
+  
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+        <button onclick="validarFormulario(event)" type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+      }
+    }
+
+    function adm() {
+      var inputNome = inp_nome.value;
+
+      var inputCnpj = inp_cnpj.value;
+
+      var termosCheckbox = document.getElementById("termos");
+
+      var char14CNPJ = inputCnpj.length;
+
+      inputCnpj = Number(inp_cnpj.value);
+
+      if (inputNome == "" || inputCnpj == "" || !termosCheckbox.checked || char14CNPJ < 14) {
+        alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+        return false;
+      } else {
+        pai.innerHTML = `<h1>Cadastro de Administrador</h1> 
+  
+  <div id="divcadastro">
+      <form class="register-form">
+  <label for="Nome">Nome:</label>
+  <input type="text" id="inp_nome" name="nome"><br>
+  
+  <label for="CPF">CPF:</label>
+  <input type="text" id="inp_cpf" name="cpf"><br>   
+  
+  <label for="CPF">CNPJ:</label>
+  <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+  <label for="email">Email:</label>
+  <input type="text" id="inp_email" name="email"><br>
+  
+  <label for="senha">Senha:</label>
+  <input type="password" id="inp_password" name="senha"><br>
+  
+  <label for="telefone">Telefone:</label>
+  <input type="number" id="inp_tel" name="telefone"><br>
+  
+  <label for="dataNascimento">Data de nascimento:</label>
+  <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+  <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+  <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+  <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>
+  </div>
+  </form>
+  `
+      };
+    }
+
+    function validarFormulario(event) {
+    event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+
+    var inputNome = inp_nome.value;
+    var inputCpf = inp_cpf.value;
+    var inputCnpj = inp_cnpj.value;
+    var inputEmail = inp_email.value;
+    var inputPassword = inp_password.value;
+    var inputTel = inp_tel.value;
+    var inputData = inp_Data.value;
+    var termosCheckbox = document.getElementById("termos");
+
+    var indice_arroba = inputEmail.indexOf('@'); 
+    var indice_com = inputEmail.indexOf('.com');
+
+    if (inputNome.trim() === "" || inputCpf.length < 11 || inputCnpj.length < 14 || inputEmail === "" || inputPassword === "" || isNaN(inputTel) || !termosCheckbox.checked || indice_arroba < 0 || indice_com < 0) {
+        alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+        return false;
+    } else {
+        alert("Formulário enviado com sucesso!");
+        window.location.href = "tela_dashboard.html"; 
+        return true;
+    }
+}
+
+
+
+
+  </script>
+</body>
+
+</html>
