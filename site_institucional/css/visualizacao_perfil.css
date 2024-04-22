@@ -279,3 +279,28 @@ button {
     padding-top: 10px;
 }
 
+@media only screen and (max-width: 1600px){
+    .cards_grid {
+        display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Altere conforme necessário */
+            gap: 20px;
+            justify-items: center;
+    }
+    .menu {
+        width: 12%;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .cards_grid {
+        display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Altere conforme necessário */
+            gap: 20px;
+            justify-items: center;
+    }
+    .conteudo {
+        width: 85%;
+        padding: 1% 5%;
+    }
+    
+} 
