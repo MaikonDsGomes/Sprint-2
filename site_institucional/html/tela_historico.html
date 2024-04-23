@@ -10,6 +10,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
 </head>
 
 <body>
@@ -62,12 +66,12 @@
             <div class="info_historico_box">
                 <h2>Lixeira 1</h2>
                 <h3>Rua: Consolação, 101, Boa vista</h3>
-                <h3>Nível: <span style="color: red;">Alto</span></h3>
+                <h3>Nível: <span id="status">Alto</span></h3>
             </div>
 
             <h1 class="">Gráficos:</h1>
             <div class="grafico_historico_box">
-                <canvas id="myChart"></canvas>
+                <canvas id="chave"></canvas>
             </div>
 
             <h1>Histórico</h1>
@@ -166,6 +170,139 @@
 </html>
 
 <script>
+
+
+
+
+var contextoChave = document.getElementById('chave').getContext('2d');
+        contextoChave.canvas.width = 1000;
+        contextoChave.canvas.height = 300;
+        var chave = new Chart(
+            contextoChave,
+            {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Chave',
+                        type: 'line',
+                        borderColor: ['#ffd902'],
+                        backgroundColor: ['#ffe135']
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            distribution: 'series',
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Chave'
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 0
+                    }
+                }
+            }
+        );
+
+        var paginacao = {};
+        var tempo = {};
+        function obterDados(grafico, endpoint) {
+            var http = new XMLHttpRequest();
+            http.open('GET', 'http://localhost:3300/sensores/' + endpoint, false);
+            http.send(null);
+            var valores = JSON.parse(http.responseText);
+            if (paginacao[endpoint] == null) {
+                paginacao[endpoint] = 0;
+            }
+            if (tempo[endpoint] == null) {
+                tempo[endpoint] = 0;
+            }
+            // Exibir à partir do último elemento exibido anteriormente
+            var ultimaPaginacao = paginacao[endpoint];
+            paginacao[endpoint] = valores.length;
+            var valores = valores.slice(ultimaPaginacao);
+            valores.forEach((valor) => {
+                //Máximo de 60 itens exibidos no gráfico
+                if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
+                    grafico.data.labels.shift();
+                    grafico.data.datasets[0].data.shift();
+                }
+
+                grafico.data.labels.push(tempo[endpoint]++);
+                grafico.data.datasets[0].data.push(parseFloat(valor));
+                grafico.update();
+
+                verificarDado(parseFloat(valor));
+            })
+        }
+
+        setInterval(() => {
+            // obterDados(dht11Umidade, 'dht11/umidade');
+            // obterDados(dht11Temperatura, 'dht11/temperatura');
+            // obterDados(luminosidade, 'luminosidade');
+            // obterDados(lm35Temperatura, 'lm35/temperatura');
+            obterDados(chave, 'chave');
+        }, 1000);
+
+        function verificarDado(valor) {
+    var h1Elemento = document.getElementById('status'); // supondo que o id do seu elemento h1 seja 'status'
+    
+    if (valor === 1) {
+        h1Elemento.style.color = 'red'; // mude a cor para vermelho se o valor for 1
+    } else if (valor === 0) {
+        h1Elemento.style.color = 'black'; // mude a cor para preto se o valor for 0
+    }
+}
+
+/*
+// Chame a função verificarDado com o valor recebido
+function obterDados(grafico, endpoint) {
+    var http = new XMLHttpRequest();
+    http.open('GET', 'http://localhost:3300/sensores/' + endpoint, false);
+    http.send(null);
+    var valores = JSON.parse(http.responseText);
+    
+    if (paginacao[endpoint] == null) {
+        paginacao[endpoint] = 0;
+    }
+    if (tempo[endpoint] == null) {
+        tempo[endpoint] = 0;
+    }
+    
+    var ultimaPaginacao = paginacao[endpoint];
+    paginacao[endpoint] = valores.length;
+    var valores = valores.slice(ultimaPaginacao);
+    
+    valores.forEach((valor) => {
+        //Máximo de 60 itens exibidos no gráfico
+        if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
+            grafico.data.labels.shift();
+            grafico.data.datasets[0].data.shift();
+        }
+
+        grafico.data.labels.push(tempo[endpoint]++);
+        grafico.data.datasets[0].data.push(parseFloat(valor));
+        grafico.update();
+
+         // chame a função verificarDado com o valor
+    })
+}
+
+
+
+
+
+    /*
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
@@ -187,4 +324,6 @@
             }
         }
     });
+
+    */
 </script>
