@@ -78,26 +78,25 @@
                 <div>
                     <p>Nivel: Média - Hora: 06:07:14 - Data: 19/04/2024</p>
                 </div>
+
                 <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
+                    <p>Nivel: Baixo - Hora: 08:19:44 - Data: 19/04/2024</p>
                 </div>
                 <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
+                    <p>Nivel: Cheia - Hora: 17:15:08 - Data: 19/04/2024</p>
                 </div>
                 <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
+                    <p>Nivel: Média - Hora: 07:16:18 - Data: 18/04/2024</p>
+                </div>
+
+                <div>
+                    <p>Nivel: Baixo - Hora: 07:19:32 - Data: 17/04/2024</p>
                 </div>
                 <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
+                    <p>Nivel: Cheia - Hora: 20:19:15 - Data: 17/04/2024</p>
                 </div>
                 <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
-                </div>
-                <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
-                </div>
-                <div>
-                    <p>Nivel: Baixo - Hora: 08:20:58 - Data: 18/04/2024</p>
+                    <p>Nivel: Média - Hora: 06:07:14 - Data: 16/04/2024</p>
                 </div>
 
             </div>
@@ -167,14 +166,14 @@
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['Boa vista', 'Jardim paulista', 'Jabaquara', 'Santa cecília', 'Santo amaro'],
+            labels: [''],
             datasets: [{
                 label: 'Lixeira nivel médio',
-                data: [15, 19, 3, 5, 2],
+                data: [1],
                 borderWidth: 1,
-                backgroundColor: 'yellow'
+                backgroundColor: 'red'
             }]
         },
         options: {
