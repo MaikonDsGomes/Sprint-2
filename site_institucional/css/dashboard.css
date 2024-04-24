@@ -125,14 +125,13 @@
 }
 
 .grafico_box {
-    display: flex;
-    width: 50%;
+    width: 75%;
+    margin: auto;
 }
 
 .titulo_grafico {
     margin-top: 5%;
 }
-
 
 /* CSS CARDS */
 

@@ -95,7 +95,6 @@
                 <div>
                     <p>Nivel: Média - Hora: 07:16:18 - Data: 18/04/2024</p>
                 </div>
-
                 <div>
                     <p>Nivel: Baixo - Hora: 07:19:32 - Data: 17/04/2024</p>
                 </div>
@@ -200,7 +199,8 @@ var contextoChave = document.getElementById('chave').getContext('2d');
                         yAxes: [{
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Chave'
+                                // coloca legenda no eixo Y
+                                //labelString: 'Chave'
                             },
                             ticks: {
                                 beginAtZero: true
@@ -255,12 +255,14 @@ var contextoChave = document.getElementById('chave').getContext('2d');
         }, 1000);
 
         function verificarDado(valor) {
-    var h1Elemento = document.getElementById('status'); // supondo que o id do seu elemento h1 seja 'status'
+    var spanElemento = document.getElementById('status'); // supondo que o id do seu elemento h1 seja 'status'
     
     if (valor === 1) {
-        h1Elemento.style.color = 'red'; // mude a cor para vermelho se o valor for 1
+        spanElemento.style.color = 'red'; // mude a cor para vermelho se o valor for 1
+        //spanElemento.value = "Alto";
     } else if (valor === 0) {
-        h1Elemento.style.color = 'black'; // mude a cor para preto se o valor for 0
+        spanElemento.style.color = 'black'; // mude a cor para preto se o valor for 0
+        //spanElemento.value = "Baixo";
     }
 }
 
