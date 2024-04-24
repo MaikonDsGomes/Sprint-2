@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/tela_login.css">
+<title>Smart Bin - login</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2 style="margin-bottom: 10%;">Login</h2>
+    <form class="login-form">
+      <label for="username" >E-mail do Usuário:</label>
+      <input placeholder="Insira seu E-mail:" type="text" id="inp_usermail" name="usermail" required>
+      
+      <label for="password">Senha:</label>
+      <input  placeholder="Insira sua senha:"   type="password" id="password" name="password" required>
+      
+      <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button" onclick="verificar()">Entrar</button>
+
+      <a class="se-cadastre" href="tela_cadastro.html">
+        <span class="esquece-senha">Se cadastre aqui!</span>
+      </a>
+    </form>
+  </div>
+</body>
+</html>
+
+<script>
+
+function verificar() {
+    var inputEmail = inp_usermail.value;
+
+    var indice_arroba = inputEmail.indexOf('@');
+    var indice_ponto = inputEmail.lastIndexOf('.');
+
+    if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
+        alert("Por favor, preencha o campo de e-mail corretamente");
+        return false;
+    }
+
+    if (inputEmail !== "fernando.brandao@sptech.school") {
+        alert("Usuário inválido");
+        return false;
+    }
+
+    window.location.href = 'tela_dashboard.html';
+}
+
+
+
+</script>
