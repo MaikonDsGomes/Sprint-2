@@ -126,7 +126,14 @@ center button:hover {
 
 }
 
+button {
+  font-size: medium;
+}
+
 .voltar {
   display: flex;
-  justify-content: left;
+}
+
+p {
+  font-size: large;
 }
