@@ -395,5 +395,23 @@
 }
 
 .card_historico_box p {
-font-size: 25px;
+    font-size: 25px;
+}
+
+.logOut {
+    color: #fff;
+    font-size: large;
+    font-weight: bolder;
+    margin-top: 25px;
+    width: 80px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.logOut img {
+    width: 20px;
+    border-radius: 0%;
+    padding-left: 10px;
 }

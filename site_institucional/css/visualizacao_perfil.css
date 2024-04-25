@@ -304,3 +304,22 @@ button {
     }
     
 } 
+
+.logOut {
+    color: #fff;
+    font-size: large;
+    font-weight: bolder;
+    margin-top: 25px;
+    width: 80px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.logOut img {
+    width: 20px;
+    height: 20px;
+    border-radius: 0%;
+    padding-left: 10px;
+}
