@@ -81,7 +81,7 @@ const serial = async (
             // altere!
             // Este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO historico (DtTime,cheia) VALUES (default,?)',
+                'INSERT INTO historico (cheia, fkLixeira) VALUES (?, 1)',
                 [chave]
             );
             console.log("valores inseridos no banco: " + chave)

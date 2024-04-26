@@ -30,7 +30,7 @@ fkEmpresa int,
 desc Usuario;
 
 Insert into Usuario values
-(12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 012345678965412);
+(default, 12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 1);
 
 select * from Usuario;
 
@@ -47,15 +47,15 @@ fkEmpresa int,
 desc lixeira;
 
 insert into Lixeira (cep,numero,Complemento,fkEmpresa) values 
-('123456789', '2801', '1 andar', 012345678965412),
-('123456787', '589', '20 andar', 012345678965412),
-('123456788', '257', '11 andar', 012345678965412);
+('123456789', '2801', '1 andar', 1),
+('123456787', '589', '20 andar', 1),
+('123456788', '257', '11 andar', 1);
 
 select * from Lixeira;
 
 create table historico(
 idHistorico int primary key auto_increment,
-DtTime datetime,
+DtTime timestamp not null default current_timestamp,
 Metade bit(1),
 Cheia bit(1),
 fkLixeira int,
@@ -63,10 +63,6 @@ fkLixeira int,
     references Lixeira(idLixeira)
 );
 
-insert into historico (DtTime, Metade, Cheia, fkLixeira) values
-('2024-08-04 11:00', 1, 0, 1),
-('2024-05-24 12:00', 1, 1, 2),
-('2024-04-08 15:37', 0, 0, 3);
 
 select historico.DtTime, historico.Metade, historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Lixeira.fkEmpresa 
 	from historico join Lixeira
