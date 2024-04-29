@@ -9,6 +9,10 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/dashboard.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
 </head>
 
 <body>
@@ -93,6 +97,18 @@
                     <h4>Nível: <span style="color: #297011;">Baixo</span></h4>
                 </div>
             </div>
+            <h1 class="titulo_grafico">Gráfico:</h1>
+            <div class="grafico_box">
+                <select id="select_semana">
+                    <option value="1">Essa semana</option>
+                    <option value="2">Semana - 29/04/2024 até 05/05/2024</option>
+                    <option value="3">Semana - 22/04/2024 até 28/04/2024</option>
+                    <option value="4">Semana - 15/04/2024 até 21/04/2024</option>
+                    <option value="5">Semana - 08/04/2024 até 14/04/2024</option>
+                    <option value="6">Semana - 01/04/2024 até 07/04/2024</option>
+                </select>
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
         
     </div>
@@ -172,5 +188,44 @@
 
         // Esconde o modal de edição
         document.getElementById('ModalEdicao').style.display = 'none';
+    });
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            datasets: [{
+                label: 'Lixeira nivel médio',
+                data: [1, 2, 0, 1, 0, 0, 1],
+                borderWidth: 1,
+                backgroundColor: 'yellow'
+            },
+            {
+                label: 'Lixeira nivel alto',
+                data: [1, 0, 2, 0, 2, 0, 0],
+                borderWidth: 1,
+                backgroundColor: 'red'
+            }, 
+            {
+                label: 'Lixeira nivel baixo',
+                data: [0, 0, 0, 1, 0, 2, 1],
+                borderWidth: 1,
+                backgroundColor: 'green'
+            }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Quantidade de lixeiras'
+                    }
+                }
+            },
+
+        }
     });
 </script>

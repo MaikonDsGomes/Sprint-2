@@ -12,8 +12,9 @@
   
 
 
+
     <center>
-        
+
         <a href="../html/tela_inicio.html">
             <div class="voltar">
                 <img src="../img/seta.png" style="width: 40px;" alt="">
@@ -22,62 +23,95 @@
 
         <h1>Smart Bin - Calculadora</h1>
 
-        <p>Digite o valor do combustivel: <input type="number" id="input_combustivel"> <br><br>
-            Digite quantos Km são feitos por litro: <input type="number" id="input_gasto"> <br><br>
-            Digite quantos Km são feitos a cada viagem de coleta: <input type="number" id="input_km"><br><br>
-            Digite a quantidade de meses: <input type="text" id="input_mes"><br><br>
-            Digite a quantidade de coletas no mês: <input type="text" id="input_coletas"><br>
-        </p><br><br>
+        Digite quantos caminhões você usa diariamente: <input placeholder="Frota usada para coleta" type="number"
+            id="input_frota"> <br><br>
+        Digite o valor do combustível: <input placeholder="Valor pago pelo combustível" type="number"
+            id="input_valorCombustivel"> <br><br>
+        Digite média de km/litro de um caminhão: <input placeholder="Média de km que um caminhão faz por litro"
+            type="number" id="input_media"> <br><br>
+        Digite a média de km rodado por dia de um caminhão: <input
+            placeholder="Média de km por dia de uso" type="number" id="input_rota"><br><br>
+        Digite a quantidade de meses que você deseja simular: <input placeholder="Quantidade de meses de simulação"
+            type="number" id="input_mes"><br><br>
+        Digite a quantidade de coletas no mês: <input placeholder="quantidade de uso da frota" type="number"
+            id="input_coletas"><br><br>
 
         <button onclick="calcular()">Veja aqui quanto você economizaria</button><br><br>
 
 
-        <div style="border-radius: 5%; border: 50px;" id="div_resposta" class="resposta"></div>
+        <div style="border-radius: 5%; border: 50px; text-align: left;" id="div_resposta" class="resposta"></div>
     </center>
 
     <script>
 
-        div_resposta.innerHTML = ''
+        div_resposta.innerHTML = '';
 
         function calcular() {
 
-
-            var combustivel = Number(input_combustivel.value)
-            var km = Number(input_km.value)
-            var gasto_km = Number(input_gasto.value)
+            var frota = Number(input_frota.value)
+            var valorCombustivel = Number(input_valorCombustivel.value)
+            var mediaLitro = Number(input_media.value)
+            var kmRota = Number(input_rota.value)
             var mes = Number(input_mes.value)
-
-            var combu_gasto = km / gasto_km
-            var total = combustivel * combu_gasto
-
-            var economizar = total * (20/12)
-            var total_economizando = total - economizar
+            var numColetasPorMes = Number(input_coletas.value)
 
 
-            div_resposta.innerHTML = `<br> O cálculo é realizado considerando o valor do combustível (diesel) somado ao valor gasto durante a viagem.<br>
-            O custo total por viagem é de R$${total},00.<br><br>
-            
-            O cálculo é baseado na subtração de 20% do valor que pode ser economizado, conforme mencionado anteriormente.<br>
-            Com a implementação do sistema de lixeira inteligente, é possível economizar até R$${economizar},00.<br><br>
-            
-            O cálculo considera o valor que pode ser economizado subtraído do custo total da viagem.<br>
-            Dessa forma, o custo por viagem seria reduzido para R$${total_economizando},00.<br><br>
-            
-            É feita uma projeção do valor gasto multiplicado pela quantidade de meses decorridos.<br><br>
-            
-            Supondo que a coleta passe 30 dias no mês.<br><br>`
+            var gastoCombustivel = (kmRota / mediaLitro) * valorCombustivel; // gasto de um caminhão por coleta diaria
+            var gastoFrota = gastoCombustivel * frota; // gasto de todos os caminhão usados em um dia de coleta
 
-            var mensal = Number(input_coletas.value)
-            
 
-            for (var index = 1; index <= mes; index++) {
+            var salvar = 0.2 / mes
+            var respostaTodo = gastoFrota * numColetasPorMes * 0.2 // Gasto por mês
+
+
+            //console.log(`GASTO DE UM CAMINHÃO ${gastoCombustivel * numColetasPorMes} -- GASTO DO TODO ${gastoFrota * numColetasPorMes}`)
+            //console.log(`SALVO 20% DE UM CAMINHÃO ${salvoIndividual * numColetasPorMes} -- SALVO DO TODO ${salvoFrota * numColetasPorMes}`)
+
+
+            if (frota == null || frota < 1 || valorCombustivel == null || valorCombustivel < 1 || mediaLitro == null || mediaLitro < 1 || kmRota == null || kmRota < 1 || mes == null || mes < 1 || numColetasPorMes == null || numColetasPorMes < 1) {
+
+                div_resposta.innerHTML = `Há pelo menos um campo que está com dados incorreto!`;
+
+                //console.log("Digite novamente, dados incorretos");
+            } else {
+                div_resposta.innerHTML = '';
+
                 div_resposta.innerHTML += `
-                ${index}° MÊS - Após ${index} mês/meses, o potencial prejuízo alcançaria R$${total * mensal},00.<br> 
-            No entanto, com a adoção do sistema, você poderia economizar até R$${economizar * mensal}.<br><br>`
-                mensal += 30
+            <br> <h2> Obrigado por consultar a Smart Bin </h2>
+            
+            Ao analisar os dados, percebemos que você usa sua frota de caminhões ${numColetasPorMes} vezes por mês<br>
+            Com uma rota de coleta mensal de cerca de ${kmRota * numColetasPorMes} kilômetros<br>
+            Com um gasto mensal da sua frota girando em torno de R$${gastoFrota * numColetasPorMes} Reais<br><br>
+
+            <h2> Meses </h2>
+            
+            `
+
+                var auxiliar = 0;
+
+                for (var index = 1; index <= mes; index++) {
+
+                    auxiliar += respostaTodo
+
+                    div_resposta.innerHTML += `${index}° Mês - Você poderia economizar em sua frota até R$${(auxiliar).toFixed(2)} esse valor vai acumulando todos os meses<br><br>`;
+
+                }
+
+                div_resposta.innerHTML += `
+
+                <h2>Resumo</h2>
+
+                Ao longo dos ${mes} meses você gastaria ${(gastoFrota * numColetasPorMes * mes).toFixed(2)} e com a integração do nosso sistema você teria uma economia em até ${ ((auxiliar / (gastoFrota * numColetasPorMes * mes)) * 100).toFixed(2) }% 
+                <br><br> Ou um novo custo de operação girando em torno de R$${((gastoFrota * numColetasPorMes * mes) - auxiliar).toFixed(2)} reais no periodo de ${mes} meses
+                `;
+
+                //console.log("OK");
             }
 
+
+
         }
+
 
 
     </script>

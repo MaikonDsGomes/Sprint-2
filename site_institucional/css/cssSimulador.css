@@ -87,7 +87,9 @@ center a{
 
   } */
 
- 
+  input{
+    width: 290px;
+  }
 
   center input:hover{
     transform: scale(1.05);
