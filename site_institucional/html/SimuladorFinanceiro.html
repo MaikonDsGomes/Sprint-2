@@ -48,6 +48,7 @@
 
         function calcular() {
 
+            // Recebendo valoresa das inputs
             var frota = Number(input_frota.value)
             var valorCombustivel = Number(input_valorCombustivel.value)
             var mediaLitro = Number(input_media.value)
@@ -55,17 +56,16 @@
             var mes = Number(input_mes.value)
             var numColetasPorMes = Number(input_coletas.value)
 
-
-            var gastoCombustivel = (kmRota / mediaLitro) * valorCombustivel; // gasto de um caminhão por coleta diaria
-            var gastoFrota = gastoCombustivel * frota; // gasto de todos os caminhão usados em um dia de coleta
+            // gasto de um caminhão por coleta diaria
+            var gastoCombustivel = (kmRota / mediaLitro) * valorCombustivel; 
+            // gasto de todos os caminhão usados em um dia de coleta
+            var gastoFrota = gastoCombustivel * frota; 
 
 
             var salvar = 0.2 / mes
             var respostaTodo = gastoFrota * numColetasPorMes * 0.2 // Gasto por mês
 
 
-            //console.log(`GASTO DE UM CAMINHÃO ${gastoCombustivel * numColetasPorMes} -- GASTO DO TODO ${gastoFrota * numColetasPorMes}`)
-            //console.log(`SALVO 20% DE UM CAMINHÃO ${salvoIndividual * numColetasPorMes} -- SALVO DO TODO ${salvoFrota * numColetasPorMes}`)
 
 
             if (frota == null || frota < 1 || valorCombustivel == null || valorCombustivel < 1 || mediaLitro == null || mediaLitro < 1 || kmRota == null || kmRota < 1 || mes == null || mes < 1 || numColetasPorMes == null || numColetasPorMes < 1) {
@@ -74,23 +74,28 @@
 
                 //console.log("Digite novamente, dados incorretos");
             } else {
+                //console.log("OK");
+
+                // Esvazia a div da mensagem antes de iniciar a demais
                 div_resposta.innerHTML = '';
 
                 div_resposta.innerHTML += `
             <br> <h2> Obrigado por consultar a Smart Bin </h2>
             
             Ao analisar os dados, percebemos que você usa sua frota de caminhões ${numColetasPorMes} vezes por mês<br>
-            Com uma rota de coleta mensal de cerca de ${kmRota * numColetasPorMes} kilômetros<br>
+            Com uma rota de coleta mensal de cerca de ${kmRota * numColetasPorMes * frota} kilômetros<br>
             Com um gasto mensal da sua frota girando em torno de R$${gastoFrota * numColetasPorMes} Reais<br><br>
 
             <h2> Meses </h2>
             
             `
-
+                // Essa var acumula o valor do que salvamos mês a mês
                 var auxiliar = 0;
 
+                // Estrutura de repetição
                 for (var index = 1; index <= mes; index++) {
 
+                    // Acumulando valor do que salvamos todos os meses
                     auxiliar += respostaTodo
 
                     div_resposta.innerHTML += `${index}° Mês - Você poderia economizar em sua frota até R$${(auxiliar).toFixed(2)} esse valor vai acumulando todos os meses<br><br>`;
@@ -105,10 +110,7 @@
                 <br><br> Ou um novo custo de operação girando em torno de R$${((gastoFrota * numColetasPorMes * mes) - auxiliar).toFixed(2)} reais no periodo de ${mes} meses
                 `;
 
-                //console.log("OK");
             }
-
-
 
         }
 
