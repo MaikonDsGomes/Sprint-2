@@ -42,7 +42,7 @@ center a{
     background: rgba(84, 84, 84, 0);
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(10px);
-    color: rgb(86, 83, 83);
+    color: black;
     border-radius: 8px;
     padding: 30px 40px;
     box-shadow: 0 0 3px 1.5px #f8f8f8 ;
