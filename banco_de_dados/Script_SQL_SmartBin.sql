@@ -47,9 +47,9 @@ fkEmpresa int,
 desc lixeira;
 
 insert into Lixeira (cep,numero,Complemento,fkEmpresa) values 
-('123456789', '2801', '1 andar', 1),
-('123456787', '589', '20 andar', 1),
-('123456788', '257', '11 andar', 1);
+('123456789', '2801', 'Em frente a APAE', 1),
+('123456787', '589', 'Do lado do Digital Building', 1),
+('123456788', '257', 'Em frente ao Starbucks', 1);
 
 select * from Lixeira;
 
@@ -63,12 +63,15 @@ fkLixeira int,
     references Lixeira(idLixeira)
 );
 
+insert into historico(Cheia, fkLixeira) values
+(1, 1);
 
-select historico.DtTime, historico.Metade, historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Lixeira.fkEmpresa 
+select historico.DtTime as "Data e Hora", historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join empresa on lixeira.fkEmpresa = empresa.Cnpj;
     
+
 select * from historico;
 
 drop table historico;
