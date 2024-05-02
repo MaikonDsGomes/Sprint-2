@@ -25,7 +25,7 @@ EmailUsuario varchar (50),
 Senha varchar (15),
 fkEmpresa int, 
 	constraint fkUsuarioEmpresa foreign key (fkEmpresa)
-    references empresa(idEmpresa)
+    references Empresa(idEmpresa)
 );
 desc Usuario;
 
@@ -69,10 +69,12 @@ insert into historico(Cheia, fkLixeira) values
 select historico.DtTime as "Data e Hora", historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
-    join empresa on lixeira.fkEmpresa = empresa.Cnpj;
+    join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa;
     
 
 select * from historico;
+
+
 
 drop table historico;
 drop table Lixeira;
