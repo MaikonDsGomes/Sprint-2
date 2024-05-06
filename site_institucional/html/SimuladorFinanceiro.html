@@ -25,15 +25,20 @@
 
         <span class="span1">Digite quantos caminhões você usa diariamente: </span> <input class="input_geral"
             placeholder="Frota usada para coleta:" type="number" id="input_frota"> <br><br>
-        <span>Digite o valor do combustível:</span> <input class="input_geral" placeholder="Valor pago pelo combustível:"
-            type="number" id="input_valorCombustivel"> <br><br>
-        <span>Digite média de km/litro de um caminhão: </span> <input class="input_geral"
+        
+            <span>Digite o valor do combustível:</span> <input class="input_geral"
+            placeholder="Valor pago pelo combustível:" type="number" id="input_valorCombustivel"> <br><br>
+        
+            <span>Digite média de km/litro de um caminhão: </span> <input class="input_geral"
             placeholder="Média de km que um caminhão faz por litro:" type="number" id="input_media"> <br><br>
-        <span>Digite a média de km rodado por dia de um caminhão: </span> <input class="input_geral"
+        
+            <span>Digite a média de km rodado por dia de um caminhão: </span> <input class="input_geral"
             placeholder="Média de km por dia de uso:" type="number" id="input_rota"><br><br>
-        <span>Digite a quantidade de meses que você deseja simular:</span> <input class="input_geral"
+        
+            <span>Digite a quantidade de meses que você deseja simular:</span> <input class="input_geral"
             placeholder="Quantidade de meses de simulação:" type="number" id="input_mes"><br><br>
-        <span>Digite a quantidade de coletas no mês: </span><input class="input_geral"
+        
+            <span>Digite a quantidade de coletas no mês: </span><input class="input_geral"
             placeholder="quantidade de uso da frota:" type="number" id="input_coletas"><br><br>
 
         <div class="botao"> <button onclick="calcular()">Veja aqui quanto você economizaria</button><br><br>
@@ -58,9 +63,9 @@
             var numColetasPorMes = Number(input_coletas.value)
 
             // gasto de um caminhão por coleta diaria
-            var gastoCombustivel = (kmRota / mediaLitro) * valorCombustivel; 
+            var gastoCombustivel = (kmRota / mediaLitro) * valorCombustivel;
             // gasto de todos os caminhão usados em um dia de coleta
-            var gastoFrota = gastoCombustivel * frota; 
+            var gastoFrota = gastoCombustivel * frota;
 
 
             //var salvar = 0.2 / mes *TESTE*
