@@ -77,7 +77,7 @@ select * from sensor;
 
 -- HISTÓRICO
 create table historico(
-idHistorico int primary key auto_increment,
+idHistorico int auto_increment,
 DtTime timestamp not null default current_timestamp,
 estadoAtual bit,
 
@@ -87,7 +87,10 @@ fkLixeira int,
     
 fkSensor int, 
 constraint fkHistoricoSensor foreign key (fkSensor)
-    references sensor(idSensor)
+    references sensor(idSensor),
+    
+primary key pkComposta (idHistorico, fkLixeira, FkSensor)
+
 );
 
 insert into historico (estadoAtual, fkLixeira, fkSensor) values 
@@ -98,13 +101,11 @@ insert into historico (estadoAtual, fkLixeira, fkSensor) values
 
 select * from historico;
 
-select historico.DtTime as "Data e Hora", historico.cheia, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
+select historico.DtTime as "Data e Hora", historico.EstadoAtual, Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa;
     
-
-
 
 drop table historico;
 drop table Lixeira;
