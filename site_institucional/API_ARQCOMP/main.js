@@ -30,11 +30,11 @@ const serial = async (
         {
             // altere!
             // Credenciais do banco de dados
-            host: 'localhost',
+            host: '10.18.33.26',
             user: 'aluno',
-            password: 'sptech',
+            password: 'Sptech#2024',
             database: 'SmartBin',
-            port: 3306
+            port: 3307
         }
     ).promise();
 

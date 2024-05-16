@@ -15,7 +15,7 @@ body {
   background-attachment: fixed;
   position: relative; 
 }
-body:after {  
+body:after {    
   position: absolute;
   content: ""; 
   left: 0;
@@ -26,8 +26,8 @@ body:after {
   opacity: .8;
   z-index: -1;
   background: #0ed1f3;
-  background: linear-gradient(90deg, #77e977, #4de97e, #61e48d); color: black;
-
+  background: linear-gradient(90deg, #77e977c1, #4de97ed0, #61e48dcc); color: black;
+  /* background: linear-gradient(90deg, #e7e7067f, #00fd506d, #ff2a00a3); color: black; */
 } 
 
 center a{
@@ -94,8 +94,8 @@ center a{
 
   display: flex;
   justify-content: center;
-  /* padding-top: 5px; */
-
+  border-radius: 5px;
+  padding-top: 5px;
 }
 
 
