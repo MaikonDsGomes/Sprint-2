@@ -9,6 +9,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/dashboard.css">
+
 </head>
 
 <body>
@@ -42,7 +43,7 @@
                 </a>
                 <a href="tela_cadastro_logado.html">
                     <li>Adicionar Usuário</li>
-                </a>
+                </a>    
                 <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
                 </a>
@@ -56,35 +57,29 @@
             </div>
         </div>
         <div class="conteudo">
-            <div class="conteudo_usuario">
-                <h1>Configuração</h1>
-                <div class="edit_user_box">
-                    <div class="img_edit_user">
-                        <img src="../img/perfil.png" alt="">
-                        <i class="fa-solid fa-pen"></i>
-                    </div>
-                    <div>
-                        <form action="" class="form">
+            <div class="conteudo_inp">
+                <h1>Adicionar lixeira</h1>
+                <div>
+                    <form action="" class="form">
 
-                            <input id="input_nome" value="Fernando Duarte Brandão" type="text" placeholder="Nome"><br>
+                        <input id="input_nome" value="" type="text" placeholder="Lixeira"><br>
 
-                            <input id="input_email" value="fernando.brandao@sptech.school" type="text" placeholder="Email"><br>
+                        <input id="input_cep" type="text" placeholder="Cep" maxlength="8"><br>
 
-                            <input id="input_telefone" value="11 994637199" type="text" placeholder="Telefone"><br>
+                        <input id="input_bairro" type="text" placeholder="Bairro"><br>
 
-                            <input id="input_senha" value="12345678910" type="password" placeholder="Senha"><br>
+                        <input id="input_num" type="text" placeholder="Número"><br>
 
-                            <div>
-                                <input onclick="check()" type="submit" value="Editar" class="btForm">
-                            </div>
-                        </form>
-                    </div>
+                        <input id="input_complemento" type="text" placeholder="Complemento"><br>
+                        <div>
+                            <input onclick="check()" type="submit" value="Enviar" class="btForm">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
         
-
+        </div>
     </div>
 </body>
 
@@ -95,17 +90,23 @@
     function check() {
 
         var nome = input_nome.value;
-        var email = input_email.value;
-        var telefone = input_telefone.value;
-        var senha = input_senha.value;
+        var cep = input_cep.value;
+        var bairro = input_bairro.value;
+        var num = input_num.value;
+        var complemento = input_complemento.value;
 
-        if (nome == "" || email == "" || telefone == "" || senha == "") {
+        if (nome == "" || cep == "" ||bairro == "" ||num == "" ||complemento == "") {
             alert("Preencha todos os campos!");
-        } else {
+        } else {    
 
-            alert("Olá, Brandão! Essa função está em desenvolvimento! Volte na sprint 3 :)");
+            input_nome.value = ``;
+            input_cep.value = ``;
+            input_bairro.value = ``;
+            input_num.value = ``;
+            input_complemento.value = ``;
 
-        
+
         }
     }
+
 </script>

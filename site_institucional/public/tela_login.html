@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/tela_login.css">
+<title>Smart Bin - login</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2 style="margin-bottom: 10%;">Login</h2>
+    <form class="login-form">
+      <label for="username" >E-mail do Usuário:</label>
+      <input placeholder="Insira seu E-mail:" type="text" id="inp_usermail" name="usermail" required>
+      
+      <label for="password">Senha:</label>
+      <input  placeholder="Insira sua senha:"   type="password" id="password" name="password" required>
+      
+      <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button" onclick="entrar()">Entrar</button>
+
+      <a class="se-cadastre" href="tela_cadastro.html">
+        <span class="esquece-senha">Se cadastre aqui!</span>
+      </a>
+    </form>
+  </div>
+</body>
+</html>
+
+<script>
+
+function verificar() {
+    var inputEmail = inp_usermail.value;
+
+    var indice_arroba = inp_usermail.indexOf('@');
+    var indice_ponto = password.lastIndexOf('.');
+
+    if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
+        alert("Por favor, preencha o campo de e-mail corretamente");
+        return false;
+    }
+
+    if (inputEmail !== "fernando.brandao@sptech.school") {
+        alert("Usuário inválido");
+        return false;
+    }
+
+    window.location.href = 'tela_dashboard.html';
+}
+
+function entrar() {
+
+        var emailVar = inp_usermail.value;
+        var senhaVar = password.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            alert = ("Preencha todos os campos devidamente");
+            
+            return false;
+        }
+        else {
+            
+        
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuario/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resultadoAutenticar) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resultadoAutenticar.ok) {
+                console.log(resultadoAutenticar);
+
+                resultadoAutenticar.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.EMPRESAID = json.idEmpresa;
+                    sessionStorage.TIPO_USUARIO = json.tipoUsuario;
+                    sessionStorage.SENHA = json.senha;
+                    sessionStorage.TELEFONE_USUARIO = json.telefone;
+
+                    if(sessionStorage.TIPO_USUARIO == 'Administrador'){
+                      setTimeout(function () {
+                        window.location = "tela_dashboardADM.html";
+                    }, 1000); // apenas para exibir o loading  
+                    } else{
+                      setTimeout(function () {
+                          window.location = "tela_dashboardCOMUM.html";
+                      }, 1000); // apenas para exibir o loading
+                    }
+
+
+                });
+
+            } else {
+                alert("Houve um erro ao tentar realizar o login!");              
+                console.log("Houve um erro ao tentar realizar o login!");
+
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+      }
+    }
+
+
+
+</script>

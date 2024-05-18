@@ -1,0 +1,417 @@
+/*FONTE
+     font-family: "Karla", sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+/*PADRONIZAÇÃO E RESET*/
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Karla", sans-serif;
+}
+
+.area_edit .fa-pen {
+    color: #297011;
+    font-size: 35px;
+    margin: 10px;
+}
+
+.area_edit {
+    display: flex;
+}
+
+.logo {
+    position: absolute;
+    /*Define a logo como "LIVRE" assim posso mover da forma que eu desejar, usando top e rigth*/
+    right: 0%;
+    width: 7%;
+    top: 0%;
+}
+
+/* CSS DO MENU */
+
+/*TEXTOS DO MENU*/
+.menu h3 {
+    color: white;
+    font-weight: bold;
+    font-family: "Karla", sans-serif;
+    padding-top: 15px;
+}
+
+.menu a {
+    text-decoration: none;
+    /*Retira o sublinhado do texto, por ser tag <a> de ancora, ele fica com sublinhado*/
+}
+
+.menu_list li {
+    list-style: none;
+    font-family: "Karla", sans-serif;
+    color: white;
+    transition: all 0.5s;
+    text-align: left;
+}
+
+.menu_list li:hover {
+    background-color: #29701191;
+}
+
+/* FIM - TEXTOS DO MENU - FIM */
+
+.menu {
+    background-color: #297011;
+    width: 10%;
+    padding-left: 15px;
+    height: 100vh;
+    /*100 vh siginifico 100% da tela, por ser heigth quer dize que ocupara 100% da altura da tela do usuario*/
+    position: fixed;
+    /*Ao colocar fixed o menu lateral fica literalmente fixo e imovel verticalmente*/
+}
+
+.menu_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /*Por ter varios itens na tag <ul> eu crio um gap ou seja um espaço entre eles*/
+}
+
+.menu h3 {
+    margin-bottom: 10px;
+    /*Margin normal, porem definida apenas na parte inferior do objeto*/
+}
+
+/*Codigo foto menu user*/
+.foto_user_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    gap: 5px;
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    left: 0%;
+}
+
+.foto_user_box img {
+    width: 75px;
+    border-radius: 50%;
+}
+
+.foto_user_box h5 {
+    margin-bottom: 15px;
+}
+
+/* FIM - CSS DO MENU - FIM */
+
+
+
+.box_dados div {
+    width: 185px;
+    border: thin solid #9BE78D;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 20px 60px #d7d7d7, -20px -20px 60px #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box_dados {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+    gap: 2%;
+}
+
+.grafico_box {
+    width: 75%;
+    margin: auto;
+}
+
+.titulo_grafico {
+    margin-top: 5%;
+}
+
+/* CSS CARDS */
+
+
+/*ajustes div, definindo seu espaço */
+.conteudo {
+    padding: 1% 0% 11% 13%;
+}
+
+.conteudo_usuario {
+    text-align: center;
+}
+
+.conteudo_usuario h1 {
+    color: #297011;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.img_edit_user {
+    text-align: center;
+}
+
+.img_edit_user img {
+    width: 8%;
+    border-radius: 50%;
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    padding: 50px;
+}
+
+.form input {
+    border: 2px solid #297011;
+    border-radius: 4px;
+    box-shadow: 0px 3px 4px rgb(122, 122, 122);
+    padding: 15px;
+    text-align: left;
+}
+
+.btForm {
+    float: right;
+    background-color: #297011;
+    color: white;
+    width: 200px;
+    text-align: center !important;
+    /*logo acima temos um text align em todos os inputs e esse btn é um input e ficaria na esquerda porem com esse important ele é obrigado a ficar no centro */
+    cursor: pointer;
+}
+
+.btForm input {
+    box-shadow: none;
+}
+
+.cards_grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 45px 0px;
+    justify-items: center;
+}
+
+/*TEXTOS CARDS*/
+.card h3 {
+    font-size: 25px;
+}
+
+.card h4 {
+    font-size: 16px;
+}
+
+.conteudo a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+/* Cards do conteudo */
+
+.conteudo h1 {
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.card div:first-child {
+    height: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.card div:first-child i {
+    cursor: pointer;
+}
+
+.card {
+    display: flex;
+    padding: 10px 10px;
+    width: 275px;
+    height: 140px;
+    background-color: white;
+    border: thin solid #9BE78D;
+    box-shadow: 0px 20px 60px #d7d7d7, -20px -20px 60px #ffffff;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.card .fa-dumpster {
+    font-size: 45px;
+
+}
+
+/* CSS MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 520px;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: thin solid #9BE78D;
+    border-radius: 5px;
+    width: 100%;
+    height: 70%;
+}
+
+.modal-content div h5 {
+    margin-bottom: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.closeEdit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal h3 {
+    font-size: 50px
+}
+
+.modal h4 {
+    font-size: 25px;
+}
+
+.modal h5 {
+    font-size: 16px;
+}
+
+.modal i {
+    font-size: 100px;
+}
+
+
+/* Footer */
+
+
+
+/* TODO CODIGO ABAIXO É RESPONSIVO (NOTEBOOK DISPLAY)*/
+
+@media only screen and (max-width: 1600px) {
+    .cards_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        /* Altere conforme necessário */
+        gap: 20px;
+        justify-items: center;
+    }
+
+    .menu {
+        width: 12%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .cards_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        /* Altere conforme necessário */
+        gap: 20px;
+        justify-items: center;
+    }
+
+    .conteudo {
+        width: 85%;
+        padding: 1% 5%;
+    }
+
+}
+
+/* testes */
+.botao {
+    background-color: #297011;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.btn {
+    display: flex;
+    justify-content: end;
+
+}
+
+.btn button {
+    cursor: pointer;
+}
+
+/* TELA DE HISCORICO DA LIXEIRA */
+.info_historico_box {
+    padding: 5%;
+    margin-left: 7.5%;
+}
+
+.grafico_historico_box {
+    padding-bottom: 5%;
+    margin: auto;
+    width: 75%;
+}
+
+.card_historico_box {
+    padding: 2%;
+    margin: auto;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+/* HISTORICO DAS LIXEIRAS */
+.card_historico_box div {
+    padding: 10px;
+    margin-top: 1%;
+    background-color: #9BE78D;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.card_historico_box p {
+    font-size: 25px;
+}
+
+.logOut {
+    color: #fff;
+    font-size: large;
+    font-weight: bolder;
+    margin-top: 25px;
+    width: 80px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.logOut img {
+    width: 20px;
+    border-radius: 0%;
+    padding-left: 10px;
+}

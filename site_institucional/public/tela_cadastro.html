@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/tela_cadastro.css">
+  <title>Tela de cadastro</title>
+</head>
+
+<body onload="listar()">
+  <div id="pai" class="register-container">
+
+    <h1>Cadastro</h1>
+
+    <label style="display: inline-block;" name="Cnpjs" for="Cnpj da sua empresa">Cnpj da sua empresa</label>
+
+    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" id="select_cnpj">
+
+      <option value="#" disabled selected>Cnpj das Empresas</option>
+
+    </select>
+
+    <div id="divcadastro">
+      <form class="register-form">
+        <label for="Nome">Nome:</label>
+        <input type="text" id="inp_nome" name="nome"><br>
+
+        <label for="CPF">CPF:</label>
+        <input type="text" id="inp_cpf" name="cpf"><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="inp_email" name="email"><br>
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="inp_password" name="senha"><br>
+
+        <label for="Confirmar Senha">Confirmar Senha:</label>
+        <input type="password" id="confirmacao_senha_input" name="ConfirmarSenha"><br>
+
+        <label for="telefone">Telefone:</label>
+        <input type="number" id="inp_tel" name="telefone"><br>
+
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="inp_Data" name="dataNascimento"><br>
+
+        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+
+        <button onclick="cadastrar()"
+          style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;">Cadastrar</button>
+
+    </div>
+    <form class="register-form">
+
+      <a class="jatemlogin" href="tela_login.html">
+        <span class="jatemlogin">Já tem um login? Entre aqui</span>
+      </a>
+      <!-- <button type="button" onclick="validarFormulario()">Cadastrar</button> -->
+    </form>
+
+  </div>
+
+</body>
+
+<script>
+
+  // Igual eu disse, se fosse uma função para validar só nesse formulário em especifico, provavelmente daria certo, mas ele dá um alert para verificar e em seguida já roda o innerHTML, porque ele sobrepõe o conteúdo inserido, é meio que automático
+
+  // Não sei real, se essa lógica de usar innerHTML seja a mais correta.
+
+  // function mudar() {
+  //   var select = select_usuario.value;
+
+  //   if (select == 'Empresa') {
+  //     divcadastro.innerHTML = `<form class="register-form">
+  //         <label for="Nome">Nome:</label>
+  //         <input type="text" id="inp_nome" name="nome"><br>
+          
+  //         <label for="CNPJ">CNPJ:</label>
+  //         <input type="text" id="inp_cnpj" name="cnpj"><br>  <!-- Coloquei "text" para verificar quantos caracteres tem e transformo para numero na verificação -->
+          
+  //         <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+  //         <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+          
+          
+  //         <button type="menu" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" onclick="adm()">Cadastrar</button>
+  //         </form>
+  //         `;
+
+  //   } else if (select == 'Administrador') {
+  //     divcadastro.innerHTML = `<form class="register-form">
+  //       <label for="Nome">Nome:</label>
+  //       <input type="text" id="inp_nome" name="nome"><br>
+  
+  //       <label for="CPF">CPF:</label>
+  //       <input type="text" id="inp_cpf" name="cpf"><br>
+  
+  //       <label for="CPF">CNPJ:</label>
+  //       <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+  //       <label for="email">Email:</label>
+  //       <input type="text" id="inp_email" name="email"><br>
+  
+  //       <label for="senha">Senha:</label>
+  //       <input type="password" id="inp_password" name="senha"><br>
+  
+  //       <label for="telefone">Telefone:</label>
+  //       <input type="number" id="inp_tel" name="telefone"><br>
+  
+  //       <label for="dataNascimento">Data de nascimento:</label>
+  //       <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+  //       <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+  //       <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+  //       <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+
+  //   }
+    // else if (select == 'Comum') {
+    //   divcadastro.innerHTML = `<form class="register-form">
+    //   <label for="Nome">Nome:</label>
+    //   <input type="text" id="inp_nome" name="nome"><br>
+
+    //   <label for="CPF">CPF:</label>
+    //   <input type="text" id="inp_cpf" name="cpf"><br>
+
+    //   <label for="CPF">CNPJ:</label>
+    //   <input type="text" id="inp_cnpj" name="cnpj"><br>
+
+    //   <label for="email">Email:</label>
+    //   <input type="text" id="inp_email" name="email"><br>
+
+    //   <label for="senha">Senha:</label>
+    //   <input type="password" id="inp_password" name="senha"><br>
+
+    //   <label for="telefone">Telefone:</label>
+    //   <input type="number" id="inp_tel" name="telefone"><br>
+
+    //   <label for="dataNascimento">Data de nascimento:</label>
+    //   <input type="date" id="inp_Data" name="dataNascimento"><br>
+
+    //   <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+    //   <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+
+    //   <button onclick="validarFormulario(event)" type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+    // }
+  // }
+
+  // function adm() {
+  //   var inputNome = inp_nome.value;
+
+  //   var inputCnpj = inp_cnpj.value;
+
+  //   var termosCheckbox = document.getElementById("termos");
+
+  //   var char14CNPJ = inputCnpj.length;
+
+  //   inputCnpj = Number(inp_cnpj.value);
+
+  //   if (inputNome == "" || inputCnpj == "" || !termosCheckbox.checked || char14CNPJ < 14) {
+  //     alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+  //     return false;
+  //   } else {
+  //     pai.innerHTML = `<h1>Cadastro de Administrador</h1> 
+  
+  // <div id="divcadastro">
+  //     <form class="register-form">
+  // <label for="Nome">Nome:</label>
+  // <input type="text" id="inp_nome" name="nome"><br>
+  
+  // <label for="CPF">CPF:</label>
+  // <input type="text" id="inp_cpf" name="cpf"><br>   
+  
+  // <label for="CPF">CNPJ:</label>
+  // <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+  // <label for="email">Email:</label>
+  // <input type="text" id="inp_email" name="email"><br>
+  
+  // <label for="senha">Senha:</label>
+  // <input type="password" id="inp_password" name="senha"><br>
+  
+  // <label for="telefone">Telefone:</label>
+  // <input type="number" id="inp_tel" name="telefone"><br>
+  
+  // <label for="dataNascimento">Data de nascimento:</label>
+  // <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+  // <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+  // <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+  // <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>
+  // </div>
+  // </form>
+  // `
+  //   };
+  // }
+
+  // function validarFormulario(event) {
+  //   event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+
+    // var inputNome = inp_nome.value;
+    // var inputCpf = inp_cpf.value;
+    // var inputCnpj = inp_cnpj.value;
+    // var inputEmail = inp_email.value;
+    // var inputPassword = inp_password.value;
+    // var inputTel = inp_tel.value;
+    // var inputData = inp_Data.value;
+    // var termosCheckbox = document.getElementById("termos");
+
+    // var indice_arroba = inputEmail.indexOf('@');
+    // var indice_com = inputEmail.indexOf('.com');
+
+    // if (inputNome.trim() === "" || inputCpf.length < 11 || inputCnpj.length < 14 || inputEmail === "" || inputPassword === "" || isNaN(inputTel) || !termosCheckbox.checked || indice_arroba < 0 || indice_com < 0) {
+    //   alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+    //   return false;
+    // } else {
+    //   alert("Formulário enviado com sucesso!");
+    //   window.location.href = "tela_login.html";
+    //   return true;
+    // }
+  // }
+
+  function cadastrar() {
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    event.preventDefault();
+
+    var nomeVar = inp_nome.value;
+    var cpfVar = inp_cpf.value;
+    var emailVar = inp_email.value;
+    var senhaVar = inp_password.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var empresaVar = select_cnpj.value;
+    var telefoneVar = inp_tel.value;
+    var DtNascVar = inp_Data.value;
+    var tipoUsuario = "Administrador"; //Na parte de cadastrar o comum é só setar para exatamente "Comum"
+
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == "" ||
+      empresaVar == "#" ||
+      telefoneVar == "" ||
+      DtNascVar == "" ||
+      confirmacaoSenhaVar != senhaVar ||
+      cpfVar == ""
+    ) {
+
+      alert("Preencha os campos devidamente, lembrando que o cpf deve ter 11 dígitos.");
+      return false;
+
+    } else {
+      // Enviando o valor da nova input
+      fetch("/usuario/Cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          empresaServer: empresaVar,
+          cpfServer: cpfVar,
+          telefoneServer: telefoneVar,
+          DataServer: DtNascVar,
+          tipoUsuarioServer: tipoUsuario
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+
+            alert("Cadastro concluído com sucesso!")
+            setTimeout(() => {
+              window.location.href = "tela_login.html";
+            }, "1000");
+
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+    return false;
+  }
+
+  function listar() {
+
+    fetch("/empresa/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            select_cnpj.innerHTML += `<option value='${empresa.idEmpresa}'>${empresa.Cnpj}</option>`;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    return false;
+  }
+
+
+
+</script>
+</body>
+
+</html>
