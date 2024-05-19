@@ -31,7 +31,7 @@ fkEmpresa int,
 desc Usuario;
 
 Insert into Usuario values
-(default, 12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 1);
+(default, 12345678901,'119945784','Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 1);
 
 select * from Usuario;
 
@@ -75,8 +75,8 @@ select historico.DtTime as "Data e Hora", historico.cheia, Lixeira.cep, Lixeira.
 
 select * from historico;
 
-drop table historico;
-drop table Lixeira;
-drop table Usuario;
-drop table Empresa;
-drop database smartbin;
+-- drop table historico;
+-- drop table Lixeira;
+-- drop table Usuario;
+-- drop table Empresa;
+-- drop database smartbin;

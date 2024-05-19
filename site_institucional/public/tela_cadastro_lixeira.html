@@ -10,6 +10,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/dashboard.css">
 
+      <!-- Biblioteca de mascara input -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
 </head>
 
 <body>
@@ -17,22 +21,22 @@
         <div class="menu">
             <h3>Bairros</h3>
             <ul class="menu_list">
-                <a href="../html/tela_dashboard.html">
+                <a href="tela_dashboard.html">
                     <li>Todos os bairros</li>
                 </a>
-                <a href="../html/boa_vista.html">
+                <a href="boa_vista.html">
                     <li>Boa Vista</li>
                 </a>
-                <a href="../html/jardim_paulista.html">
+                <a href="jardim_paulista.html">
                     <li>Jardim Paulista</li>
                 </a>
-                <a href="../html/jabaquara.html">
+                <a href="jabaquara.html">
                     <li>Jabaquara</li>
                 </a>
-                <a href="../html/santa_cecilia.html">
+                <a href="santa_cecilia.html">
                     <li>Santa Cecília</li>
                 </a>
-                <a href="../html/santo_amaro.html">
+                <a href="santo_amaro.html">
                     <li>Santo Amaro</li>
                 </a>
             </ul>
@@ -64,15 +68,15 @@
 
                         <input id="input_nome" value="" type="text" placeholder="Lixeira"><br>
 
-                        <input id="input_cep" type="text" placeholder="Cep" maxlength="8"><br>
-
-                        <input id="input_bairro" type="text" placeholder="Bairro"><br>
+                        <input id="input_cep" type="text" placeholder="Cep" maxlength="9"><br>
 
                         <input id="input_num" type="text" placeholder="Número"><br>
 
                         <input id="input_complemento" type="text" placeholder="Complemento"><br>
+
+                        <input id="input_idEmpresa" type="text" placeholder="Código da empresa"><br>
                         <div>
-                            <input onclick="check()" type="submit" value="Enviar" class="btForm">
+                            <input onclick="cadastrar_lixeira()" type="submit" value="Enviar" class="btForm">
                         </div>
                     </form>
                 </div>
@@ -87,26 +91,65 @@
 
 <script>
 
-    function check() {
+$("#input_cep").mask("00000-000");
 
-        var nome = input_nome.value;
-        var cep = input_cep.value;
-        var bairro = input_bairro.value;
-        var num = input_num.value;
-        var complemento = input_complemento.value;
+    function cadastrar_lixeira() {
 
-        if (nome == "" || cep == "" ||bairro == "" ||num == "" ||complemento == "") {
-            alert("Preencha todos os campos!");
-        } else {    
+        var nomeVar = input_nome.value;
+        var cepVar = input_cep.value;
+        var numVar = input_num.value;
+        var complementoVar = input_complemento.value;
+        var idEmpresaVar = input_idEmpresa.value;
 
-            input_nome.value = ``;
-            input_cep.value = ``;
-            input_bairro.value = ``;
-            input_num.value = ``;
-            input_complemento.value = ``;
+      if (
+        nomeVar == "" ||
+        cepVar == "" ||
+        numVar == "" ||
+        complementoVar == "" ||
+        idEmpresaVar == ""
+        
+      ) {
 
+        alert("Preencha os campos devidamente");
+        return false;
 
-        }
+      } else {
+        // Enviando o valor da nova input cadastrar_lixeira
+        fetch("/lixeira/Cadastrar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServer: nomeVar,
+            cepServer: cepVar,
+            numServer: numVar,
+            complementoServer: complementoVar,
+            idEmpresaServer: idEmpresaVar,
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+              alert("Cadastro concluído com sucesso!")
+              setTimeout(() => {
+                window.location.href = "tela_dashboardADM.html";
+              }, "1000");
+
+            } else {
+              throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+
+      }
+      return false;
     }
 
 </script>

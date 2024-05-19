@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/tela_cadastro.css">
   <title>Tela de cadastro</title>
+
+  <!-- Biblioteca de mascara input -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
 </head>
 
 <body>
@@ -20,7 +25,7 @@
 
       <option value="Tipo de usuário:" disabled selected>Tipo de usuário</option>
       <!-- <option value="Empresa">Empresa</option> -->
-      <option value="Adm">Administrador</option>
+      <option value="Administrador">Administrador</option>
       <option value="Comum">Comum</option>
     </select>
 
@@ -65,7 +70,7 @@
 
       //   } else
 
-      if (select == 'Adm') {
+      if (select == 'Administrador') {
         divcadastro.innerHTML = `<form class="register-form">
         <label for="Nome">Nome:</label>
         <input type="text" id="inp_nome" name="nome"><br>
@@ -129,15 +134,17 @@
         <button onclick="cadastrar()" type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;">Cadastrar</button>`;
       }
     }
+
+
     
-    
+  $("#inp_cpf").mask("00000000000");
+
     function cadastrar() {
 
       //Recupere o valor da nova input pelo nome do id
       // Agora vá para o método fetch logo abaixo
       event.preventDefault();
 
-      var select = select_usuario.value;
       var nomeVar = inp_nome.value;
       var cpfVar = inp_cpf.value;
       var emailVar = inp_email.value;
@@ -146,19 +153,14 @@
       var empresaVar = inp_ID.value;
       var telefoneVar = inp_tel.value;
       var DtNascVar = inp_Data.value;
+      var tipoUsuario = select_usuario.value; //Na parte de cadastrar o comum é só setar para exatamente "Comum"
 
-      if (select == 'Adm'){
-        var tipoUsuario = "Administrador"; //parte que decide o tipo do usuario.
-      }else{
-        var tipoUsuario = "Comum";
-      }
-      
       if (
         nomeVar == "" ||
         emailVar == "" ||
         senhaVar == "" ||
+        empresaVar == "" ||
         confirmacaoSenhaVar == "" ||
-        empresaVar == "#" ||
         telefoneVar == "" ||
         DtNascVar == "" ||
         confirmacaoSenhaVar != senhaVar ||
@@ -193,7 +195,7 @@
 
             if (resposta.ok) {
 
-              alert("Cadastro concluído com sucesso! Redirecionando você para a página anterior.")
+              alert("Cadastro concluído com sucesso!")
               setTimeout(() => {
                 window.location.href = "tela_dashboardADM.html";
               }, "1000");
