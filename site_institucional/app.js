@@ -19,7 +19,7 @@ var app = express();
 var usuarioRouter = require("./src/routes/usuario");
 // var avisosRouter = require("./src/routes/avisos");
 // var medidasRouter = require("./src/routes/medidas");
-// var aquariosRouter = require("./src/routes/aquarios");
+var lixeiraRouter = require("./src/routes/lixeira");
 var empresasRouter = require("./src/routes/empresa");
 
 app.use(express.json());
@@ -32,8 +32,9 @@ app.use(cors());
 app.use("/usuario", usuarioRouter);
 // app.use("/avisos", avisosRouter);
 // app.use("/medidas", medidasRouter);
-// app.use("/aquarios", aquariosRouter);
+app.use("/lixeira", lixeiraRouter);
 app.use("/empresa", empresasRouter);
+
 
 
 app.listen(PORTA_APP, function () {

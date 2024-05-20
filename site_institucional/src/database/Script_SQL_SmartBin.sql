@@ -18,6 +18,7 @@ create table Usuario (
 idUsuario int primary key auto_increment,
 cpf char(11),
 telefone varchar(35),
+DtNasc date,
 TipoUsuario varchar (50),
 constraint chkTipo check (TipoUsuario in ('Administrador', 'Comum')),
 NomeUsuario varchar (50),

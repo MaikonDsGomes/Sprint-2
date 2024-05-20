@@ -1,7 +1,7 @@
 var lixeiraModel = require("../models/lixeiraModel");
 
 
-function cadastrar(req, res) {
+function cadastrarLixeira(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var cep = req.body.cepServer;
@@ -44,5 +44,5 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-    cadastrar
+    cadastrarLixeira
 }
