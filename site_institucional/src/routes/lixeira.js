@@ -10,5 +10,10 @@ router.post("/cadastrar", function (req, res) {
     console.log("to no routes")
 })
 
+router.get("/listar/:idEmpresa", function (req, res) {
+    lixeiraController.listarLixeira(req, res);
+    console.log("to no routes")
+})
+
 
 module.exports = router;
