@@ -2,6 +2,7 @@ create database SmartBin;
 use SmartBin;
 
 
+
 -- EMPRESA
 create table Empresa (
 idEmpresa int primary key auto_increment,
@@ -21,13 +22,13 @@ insert into Empresa(Cnpj, NomeEmpresa, RazaoSocial, QtdLixeiras) values
 create table Usuario (
 idUsuario int primary key auto_increment,
 cpf char(11),
-telefone varchar(45),
 TipoUsuario varchar (50),
 constraint chkTipo check (TipoUsuario in ('Administrador', 'Comum')),
 NomeUsuario varchar (50),
 EmailUsuario varchar (50),
 	constraint chEmailUsuario check (EmailUsuario like '%@%' and EmailUsuario like '%.com'),
 Senha varchar (15),
+Telefone varchar(50),
 fkEmpresa int, 
 	constraint fkUsuarioEmpresa foreign key (fkEmpresa)
     references Empresa(idEmpresa)
@@ -35,7 +36,7 @@ fkEmpresa int,
 desc Usuario;
 
 Insert into Usuario values
-(default, 12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', 1);
+(default, 12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', '11959395227' , 1);
 
 select * from Usuario;
 
@@ -47,18 +48,21 @@ nomeLixeira varchar(45),
 cep char(9),
 numero varchar(45),
 Complemento varchar(45),
+Lixeira varchar(50),
+Bairro varchar(50),
 fkEmpresa int,
 	constraint fkLixeiraEmpresa foreign key (fkEmpresa)
     references Empresa(idEmpresa)
 );
-desc lixeira;
+desc lixeira; 
 
-insert into Lixeira (cep,numero,Complemento,fkEmpresa) values 
-('123456789', '2801', 'Em frente a APAE', 1),
-('123456787', '589', 'Do lado do Digital Building', 1),
-('123456788', '257', 'Em frente ao Starbucks', 1);
+insert into Lixeira (cep,numero,Complemento, Bairro,fkEmpresa) values 
+('123456789', '2801', 'Em frente a APAE', 'Boa Vista', 1),
+('123456787', '589', 'Do lado do Digital Building', 'Jabaquara', 1),
+('123456788', '257', 'Em frente ao Starbucks', 'Jardim Paulista' ,  1);
 
 select * from Lixeira;
+
 
 -- SENSOR
 
@@ -108,8 +112,8 @@ select historico.DtTime as "Data e Hora", historico.EstadoAtual, Lixeira.cep, Li
     join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa;
     
 
-drop table historico;
-drop table Lixeira;
-drop table Usuario;
-drop table Empresa;
-drop database smartbin;
+-- drop table historico;
+-- drop table Lixeira;
+-- drop table Usuario;
+-- drop table Empresa;
+-- drop database smartbin;
