@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
-<body>
+<body onload="atualizarFeed()">
     <div class="content">
         <div class="menu">
             <h3>Bairros</h3>
@@ -37,22 +37,18 @@
             </ul>
             <h3>Configurações</h3>
             <ul class="menu_list">
-                <a href="tela_cadastro_lixeira.html">
-                    <li>Adicionar lixeira</li>
-                </a>
-                <a href="tela_cadastro_logado.html">
-                    <li>Adicionar Usuário</li>
-                </a>
+                <div id="div_links">
+                    
+                </div>
                 <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
                 </a>
             </ul>
             <a class="logOut" href="tela_inicio.html">Sair <img src="../img/logOut.png" alt=""></a>
 
-            <div class="foto_user_box">
+            <div id="usuario" class="foto_user_box">
                 <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
-                <h4>Fernando Duarte</h4>
-                <h5>Administrador</h5>
+                
             </div>
         </div>
         <div class="conteudo">
@@ -106,6 +102,33 @@
             alert("Olá, Brandão! Essa função está em desenvolvimento! Volte na sprint 3 :)");
 
         
+        }
+    }
+
+    function atualizarFeed() {
+        function atualizarFeed() {
+            // parte que coloca o nome e o tipo do usuário embaixo
+
+            var nome = sessionStorage.NOME_USUARIO;
+            var tipo = sessionStorage.TIPO_USUARIO;
+
+            usuario.innerHTML = `<h4>${nome}</h4>
+                <h5>${tipo}</h5>`
+
+
+            // parte que decide se irá mostrar opções como add um usuário e entre outros
+            if (tipo == 'Administrador') {
+                div_links.innerHTML = `<a href="tela_cadastro_lixeira.html">
+                        <li>Adicionar lixeira</li>
+                    </a>
+                    <a href="tela_cadastro_logado.html">
+                        <li>Adicionar Usuário</li>
+                    </a>
+                    <a href="BobIA.html">
+                        <li>Área Técnica</li>
+                    </a>`
+            }
+
         }
     }
 </script>

@@ -7,7 +7,7 @@ const mysql = require('mysql2'); // Módulo para conectar ao MySQL
 // Constantes para configurações
 // não altere!
 const SERIAL_BAUD_RATE = 9600;
-const SERVIDOR_PORTA = 3300;
+const SERVIDOR_PORTA = 3331;
 
 // Habilita ou desabilita a inserção de dados no banco de dados
 // false -> nao insere

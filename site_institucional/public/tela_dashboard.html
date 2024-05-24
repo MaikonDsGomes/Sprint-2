@@ -42,13 +42,9 @@
             </ul>
             <h3>Configurações</h3>
             <ul class="menu_list">
-                <a href="tela_cadastro_lixeira.html">
-                    <li>Adicionar lixeira</li>
-                </a>
-
-                <a href="tela_cadastro_logado.html">
-                    <li>Adicionar Usuário</li>
-                </a>
+                <div id="div_links">
+                    
+                </div>
                 <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
                 </a>
@@ -56,10 +52,9 @@
 
             <a class="logOut" href="index.html">Sair <img src="../img/logOut.png" alt=""></a>
 
-            <div class="foto_user_box">
-               <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
-                <h4>Fernando Duarte</h4>
-                <h5>Administrador</h5>
+            <div id="usuario" class="foto_user_box">
+                <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
+                
             </div>
         </div>
         <div class="conteudo">
@@ -68,7 +63,7 @@
 
             <div class="box_dados">
                 <div>
-                    <h3>Lixeira Nivel <span style="color: #297011;">Baixo</span>  </h3>
+                    <h3>Lixeira Nivel <span style="color: #297011;">Baixo</span> </h3>
                     <p>2</p>
                 </div>
                 <div>
@@ -196,9 +191,9 @@
             <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
         </div>
         <div class="btn btn_historico">
-                <a href="#" id="openModal">
+            <a href="#" id="openModal">
                 <button class="botao">Informações</button>
-                </a>
+            </a>
         </div>
     </div>
 </div>
@@ -281,7 +276,7 @@
                 data: [5, 2, 4, 1, 2, 6, 4],
                 borderWidth: 1,
                 backgroundColor: 'red'
-            }, 
+            },
             {
                 label: 'Lixeira nivel baixo',
                 data: [4, 5, 4, 5, 7, 4, 5],
@@ -304,7 +299,30 @@
         }
     });
 
-     function atualizarFeed() {
+    function atualizarFeed() {
+        // parte que coloca o nome e o tipo do usuário embaixo
+
+        var nome = sessionStorage.NOME_USUARIO;
+        var tipo = sessionStorage.TIPO_USUARIO;
+
+        usuario.innerHTML = `<h4>${nome}</h4>
+                <h5>${tipo}</h5>`
+
+
+        // parte que decide se irá mostrar opções como add um usuário e entre outros
+        if (tipo == 'Administrador') {
+            div_links.innerHTML = `<a href="tela_cadastro_lixeira.html">
+                        <li>Adicionar lixeira</li>
+                    </a>
+                    <a href="tela_cadastro_logado.html">
+                        <li>Adicionar Usuário</li>
+                    </a>
+                    <a href="BobIA.html">
+                        <li>Área Técnica</li>
+                    </a>`
+        }
+
+
         var idEmpresa = sessionStorage.EMPRESAID;
         fetch(`/lixeira/listar/${idEmpresa}`).then(function (resposta) {
             if (resposta.ok) {
