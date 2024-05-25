@@ -16,7 +16,7 @@ function cadastrar(nome, cep, num, complemento, idEmpresa) {
 function listarLixeira(idEmpresa) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarLixeira()");
     var instrucaoSql = `
-    select  Lixeira.idLixeira, historico.DtTime as "Data e Hora", historico.EstadoAtual,Lixeira.nomeLixeira ,Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
+    select  Lixeira.idLixeira, historico.DtTime as "Data e Hora", historico.nivelBaixo, historico.nivelAlto,Lixeira.nomeLixeira ,Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa
@@ -29,7 +29,7 @@ function listarLixeira(idEmpresa) {
 function listarBoaVista(idEmpresa) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarBoaVista()");
     var instrucaoSql = `
-    select  Lixeira.idLixeira, historico.DtTime as "Data e Hora", historico.EstadoAtual,Lixeira.nomeLixeira ,Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
+    select  Lixeira.idLixeira, historico.DtTime as "Data e Hora", historico.nivelBaixo, historico.nivelAlto,Lixeira.nomeLixeira ,Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
 	from historico join Lixeira
     on historico.fkLixeira = Lixeira.idLixeira
     join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa
