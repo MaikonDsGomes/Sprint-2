@@ -76,8 +76,8 @@
                 </div>
             </div>
             <img class="logo" src="img/logo_smartBin-removebg-preview.png" alt="">
-            <div class="cards_grid">
-                <div id="card" class="card">
+            <div class="cards_grid" id="card_vo">
+                <!-- <div id="card" class="card">
                     <a href="#" id="openModal">
                         <h3>
                             Lixeira 1
@@ -100,7 +100,7 @@
                     <i style="color: #297011;" class="fa-solid fa-dumpster"></i>
                     <h4>Rua: owald melo, 2584, Boa Vista</h4>
                     <h4>Nível: <span style="color: #297011;">Baixo</span></h4>
-                </div>
+                </div> -->
             </div>
             <h1 class="titulo_grafico">Gráfico:</h1>
             <div class="grafico_box">
@@ -241,19 +241,18 @@
     });
 
     function atualizarFeed() {
-        function atualizarFeed() {
-            // parte que coloca o nome e o tipo do usuário embaixo
+        // parte que coloca o nome e o tipo do usuário embaixo
 
-            var nome = sessionStorage.NOME_USUARIO;
-            var tipo = sessionStorage.TIPO_USUARIO;
+        var nome = sessionStorage.NOME_USUARIO;
+        var tipo = sessionStorage.TIPO_USUARIO;
 
-            usuario.innerHTML = `<h4>${nome}</h4>
+        usuario.innerHTML = `<h4>${nome}</h4>
                 <h5>${tipo}</h5>`
 
 
-            // parte que decide se irá mostrar opções como add um usuário e entre outros
-            if (tipo == 'Administrador') {
-                div_links.innerHTML = `<a href="tela_cadastro_lixeira.html">
+        // parte que decide se irá mostrar opções como add um usuário e entre outros
+        if (tipo == 'Administrador') {
+            div_links.innerHTML = `<a href="tela_cadastro_lixeira.html">
                         <li>Adicionar lixeira</li>
                     </a>
                     <a href="tela_cadastro_logado.html">
@@ -262,9 +261,76 @@
                     <a href="BobIA.html">
                         <li>Área Técnica</li>
                     </a>`
-            }
-
         }
+
+
+        var idEmpresa = sessionStorage.EMPRESAID;
+        fetch(`/lixeira/listar/boa_vista/${idEmpresa}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var lixeira = resposta[i];
+
+                        // Criação do elemento principal (div) e definição da classe
+                        var cardElement = document.createElement("div");
+                        cardElement.className = "card";
+
+                        // Criação dos elementos HTML internos
+                        var h3Element = document.createElement("h3");
+                        var iconElement = document.createElement("i");
+                        var h4RuaElement = document.createElement("h4");
+                        var h4NivelElement = document.createElement("h4");
+                        var spanNivelElement = document.createElement("span");
+                        var spanNumeroElement = document.createElement("span");
+
+                        // Definição do conteúdo e atributos dos elementos
+                        h3Element.innerHTML = lixeira.nomeLixeira;
+
+                        iconElement.className = "fa-solid fa-dumpster";
+                        iconElement.style.color = "red";
+
+                        h4RuaElement.innerHTML = lixeira.cep;
+                        spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero
+
+                        h4NivelElement.innerHTML = "Nível: ";
+
+                        spanNivelElement.innerHTML = "Alto";
+                        spanNivelElement.style.color = "red";
+
+                        // Construção da hierarquia dos elementos
+                        h4NivelElement.appendChild(spanNivelElement);
+
+                        cardElement.appendChild(h3Element);
+                        cardElement.appendChild(iconElement);
+                        cardElement.appendChild(h4RuaElement);
+                        cardElement.appendChild(spanNumeroElement);
+                        cardElement.appendChild(h4NivelElement);
+                        
+
+                        // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("card_vo").appendChild(cardElement);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
     }
 
 </script>

@@ -351,6 +351,7 @@
                         var h4RuaElement = document.createElement("h4");
                         var h4NivelElement = document.createElement("h4");
                         var spanNivelElement = document.createElement("span");
+                        var spanNumeroElement = document.createElement("span");
 
                         // Definição do conteúdo e atributos dos elementos
                         h3Element.innerHTML = lixeira.nomeLixeira;
@@ -359,6 +360,7 @@
                         iconElement.style.color = "red";
 
                         h4RuaElement.innerHTML = lixeira.cep;
+                        spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero
 
                         h4NivelElement.innerHTML = "Nível: ";
 
@@ -371,7 +373,9 @@
                         cardElement.appendChild(h3Element);
                         cardElement.appendChild(iconElement);
                         cardElement.appendChild(h4RuaElement);
+                        cardElement.appendChild(spanNumeroElement);
                         cardElement.appendChild(h4NivelElement);
+                        
 
                         // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
                         document.getElementById("card_pai").appendChild(cardElement);

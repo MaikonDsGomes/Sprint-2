@@ -15,5 +15,11 @@ router.get("/listar/:idEmpresa", function (req, res) {
     console.log("to no routes")
 })
 
+router.get("/listar/boa_vista/:idEmpresa", function (req, res) {
+    lixeiraController.listarBoaVista(req, res);
+    console.log("to no routes")
+})
+
+
 
 module.exports = router;
