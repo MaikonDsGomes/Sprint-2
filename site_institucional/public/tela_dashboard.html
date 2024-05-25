@@ -43,7 +43,7 @@
             <h3>Configurações</h3>
             <ul class="menu_list">
                 <div id="div_links">
-                    
+
                 </div>
                 <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
@@ -54,7 +54,7 @@
 
             <div id="usuario" class="foto_user_box">
                 <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
-                
+
             </div>
         </div>
         <div class="conteudo">
@@ -359,23 +359,59 @@
                         iconElement.className = "fa-solid fa-dumpster";
                         iconElement.style.color = "red";
 
-                        h4RuaElement.innerHTML = lixeira.cep;
-                        spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero
 
-                        h4NivelElement.innerHTML = "Nível: ";
+                        // CÓDIGO ABAIXO TESTE A SER VALIDADO
 
-                        spanNivelElement.innerHTML = "Alto";
-                        spanNivelElement.style.color = "red";
+
+                        if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
+                            console.log(`NIVEL BAIXO --- VERDE`)
+
+                            h4RuaElement.innerHTML = lixeira.cep;
+                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto:" + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo  ;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Baixo";
+                            spanNivelElement.style.color = "green";
+                            iconElement.style.color = "green";
+
+                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 0) {
+
+                            console.log(`NIVEL MÉDIO --- AMARELO`)
+                            h4RuaElement.innerHTML = lixeira.cep;
+                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo ;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Médio";
+                            spanNivelElement.style.color = "yellow";
+                            iconElement.style.color = "yellow";
+
+                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 1) {
+                            console.log(`NIVEL CRITICO--- VERMELHO`)
+
+                            h4RuaElement.innerHTML = lixeira.cep;
+                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo ;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Alto";
+                            spanNivelElement.style.color = "red";
+                            iconElement.style.color = "red";
+                        }
+
+                        // CÓDIGO ACIMA TESTE A SER VALIDADO
+
+
+                        // h4RuaElement.innerHTML = lixeira.cep;
+                        // spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Ni " + lixeira.nivelAlto;
+                        // h4NivelElement.innerHTML = "Nível: ";
+                        // spanNivelElement.innerHTML = "Alto";
+                        // spanNivelElement.style.color = "red";
+                        
 
                         // Construção da hierarquia dos elementos
                         h4NivelElement.appendChild(spanNivelElement);
-
                         cardElement.appendChild(h3Element);
                         cardElement.appendChild(iconElement);
                         cardElement.appendChild(h4RuaElement);
                         cardElement.appendChild(spanNumeroElement);
                         cardElement.appendChild(h4NivelElement);
-                        
+
 
                         // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
                         document.getElementById("card_pai").appendChild(cardElement);
