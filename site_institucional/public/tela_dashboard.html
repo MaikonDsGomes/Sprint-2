@@ -16,7 +16,7 @@
     <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed(), obterDadosGrafico()">
     <div class="content">
         <div class="menu">
             <h3>Bairros</h3>
@@ -64,21 +64,21 @@
             <div class="box_dados">
                 <div>
                     <h3>Lixeira Nivel <span style="color: #297011;">Baixo</span> </h3>
-                    <p>2</p>
+                    <p id="metrica_card_baixo">0</p>
                 </div>
                 <div>
                     <h3>Lixeira Nivel <span style="color: #d1ce00;">Médio</span></h3>
-                    <p>2</p>
+                    <p id="metrica_card_medio">0</p>
                 </div>
 
                 <div>
                     <h3>Lixeira Nível <span style="color: red;">Alto</span></h3>
-                    <p>6</p>
+                    <p id="metrica_card_alto">0</p>
                 </div>
             </div>
             <div class="cards_grid" id="card_pai">
 
-                
+
                 <!-- <div id="card" class="card">
 
                     <a href="tela_historico.html">
@@ -168,7 +168,7 @@
                     <option value="5">Semana - 08/04/2024 até 14/04/2024</option>
                     <option value="6">Semana - 01/04/2024 até 07/04/2024</option>
                 </select>
-                <canvas id="myChart"></canvas>
+                <canvas id="myChartCanvas"></canvas>
             </div>
         </div>
     </div>
@@ -200,7 +200,7 @@
     </div>
 </div>
 
-<div id="ModalEdicao" class="modal">
+<!-- <div id="ModalEdicao" class="modal">
     <div class="modal-content">
         <span class="closeEdit">&times;</span>
         <h3 contenteditable="true">Lixeira 1</h3>
@@ -217,7 +217,7 @@
             <button class="botao" id="saveButton">salvar</button>
         </div>
     </div>
-</div>
+</div> -->
 
 </html>
 
@@ -244,22 +244,6 @@
         document.querySelector('.openModal').style.display = 'block'; // Mostra a div conteudo novamente
     });
 
-    // Adiciona um evento de clique ao botão "Salvar" no modal de edição
-    document.getElementById('saveButton').addEventListener('click', function () {
-        // Obtém o conteúdo modificado da div ModalEdicao
-        var novoTitulo = document.getElementById('ModalEdicao').querySelector('h3').innerText;
-        var novaRua = document.getElementById('ModalEdicao').querySelector('h4').innerText;
-
-        // Atualiza o conteúdo correspondente na div modal
-        document.getElementById('modal').querySelector('h3').innerText = novoTitulo;
-        document.getElementById('modal').querySelector('h4').innerText = novaRua;
-
-        document.getElementById('card').querySelector('h3').innerText = novoTitulo;
-        document.getElementById('card').querySelector('h4').innerText = novaRua;
-
-        // Esconde o modal de edição
-        document.getElementById('ModalEdicao').style.display = 'none';
-    });
 
     const ctx = document.getElementById('myChart');
 
@@ -301,8 +285,13 @@
         }
     });
 
+
     function atualizarFeed() {
         // parte que coloca o nome e o tipo do usuário embaixo
+
+        var baixoMetrica = 0;
+        var medioMetrica = 0;
+        var altoMetrica = 0;
 
         var nome = sessionStorage.NOME_USUARIO;
         var tipo = sessionStorage.TIPO_USUARIO;
@@ -337,7 +326,7 @@
                 }
 
                 resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
 
                     var feed = document.getElementById("feed_container");
                     for (let i = 0; i < resposta.length; i++) {
@@ -368,32 +357,39 @@
                         if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
                             console.log(`NIVEL BAIXO --- VERDE`)
 
-                            h4RuaElement.innerHTML = lixeira.cep;
-                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto:" + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo  ;
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto:" + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Baixo";
                             spanNivelElement.style.color = "green";
                             iconElement.style.color = "green";
+                            baixoMetrica++;
+                            metrica_card_baixo.innerHTML = baixoMetrica;
+
 
                         } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 0) {
 
                             console.log(`NIVEL MÉDIO --- AMARELO`)
-                            h4RuaElement.innerHTML = lixeira.cep;
-                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo ;
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Médio";
                             spanNivelElement.style.color = "yellow";
                             iconElement.style.color = "yellow";
+                            medioMetrica++;
+                            metrica_card_medio.innerHTML = medioMetrica;
 
                         } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 1) {
                             console.log(`NIVEL CRITICO--- VERMELHO`)
 
-                            h4RuaElement.innerHTML = lixeira.cep;
-                            spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo ;
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Alto";
                             spanNivelElement.style.color = "red";
                             iconElement.style.color = "red";
+                            altoMetrica++;
+                            metrica_card_alto.innerHTML = altoMetrica;
                         }
 
                         // CÓDIGO ACIMA TESTE A SER VALIDADO
@@ -404,7 +400,7 @@
                         // h4NivelElement.innerHTML = "Nível: ";
                         // spanNivelElement.innerHTML = "Alto";
                         // spanNivelElement.style.color = "red";
-                        
+
 
                         // Construção da hierarquia dos elementos
                         h4NivelElement.appendChild(spanNivelElement);
@@ -428,6 +424,207 @@
             console.error(resposta);
             finalizarAguardar();
         });
+    }
+
+
+    // GRAFICO LIXEIRAS
+
+
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    var idEmpresa = sessionStorage.EMPRESAID;
+
+    function obterDadosGrafico(idEmpresa) {
+
+        //alterarTitulo(idEmpresa)
+
+        var idEmpresa = sessionStorage.EMPRESAID;
+
+        fetch(`/medidas/ultimas/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos GRAFICO: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    plotarGrafico(resposta, idEmpresa);
+
+                });
+            } else {
+                console.error('Nenhum dado GRAFICO encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idEmpresa) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Nível Baixo',
+                    data: [],
+                    backgroundColor: 'green'
+                },
+                {
+                    label: 'Nível Médio',
+                    data: [],
+                    backgroundColor: 'yellow'
+                },
+                {
+                    label: 'Nível Alto',
+                    data: [],
+                    backgroundColor: 'red'
+                }
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela função "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        let diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+        diasSemana.forEach(dia => {
+            labels.push(dia);
+            dados.labels.push(dia);
+            dados.datasets[0].data.push(0); // Nível Baixo
+            dados.datasets[1].data.push(0); // Nível Médio
+            dados.datasets[2].data.push(0); // Nível Alto
+        });
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            let registro = resposta[i];
+            let diaIndex = labels.indexOf(registro.dia);
+
+            if (registro.nivelBaixo === 1 && registro.nivelAlto === 0) {
+                dados.datasets[1].data[diaIndex] += 1; // Nível Médio
+            } else {
+                if (registro.nivelBaixo !== null && registro.nivelBaixo !== undefined) {
+                    dados.datasets[0].data[diaIndex] += registro.nivelBaixo;
+                }
+                if (registro.nivelAlto !== null && registro.nivelAlto !== undefined) {
+                    dados.datasets[2].data[diaIndex] += registro.nivelAlto;
+                }
+            }
+        }
+
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Dias da Semana'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas`),
+            config
+        );
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idEmpresa, dados, myChart) {
+
+        fetch(`/medidas/tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    obterdados(idEmpresa);
+                    // alertar(novoRegistro, idEmpresa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura${idEmpresa}`)
+                    avisoCaptura.innerHTML = ""
+
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                        myChart.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
     }
 
 </script>
