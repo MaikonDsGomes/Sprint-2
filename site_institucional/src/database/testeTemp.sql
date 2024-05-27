@@ -270,6 +270,20 @@ WHERE
     AND HOUR(historico.DtTime) BETWEEN 18 AND 19
 ORDER BY 
     Lixeira.idLixeira, historico.DtTime;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
