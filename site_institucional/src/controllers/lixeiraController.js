@@ -45,8 +45,13 @@ function cadastrarLixeira(req, res) {
 
 function listarLixeira(req, res) {
     var idEmpresa = req.params.idEmpresa;
+    var selectValor = req.params.selectValor;
 
-    lixeiraModel.listarLixeira(idEmpresa)
+    if (selectValor == 1){
+        selectValor = "%";
+    }
+
+    lixeiraModel.listarLixeira(idEmpresa, selectValor)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -68,10 +73,10 @@ function listarLixeira(req, res) {
         );
 }
 
-function listarBoaVista(req, res) {
+function listarBairros(req, res) {
     var idEmpresa = req.params.idEmpresa;
-
-    lixeiraModel.listarBoaVista(idEmpresa)
+    console.log("ESTOU NO CONTROLLER LISTAR BAIRROS --------------------------")
+    lixeiraModel.listarBairros(idEmpresa)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -96,5 +101,5 @@ function listarBoaVista(req, res) {
 module.exports = {
     cadastrarLixeira,
     listarLixeira,
-    listarBoaVista
+    listarBairros
 }

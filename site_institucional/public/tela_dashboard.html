@@ -16,7 +16,8 @@
     <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
 </head>
 
-<body onload="atualizarFeed(), obterDadosGrafico()">
+
+<body onload="atualizaSelectBairro(), atualizarFeed(), obterDadosGrafico()">
     <div class="content">
         <div class="menu">
             <h3>Bairros</h3>
@@ -75,6 +76,11 @@
                     <h3>Lixeira Nível <span style="color: red;">Alto</span></h3>
                     <p id="metrica_card_alto">0</p>
                 </div>
+            </div>
+            <div id="filtroSelect">
+                <select id="select_bairro" onchange="atualizarFeed()">
+                    <option selected value="1">Todos os Bairros</option>
+                </select>
             </div>
             <div class="cards_grid" id="card_pai">
 
@@ -286,8 +292,46 @@
     });
 
 
+    function atualizaSelectBairro() {
+        var idEmpresa = sessionStorage.EMPRESAID;
+
+        fetch(`/lixeira/listarBairro/${idEmpresa}`).then(function (resposta) {
+            console.log("Dados recebidos Bairros: ", JSON.stringify(resposta));
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var feed = document.getElementById("feed_container");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
+
+                    var select = document.getElementById("select_bairro")
+                    for (let i = 0; i < resposta.length; i++) {
+                        var tabela = resposta[i];
+
+                        var opt = document.createElement("option");
+
+                        opt.innerHTML = `<option value="${tabela.Bairro}">${tabela.Bairro}</option>`;
+
+                        select.appendChild(opt);
+
+                    }
+                })
+            } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+    }
+
     function atualizarFeed() {
         // parte que coloca o nome e o tipo do usuário embaixo
+        card_pai.innerHTML = "";
 
         var baixoMetrica = 0;
         var medioMetrica = 0;
@@ -295,6 +339,8 @@
 
         var nome = sessionStorage.NOME_USUARIO;
         var tipo = sessionStorage.TIPO_USUARIO;
+
+        var selectValor = select_bairro.value;
 
         usuario.innerHTML = `<h4>${nome}</h4>
                 <h5>${tipo}</h5>`
@@ -315,7 +361,7 @@
 
 
         var idEmpresa = sessionStorage.EMPRESAID;
-        fetch(`/lixeira/listar/${idEmpresa}`).then(function (resposta) {
+        fetch(`/lixeira/listar/${idEmpresa}/${selectValor}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -415,14 +461,13 @@
                         document.getElementById("card_pai").appendChild(cardElement);
                     }
 
-                    finalizarAguardar();
+
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            finalizarAguardar();
         });
     }
 

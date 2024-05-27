@@ -10,13 +10,13 @@ router.post("/cadastrar", function (req, res) {
     console.log("to no routes")
 })
 
-router.get("/listar/:idEmpresa", function (req, res) {
+router.get("/listar/:idEmpresa/:selectValor", function (req, res) {
     lixeiraController.listarLixeira(req, res);
     console.log("to no routes")
 })
 
-router.get("/listar/boa_vista/:idEmpresa", function (req, res) {
-    lixeiraController.listarBoaVista(req, res);
+router.get("/listarBairro/:idEmpresa", function (req, res) {
+    lixeiraController.listarBairros(req, res);
     console.log("to no routes")
 })
 

@@ -13,7 +13,7 @@ function cadastrar(nome, cep, num, complemento, idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
-function listarLixeira(idEmpresa) {
+function listarLixeira(idEmpresa, selectValor) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarLixeira()");
     var instrucaoSql = `
     SELECT 
@@ -24,7 +24,7 @@ function listarLixeira(idEmpresa) {
     Lixeira.nomeLixeira,
     Lixeira.cep, 
     Lixeira.numero, 
-    Lixeira.Complemento, 
+    Lixeira.Complemento,
     Empresa.nomeEmpresa as Empresa
 FROM 
     historico 
@@ -33,7 +33,7 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = ${idEmpresa}
+    Empresa.idEmpresa = ${idEmpresa} and Lixeira.Bairro like '${selectValor}'
 GROUP BY 
     Lixeira.idLixeira,
     Lixeira.nomeLixeira,
@@ -46,14 +46,10 @@ GROUP BY
     return database.executar(instrucaoSql);
 }
 
-function listarBoaVista(idEmpresa) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarBoaVista()");
+function listarBairros(idEmpresa) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarBairros()");
     var instrucaoSql = `
-    select  Lixeira.idLixeira, historico.DtTime as "Data e Hora", historico.nivelBaixo, historico.nivelAlto,Lixeira.nomeLixeira ,Lixeira.cep, Lixeira.numero, Lixeira.Complemento, Empresa.nomeEmpresa as Empresa
-	from historico join Lixeira
-    on historico.fkLixeira = Lixeira.idLixeira
-    join Empresa on Lixeira.fkEmpresa = Empresa.idEmpresa
-    where idEmpresa = ${idEmpresa} and Bairro = 'Boa Vista';
+    select distinct Bairro from lixeira join empresa on fkEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -63,5 +59,5 @@ function listarBoaVista(idEmpresa) {
 module.exports = {
     cadastrar,
     listarLixeira,
-    listarBoaVista
+    listarBairros
 };
