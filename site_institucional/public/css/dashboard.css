@@ -215,6 +215,7 @@
 /* Cards do conteudo */
 
 .conteudo h1 {
+    margin-top: 25px;
     padding-bottom: 30px;
     text-align: center;
 }
