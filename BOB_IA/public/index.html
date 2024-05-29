@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BobIA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="BOBia.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
 
     <div id="container">
-        <h1>Faça uma pergunta técnica</h1>
-        <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
-        <br><br>
-        <button onclick="gerarResposta()">Pergunte</button>
-        <h3>Resposta da IA:</h3>
-        <div id="resposta"></div>
+        <h1>Faça uma pergunta técnica</h1><br>
+        <div id="box">
+            <div id="log">
+                <img class="logo" src="./img/logo_smartBin-removebg-preview.png" alt="">
+            </div>
+            <div id="log2">
+                <div id="resposta"></div>
+            </div>
+
+            <!-- <h3>Resposta da IA:</h3> -->
+            <div id="resp">
+                <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+                <button onclick="gerarResposta()"><img src="https://cdn-icons-png.flaticon.com/512/8446/8446487.png"
+                        alt="" style="width: 30px; height: 30px;display: flex; align-items: center;"></button>
+            </div>
+        </div>
     </div>
 
     <script>
-        
+
         async function gerarResposta() {
             const pergunta = document.getElementById('pergunta').value;
 
@@ -34,9 +47,13 @@
 
             resposta.style.display = 'block';
             document.getElementById('resposta').innerText = data.resultado;
+
+            resposta.style.height = 'auto'; // Ajusta a altura conforme o conteúdo
+
         }
 
     </script>
-    
+
 </body>
+
 </html>

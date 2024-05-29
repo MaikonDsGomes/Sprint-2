@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+h1{
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+}
+
+.logo {
+    display: flex;
+    width: 100px;
+    height: 100px;
+}
+
+#log {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: -webkit-linear-gradient(to right, #2ceab1, #46f661); 
+    background: linear-gradient(to right, #41d739, #30d892); color: black;
+    background-image: url(https://png.pngtree.com/background/20210716/original/pngtree-cartoon-scene-mountain-sunset-glow-background-low-poly-3d-rendering-picture-image_1343851.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative; }
+
+    body:after {
+        position: absolute;
+        content: ""; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        opacity: .8;
+        z-index: -1;
+        background: #0ed1f3;
+        background: -webkit-linear-gradient(to right, #14db74, #24de58);
+        background: linear-gradient(to right, #036c3e, #5eba39, #0c8104); 
+      }
+      
+
+#box {
+    background-color: rgba(255, 255, 255, 0.623);
+    width: 30%;
+    min-height: 500px;
+    border-radius: 40px;
+    border: 2px solid #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: transform 1s;
+    transform: translateX(0) scale(1.0);
+}
+
+#box:hover,
+#box:focus {
+    background-color: rgba(255, 255, 255, 0.623);
+    width: 30%;
+    min-height: 500px;
+    border-radius: 40px;
+    border: 2px solid #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transform: translateX(10px) scale(1.1);
+}
+
+#resp {
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#pergunta {
+    border-radius: 10px;
+    width: 360px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border: 2px solid #02ac1b;
+}
+
+button {
+    border-radius: 20px;
+    border: 2px solid #02ac1b;
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+#resposta {
+    text-align: center;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+#log2 {
+    background-color: #fff;
+    border: 2px solid #02ac1b;
+    border-radius: 20px;
+    width: 97%;
+    min-height: 250px;
+    height: auto;
+    overflow: auto;
+    margin-left: 4px;
+}
