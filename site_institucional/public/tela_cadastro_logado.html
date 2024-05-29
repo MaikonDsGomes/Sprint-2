@@ -34,9 +34,7 @@
     </div>
     <form class="register-form">
 
-      <a class="jatemlogin" href="tela_loginSmartBIN.html">
-        <span class="jatemlogin">Já tem um login? Entre aqui</span>
-      </a>
+      
       <!-- <button type="button" onclick="validarFormulario()">Cadastrar</button> -->
     </form>
 
@@ -78,9 +76,6 @@
         <label for="CPF">CPF:</label>
         <input type="text" id="inp_cpf" name="cpf"><br>
   
-        <label for="ID da Empresa">ID da Empresa:</label>
-        <input type="text" id="inp_ID" name="cnpj"><br>
-  
         <label for="email">Email:</label>
         <input type="text" id="inp_email" name="email"><br>
   
@@ -91,10 +86,7 @@
         <input type="password" id="confirmacao_senha_input" name="ConfirmarSenha"><br>
   
         <label for="telefone">Telefone:</label>
-        <input type="number" id="inp_tel" name="telefone"><br>
-  
-        <label for="dataNascimento">Data de nascimento:</label>
-        <input type="date" id="inp_Data" name="dataNascimento"><br>
+        <input type="text" id="inp_tel" name="telefone"><br>
   
         <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
         <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
@@ -110,8 +102,6 @@
         <label for="CPF">CPF:</label>
         <input type="text" id="inp_cpf" name="cpf"><br>
   
-        <label for="ID da Empresa">ID da Empresa:</label>
-        <input type="text" id="inp_ID" name="cnpj"><br>
   
         <label for="email">Email:</label>
         <input type="text" id="inp_email" name="email"><br>
@@ -123,10 +113,7 @@
         <input type="password" id="confirmacao_senha_input" name="ConfirmarSenha"><br>
   
         <label for="telefone">Telefone:</label>
-        <input type="number" id="inp_tel" name="telefone"><br>
-  
-        <label for="dataNascimento">Data de nascimento:</label>
-        <input type="date" id="inp_Data" name="dataNascimento"><br>
+        <input type="text" id="inp_tel" name="telefone"><br>
         
         <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
         <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
@@ -137,7 +124,8 @@
 
 
     
-  $("#inp_cpf").mask("00000000000");
+  $("#inp_cpf").mask("000.000.000.00");
+  $("#inp_tel").mask("(00) 00000-0000");
 
     function cadastrar() {
 
@@ -150,9 +138,9 @@
       var emailVar = inp_email.value;
       var senhaVar = inp_password.value;
       var confirmacaoSenhaVar = confirmacao_senha_input.value;
-      var empresaVar = inp_ID.value;
+
+      var empresaVar = sessionStorage.EMPRESAID;
       var telefoneVar = inp_tel.value;
-      var DtNascVar = inp_Data.value;
       var tipoUsuario = select_usuario.value; //Na parte de cadastrar o comum é só setar para exatamente "Comum"
 
       if (
@@ -162,7 +150,6 @@
         empresaVar == "" ||
         confirmacaoSenhaVar == "" ||
         telefoneVar == "" ||
-        DtNascVar == "" ||
         confirmacaoSenhaVar != senhaVar ||
         cpfVar == ""
       ) {
@@ -183,10 +170,9 @@
             nomeServer: nomeVar,
             emailServer: emailVar,
             senhaServer: senhaVar,
-            empresaServer: empresaVar,
+            codigoServer: empresaVar,
             cpfServer: cpfVar,
             telefoneServer: telefoneVar,
-            DataServer: DtNascVar,
             tipoUsuarioServer: tipoUsuario
           }),
         })

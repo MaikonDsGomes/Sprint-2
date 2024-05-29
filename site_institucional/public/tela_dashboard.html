@@ -56,7 +56,7 @@
                     <p id="metrica_card_alto">0</p>
                 </div>
             </div>
-                
+
             <div class="cards_grid" id="card_pai">
 
 
@@ -140,21 +140,21 @@
             </div>
 
             <div class="grafico_box">
-            <select id="select_bairro" onchange="atualizarFeed()">
-                <option selected value="1">Todos os Bairros</option>
-            </select>
-            <select id="select_semana">
+                <select id="select_bairro" onchange="atualizarFeed()">
+                    <option selected value="1">Todos os Bairros</option>
+                </select>
+                <!-- <select id="select_semana">
                 <option value="1">Essa semana</option>
                 <option value="2">Semana - 29/04/2024 até 05/05/2024</option>
                 <option value="3">Semana - 22/04/2024 até 28/04/2024</option>
                 <option value="4">Semana - 15/04/2024 até 21/04/2024</option>
                 <option value="5">Semana - 08/04/2024 até 14/04/2024</option>
                 <option value="6">Semana - 01/04/2024 até 07/04/2024</option>
-            </select>
+            </select> -->
             </div>
 
             <h1 class="titulo_grafico">Gráfico:</h1>
-            <div class="grafico_box"> 
+            <div class="grafico_box">
                 <canvas id="myChartCanvas"></canvas>
             </div>
         </div>
@@ -187,49 +187,23 @@
     </div>
 </div>
 
-<!-- <div id="ModalEdicao" class="modal">
-    <div class="modal-content">
-        <span class="closeEdit">&times;</span>
-        <h3 contenteditable="true">Lixeira 1</h3>
-        <i style="color: red;" class="fa-solid fa-dumpster"></i>
-        <h4 contenteditable="true">Rua: Consolação, 101, Boa vista</h4>
-        <h4>Nível: <span style="color: red;">Alto</span></h4>
-        <h3>Horarios</h3>
-        <div>
-            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
-            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+<div id="modalGrafico" class="modal">
+    <div id="containerInfoLixeiraModal" class="modal-content">
 
-        </div>
-        <div class="btn">
-            <button class="botao" id="saveButton">salvar</button>
-        </div>
+        <button style="float: right; padding: 5px; background-color: #297011; color: white; cursor:pointer; border: none;" onclick="fecharModalGrafico()">X</button>
+        
+       <h3 id="nomeLixeiraModal"></h3>
+
+        <canvas id="myChartCanvasModal"></canvas>
+
     </div>
-</div> -->
+</div>
 
 </html>
 
 <script>
 
 
-    document.getElementById('openModal').addEventListener('click', function () {
-        document.getElementById('modal').style.display = 'block';
-        document.querySelector('.conteudo').style.display = 'none'; // Oculta a div conteudo
-    });
-
-    document.querySelector('.close').addEventListener('click', function () {
-        document.getElementById('modal').style.display = 'none';
-        document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
-    });
-
-    document.getElementById('EditModal').addEventListener('click', function () {
-        document.getElementById('ModalEdicao').style.display = 'block';
-        document.querySelector('.openModal').style.display = 'none'; // Oculta a div conteudo
-    });
-
-    document.querySelector('.closeEdit').addEventListener('click', function () {
-        document.getElementById('ModalEdicao').style.display = 'none';
-        document.querySelector('.openModal').style.display = 'block'; // Mostra a div conteudo novamente
-    });
 
 
     const ctx = document.getElementById('myChart');
@@ -273,21 +247,145 @@
     });
 
 
+
+
+
+
+    function fecharModalGrafico(){
+        modalGrafico.style.display = "none";
+    }
+    
+
+    function plotarGraficoModal(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Nível Baixo',
+                    data: [],
+                    backgroundColor: 'green'
+                },
+                {
+                    label: 'Nível Médio',
+                    data: [],
+                    backgroundColor: 'yellow'
+                },
+                {
+                    label: 'Nível Alto',
+                    data: [],
+                    backgroundColor: 'red'
+                }
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+
+        let diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+        diasSemana.forEach(dia => {
+            labels.push(dia);
+            dados.labels.push(dia);
+            dados.datasets[0].data.push(0); // Nível Baixo
+            dados.datasets[1].data.push(0); // Nível Médio
+            dados.datasets[2].data.push(0); // Nível Alto
+        });
+
+     
+    
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            let registro = resposta[i];
+            let diaIndex = labels.indexOf(registro.dia);
+
+            nomeLixeiraModal.innerHTML = registro.nomeLixeira;
+
+            if (registro.nivelBaixo === 1 && registro.nivelAlto === 0) {
+                dados.datasets[1].data[diaIndex] += 1; // Nível Médio
+            } else {
+                if (registro.nivelBaixo !== null && registro.nivelBaixo !== undefined) {
+                    dados.datasets[0].data[diaIndex] += registro.nivelBaixo;
+                }
+                if (registro.nivelAlto !== null && registro.nivelAlto !== undefined) {
+                    dados.datasets[2].data[diaIndex] += registro.nivelAlto;
+                }
+            }
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvasModal`),
+            config
+        );
+
+    }
+
+
+
+
+    function funcaoModal(idLixeira) {
+        modalGrafico.style.display = `block`;
+
+        var idEmpresa = sessionStorage.EMPRESAID;
+    
+        fetch(`/medidas/ultimas/graficoModal/${idEmpresa}/${idLixeira}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoModal(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+    }
+
     function atualizaSelectBairro() {
         var idEmpresa = sessionStorage.EMPRESAID;
 
         fetch(`/lixeira/listarBairro/${idEmpresa}`).then(function (resposta) {
             console.log("Dados recebidos Bairros: ", JSON.stringify(resposta));
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var feed = document.getElementById("feed_container");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
 
-                    resposta.json().then(function (resposta) {
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
 
                     var select = document.getElementById("select_bairro")
@@ -303,11 +401,11 @@
                     }
                 })
             } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
 
     function atualizarFeed() {
@@ -329,7 +427,7 @@
 
         // parte que decide se irá mostrar opções como add um usuário e entre outros
         if (tipo == 'Administrador') {
-            div_links.innerHTML = `<a href="tela_cadastro_lixeira.html">
+            div_links.innerHTML = `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
                         <li>Adicionar lixeira</li>
                     </a>
                     <a href="tela_cadastro_logado.html">
@@ -373,6 +471,9 @@
 
                         // Definição do conteúdo e atributos dos elementos
                         h3Element.innerHTML = lixeira.nomeLixeira;
+                        h3Element.className = 'tagFuncaoModal'
+                        h3Element.id = "aGrafico" + lixeira.idLixeira;
+                        h3Element.setAttribute("onclick", `funcaoModal(${lixeira.idLixeira})`);
 
                         iconElement.className = "fa-solid fa-dumpster";
                         iconElement.style.color = "red";
@@ -385,7 +486,7 @@
                             console.log(`NIVEL BAIXO --- VERDE`)
 
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto:" + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Baixo";
                             spanNivelElement.style.color = "green";
@@ -398,7 +499,7 @@
 
                             console.log(`NIVEL MÉDIO --- AMARELO`)
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Médio";
                             spanNivelElement.style.color = "yellow";
@@ -410,7 +511,7 @@
                             console.log(`NIVEL CRITICO--- VERMELHO`)
 
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento + " Alto " + lixeira.nivelAlto + " Baixo: " + lixeira.nivelBaixo;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Alto";
                             spanNivelElement.style.color = "red";

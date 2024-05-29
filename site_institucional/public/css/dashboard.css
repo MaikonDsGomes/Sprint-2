@@ -29,6 +29,12 @@
     top: 0%;
 }
 
+/* tag do listar cards lixeira */
+.tagFuncaoModal{
+    cursor: pointer;
+}
+
+
 /* CSS DO MENU */
 
 /*TEXTOS DO MENU*/

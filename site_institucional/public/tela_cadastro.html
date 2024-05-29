@@ -6,23 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/tela_cadastro.css">
   <title>Tela de cadastro</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
 
-<body onload="listar()">
+<body>
   <div id="pai" class="register-container">
 
     <h1>Cadastro</h1>
 
-    <label style="display: inline-block;" name="Cnpjs" for="Cnpj da sua empresa">Cnpj da sua empresa</label>
-
-    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" id="select_cnpj">
-
-      <option value="#" disabled selected>Cnpj das Empresas</option>
-
-    </select>
+    
 
     <div id="divcadastro">
       <form class="register-form">
+        <label for="codigo">Código:</label>
+        <input type="password" id="inp_codigo" name="codigo"><br>
+
         <label for="Nome">Nome:</label>
         <input type="text" id="inp_nome" name="nome"><br>
 
@@ -40,9 +40,6 @@
 
         <label for="telefone">Telefone:</label>
         <input type="number" id="inp_tel" name="telefone"><br>
-
-        <label for="dataNascimento">Data de nascimento:</label>
-        <input type="date" id="inp_Data" name="dataNascimento"><br>
 
         <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
         <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
@@ -64,7 +61,7 @@
 </body>
 
 <script>
-
+  $("#inp_cpf").mask("000.000.000.00");
  
   function cadastrar() {
 
@@ -77,21 +74,19 @@
     var emailVar = inp_email.value;
     var senhaVar = inp_password.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var empresaVar = select_cnpj.value;
     var telefoneVar = inp_tel.value;
-    var DtNascVar = inp_Data.value;
     var tipoUsuario = "Administrador"; //Na parte de cadastrar o comum é só setar para exatamente "Comum"
+    var codigoVar = inp_codigo.value;
 
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
-      empresaVar == "#" ||
       telefoneVar == "" ||
-      DtNascVar == "" ||
       confirmacaoSenhaVar != senhaVar ||
-      cpfVar == ""
+      cpfVar == "" ||
+      codigoVar == ""
     ) {
 
       alert("Preencha os campos devidamente, lembrando que o cpf deve ter 11 dígitos.");
@@ -110,11 +105,10 @@
           nomeServer: nomeVar,
           emailServer: emailVar,
           senhaServer: senhaVar,
-          empresaServer: empresaVar,
           cpfServer: cpfVar,
           telefoneServer: telefoneVar,
-          DataServer: DtNascVar,
-          tipoUsuarioServer: tipoUsuario
+          tipoUsuarioServer: tipoUsuario,
+          codigoServer: codigoVar
         }),
       })
         .then(function (resposta) {
@@ -139,23 +133,23 @@
     return false;
   }
 
-  function listar() {
+  // function listar() {
 
-    fetch("/empresa/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            select_cnpj.innerHTML += `<option value='${empresa.idEmpresa}'>${empresa.Cnpj}</option>`;
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-    return false;
-  }
+  //   fetch("/empresa/listar", {
+  //     method: "GET",
+  //   })
+  //     .then(function (resposta) {
+  //       resposta.json().then((empresas) => {
+  //         empresas.forEach((empresa) => {
+  //           select_cnpj.innerHTML += `<option value='${empresa.idEmpresa}'>${empresa.Cnpj}</option>`;
+  //         });
+  //       });
+  //     })
+  //     .catch(function (resposta) {
+  //       console.log(`#ERRO: ${resposta}`);
+  //     });
+  //   return false;
+  // }
 
 
 
