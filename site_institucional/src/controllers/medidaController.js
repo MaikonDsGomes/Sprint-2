@@ -5,10 +5,15 @@ function buscarUltimasMedidas(req, res) {
     
 
     var idEmpresa = req.params.idEmpresa;
+    var selectValor = req.params.selectValor;
+
+    if (selectValor == 1){
+        selectValor = "%";
+    }
 
 
 
-    medidaModel.buscarUltimasMedidas(idEmpresa).then(function (resultado) {
+    medidaModel.buscarUltimasMedidas(idEmpresa, selectValor).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

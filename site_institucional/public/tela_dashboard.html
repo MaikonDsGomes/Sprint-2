@@ -140,7 +140,7 @@
             </div>
 
             <div class="grafico_box">
-                <select id="select_bairro" onchange="atualizarFeed()">
+                <select id="select_bairro" onchange="atualizarFeed(), obterDadosGrafico()">
                     <option selected value="1">Todos os Bairros</option>
                 </select>
                 <!-- <select id="select_semana">
@@ -187,17 +187,25 @@
     </div>
 </div>
 
+<div style="display: none;" id="modalAlert">
+    MODAL DE ALERTA APARECI
+</div>
+
 <div id="modalGrafico" class="modal">
     <div id="containerInfoLixeiraModal" class="modal-content">
 
-        <button style="float: right; padding: 5px; background-color: #297011; color: white; cursor:pointer; border: none;" onclick="fecharModalGrafico()">X</button>
-        
-       <h3 id="nomeLixeiraModal"></h3>
+        <button
+            style="float: right; padding: 5px; background-color: #297011; color: white; cursor:pointer; border: none;"
+            onclick="fecharModalGrafico()">X</button>
+
+        <h3 id="nomeLixeiraModal"></h3>
 
         <canvas id="myChartCanvasModal"></canvas>
 
     </div>
 </div>
+
+
 
 </html>
 
@@ -251,10 +259,10 @@
 
 
 
-    function fecharModalGrafico(){
+    function fecharModalGrafico() {
         modalGrafico.style.display = "none";
     }
-    
+
 
     function plotarGraficoModal(resposta) {
 
@@ -299,8 +307,8 @@
             dados.datasets[2].data.push(0); // Nível Alto
         });
 
-     
-    
+
+
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {
@@ -309,15 +317,12 @@
 
             nomeLixeiraModal.innerHTML = registro.nomeLixeira;
 
-            if (registro.nivelBaixo === 1 && registro.nivelAlto === 0) {
-                dados.datasets[1].data[diaIndex] += 1; // Nível Médio
-            } else {
-                if (registro.nivelBaixo !== null && registro.nivelBaixo !== undefined) {
-                    dados.datasets[0].data[diaIndex] += registro.nivelBaixo;
-                }
-                if (registro.nivelAlto !== null && registro.nivelAlto !== undefined) {
-                    dados.datasets[2].data[diaIndex] += registro.nivelAlto;
-                }
+            if (registro.nivelBaixo == 0 && registro.nivelAlto == 0) {
+                dados.datasets[0].data[diaIndex] += 1;
+            } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 0) {
+                dados.datasets[1].data[diaIndex] += 1;
+            } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 1) {
+                dados.datasets[2].data[diaIndex] += 1;
             }
         }
 
@@ -350,7 +355,7 @@
         modalGrafico.style.display = `block`;
 
         var idEmpresa = sessionStorage.EMPRESAID;
-    
+
         fetch(`/medidas/ultimas/graficoModal/${idEmpresa}/${idLixeira}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -408,9 +413,15 @@
         });
     }
 
+
+
+
     function atualizarFeed() {
         // parte que coloca o nome e o tipo do usuário embaixo
         card_pai.innerHTML = "";
+
+        //Var cont lixiera
+        var contLixeira = 0;
 
         var baixoMetrica = 0;
         var medioMetrica = 0;
@@ -430,6 +441,9 @@
             div_links.innerHTML = `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
                         <li>Adicionar lixeira</li>
                     </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Deletar lixeira</li>
+                    </a>
                     <a href="tela_cadastro_logado.html">
                         <li>Adicionar Usuário</li>
                     </a>
@@ -440,6 +454,8 @@
 
 
         var idEmpresa = sessionStorage.EMPRESAID;
+
+
         fetch(`/lixeira/listar/${idEmpresa}/${selectValor}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -518,6 +534,8 @@
                             iconElement.style.color = "red";
                             altoMetrica++;
                             metrica_card_alto.innerHTML = altoMetrica;
+                            //Contador de lixeiras
+                            contLixeira++;
                         }
 
                         // CÓDIGO ACIMA TESTE A SER VALIDADO
@@ -541,6 +559,8 @@
 
                         // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
                         document.getElementById("card_pai").appendChild(cardElement);
+
+
                     }
 
 
@@ -551,6 +571,181 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
+
+        setTimeout(() => alertaLixeira(idEmpresa, contLixeira), 9000);
+
+
+    }
+
+    function alertaLixeira(idEmpresa, contLixeira) {
+
+        // parte que coloca o nome e o tipo do usuário embaixo
+        card_pai.innerHTML = "";
+
+        var baixoMetrica = 0;
+        var medioMetrica = 0;
+        var altoMetrica = 0;
+
+        var nome = sessionStorage.NOME_USUARIO;
+        var tipo = sessionStorage.TIPO_USUARIO;
+
+        var selectValor = select_bairro.value;
+
+        usuario.innerHTML = `<h4>${nome}</h4>
+                <h5>${tipo}</h5>`
+
+
+        // parte que decide se irá mostrar opções como add um usuário e entre outros
+        if (tipo == 'Administrador') {
+            div_links.innerHTML = `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Adicionar lixeira</li>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Deletar lixeira</li>
+                    </a>
+                    <a href="tela_cadastro_logado.html">
+                        <li>Adicionar Usuário</li>
+                    </a>
+                    <a href= "http://localhost:3332" >
+                    <li>Área Técnica</li>
+                </a>`
+        }
+
+
+        var idEmpresa = sessionStorage.EMPRESAID;
+
+        var checktLixeira = 0;
+        fetch(`/lixeira/listar/${idEmpresa}/${selectValor}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var lixeira = resposta[i];
+
+                        // Criação do elemento principal (div) e definição da classe
+                        var cardElement = document.createElement("div");
+                        cardElement.className = "card";
+
+                        // Criação dos elementos HTML internos
+                        var h3Element = document.createElement("h3");
+                        var iconElement = document.createElement("i");
+                        var h4RuaElement = document.createElement("h4");
+                        var h4NivelElement = document.createElement("h4");
+                        var spanNivelElement = document.createElement("span");
+                        var spanNumeroElement = document.createElement("span");
+
+                        // Definição do conteúdo e atributos dos elementos
+                        h3Element.innerHTML = lixeira.nomeLixeira;
+                        h3Element.className = 'tagFuncaoModal'
+                        h3Element.id = "aGrafico" + lixeira.idLixeira;
+                        h3Element.setAttribute("onclick", `funcaoModal(${lixeira.idLixeira})`);
+
+                        iconElement.className = "fa-solid fa-dumpster";
+                        iconElement.style.color = "red";
+
+
+                        // CÓDIGO ABAIXO TESTE A SER VALIDADO
+
+
+                        if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
+                            console.log(`NIVEL BAIXO --- VERDE`)
+
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Baixo";
+                            spanNivelElement.style.color = "green";
+                            iconElement.style.color = "green";
+                            baixoMetrica++;
+                            metrica_card_baixo.innerHTML = baixoMetrica;
+
+
+                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 0) {
+
+                            console.log(`NIVEL MÉDIO --- AMARELO`)
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Médio";
+                            spanNivelElement.style.color = "yellow";
+                            iconElement.style.color = "yellow";
+                            medioMetrica++;
+                            metrica_card_medio.innerHTML = medioMetrica;
+
+                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 1) {
+                            console.log(`NIVEL CRITICO--- VERMELHO`)
+
+                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
+                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
+                            h4NivelElement.innerHTML = "Nível: ";
+                            spanNivelElement.innerHTML = "Alto";
+                            spanNivelElement.style.color = "red";
+                            iconElement.style.color = "red";
+                            altoMetrica++;
+                            metrica_card_alto.innerHTML = altoMetrica;
+                            //Contador de lixeiras
+                            checktLixeira++;
+                        }
+
+                        // CÓDIGO ACIMA TESTE A SER VALIDADO
+
+
+                        // h4RuaElement.innerHTML = lixeira.cep;
+                        // spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Ni " + lixeira.nivelAlto;
+                        // h4NivelElement.innerHTML = "Nível: ";
+                        // spanNivelElement.innerHTML = "Alto";
+                        // spanNivelElement.style.color = "red";
+
+
+                        // Construção da hierarquia dos elementos
+                        h4NivelElement.appendChild(spanNivelElement);
+                        cardElement.appendChild(h3Element);
+                        cardElement.appendChild(iconElement);
+                        cardElement.appendChild(h4RuaElement);
+                        cardElement.appendChild(spanNumeroElement);
+                        cardElement.appendChild(h4NivelElement);
+
+
+                        // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("card_pai").appendChild(cardElement);
+
+
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+        checktLixeira++;
+        if (checktLixeira > contLixeira) {
+            alert("ESTOU NO IF DO IF ")
+            modalAlert.style.display = `block`;
+        } else {
+            alert("ESTOU NO ELSE DO IF ")
+        }
+
+
+
+
+        setTimeout(() => atualizarFeed(), 9000);
+
+
     }
 
 
@@ -576,8 +771,9 @@
         //alterarTitulo(idEmpresa)
 
         var idEmpresa = sessionStorage.EMPRESAID;
+        var selectValor = select_bairro.value;
 
-        fetch(`/medidas/ultimas/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/ultimas/${idEmpresa}/${selectValor}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos GRAFICO: ${JSON.stringify(resposta)}`);
@@ -644,16 +840,17 @@
             let registro = resposta[i];
             let diaIndex = labels.indexOf(registro.dia);
 
-            if (registro.nivelBaixo === 1 && registro.nivelAlto === 0) {
-                dados.datasets[1].data[diaIndex] += 1; // Nível Médio
-            } else {
-                if (registro.nivelBaixo !== null && registro.nivelBaixo !== undefined) {
-                    dados.datasets[0].data[diaIndex] += registro.nivelBaixo;
-                }
-                if (registro.nivelAlto !== null && registro.nivelAlto !== undefined) {
-                    dados.datasets[2].data[diaIndex] += registro.nivelAlto;
-                }
+
+            if (registro.nivelBaixo == 0 && registro.nivelAlto == 0) {
+                dados.datasets[0].data[diaIndex] += 1;
+            } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 0) {
+                dados.datasets[1].data[diaIndex] += 1;
+            } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 1) {
+                dados.datasets[2].data[diaIndex] += 1;
             }
+
+
+
         }
 
 
@@ -692,66 +889,16 @@
             document.getElementById(`myChartCanvas`),
             config
         );
+
+
     }
 
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
+    // buscando a última medida inserida em tabela contendo as capturas,
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idEmpresa, dados, myChart) {
 
-        fetch(`/medidas/tempo-real/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    obterdados(idEmpresa);
-                    // alertar(novoRegistro, idEmpresa);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idEmpresa}`)
-                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
 
 </script>
