@@ -24,6 +24,7 @@ function listarLixeira(idEmpresa, selectValor) {
     Lixeira.nomeLixeira,
     Lixeira.cep, 
     Lixeira.numero, 
+    Lixeira.bairro,
     Lixeira.Complemento,
     Empresa.nomeEmpresa as Empresa
 FROM 

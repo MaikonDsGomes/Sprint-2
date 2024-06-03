@@ -187,10 +187,6 @@
     </div>
 </div>
 
-<div style="display: none;" id="modalAlert">
-    MODAL DE ALERTA APARECI
-</div>
-
 <div id="modalGrafico" class="modal">
     <div id="containerInfoLixeiraModal" class="modal-content">
 
@@ -205,13 +201,26 @@
     </div>
 </div>
 
+<div style="display: none;" id="modalAlert">
 
+    <div>
+        <h3>Alerta!</h3>
+    </div>
+    <div>
+        Lixeira com o cep: <span id="cepAlert"></span> <br>
+        localizada no bairro: <span id="bairroAlert"></span> <br>
+        com nome: "<span id="nomeAlert" ></span>"<br>
+        Teve seu estado alterado para CHEIO
+    </div>
+</div>
 
 </html>
 
 <script>
 
-
+    let axAlerta = 0;
+    let primeiroValor = 0;
+    let segundoValor = 0;
 
 
     const ctx = document.getElementById('myChart');
@@ -416,12 +425,16 @@
 
 
 
+    var cepLixeira = ``;
+    var nomeLixeira = ``;
+    var bairroLixeira = ``;
+
+
     function atualizarFeed() {
         // parte que coloca o nome e o tipo do usuário embaixo
         card_pai.innerHTML = "";
 
-        //Var cont lixiera
-        var contLixeira = 0;
+
 
         var baixoMetrica = 0;
         var medioMetrica = 0;
@@ -534,8 +547,10 @@
                             iconElement.style.color = "red";
                             altoMetrica++;
                             metrica_card_alto.innerHTML = altoMetrica;
-                            //Contador de lixeiras
-                            contLixeira++;
+
+                            cepLixeira = lixeira.cep;
+                            nomeLixeira = lixeira.nomeLixeira
+                            bairroLixeira = lixeira.bairro
                         }
 
                         // CÓDIGO ACIMA TESTE A SER VALIDADO
@@ -572,176 +587,41 @@
             console.error(resposta);
         });
 
-        setTimeout(() => alertaLixeira(idEmpresa, contLixeira), 9000);
+        setTimeout(() => alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira), 9000);
 
 
     }
 
-    function alertaLixeira(idEmpresa, contLixeira) {
-
-        // parte que coloca o nome e o tipo do usuário embaixo
-        card_pai.innerHTML = "";
-
-        var baixoMetrica = 0;
-        var medioMetrica = 0;
-        var altoMetrica = 0;
-
-        var nome = sessionStorage.NOME_USUARIO;
-        var tipo = sessionStorage.TIPO_USUARIO;
-
-        var selectValor = select_bairro.value;
-
-        usuario.innerHTML = `<h4>${nome}</h4>
-                <h5>${tipo}</h5>`
 
 
-        // parte que decide se irá mostrar opções como add um usuário e entre outros
-        if (tipo == 'Administrador') {
-            div_links.innerHTML = `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
-                        <li>Adicionar lixeira</li>
-                    </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
-                        <li>Deletar lixeira</li>
-                    </a>
-                    <a href="tela_cadastro_logado.html">
-                        <li>Adicionar Usuário</li>
-                    </a>
-                    <a href= "http://localhost:3332" >
-                    <li>Área Técnica</li>
-                </a>`
-        }
+    function alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira) {
 
 
-        var idEmpresa = sessionStorage.EMPRESAID;
+        alert("Valor: " + altoMetrica)
 
-        var checktLixeira = 0;
-        fetch(`/lixeira/listar/${idEmpresa}/${selectValor}`).then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    var feed = document.getElementById("feed_container");
-                    var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
-                    feed.appendChild(mensagem);
-                    throw "Nenhum resultado encontrado!!";
-                }
+        axAlerta++
 
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
+        if (axAlerta > 1) {
 
-                    var feed = document.getElementById("feed_container");
-                    for (let i = 0; i < resposta.length; i++) {
-                        var lixeira = resposta[i];
+            axAlerta = 0;
+            segundoValor = altoMetrica;
 
-                        // Criação do elemento principal (div) e definição da classe
-                        var cardElement = document.createElement("div");
-                        cardElement.className = "card";
+            if (primeiroValor != segundoValor) {
+                
+                cepAlert.innerHTML = `${cepLixeira}`;
+                nomeAlert.innerHTML = `${nomeLixeira}`;
+                bairroAlert.innerHTML = `${bairroLixeira}`;
 
-                        // Criação dos elementos HTML internos
-                        var h3Element = document.createElement("h3");
-                        var iconElement = document.createElement("i");
-                        var h4RuaElement = document.createElement("h4");
-                        var h4NivelElement = document.createElement("h4");
-                        var spanNivelElement = document.createElement("span");
-                        var spanNumeroElement = document.createElement("span");
-
-                        // Definição do conteúdo e atributos dos elementos
-                        h3Element.innerHTML = lixeira.nomeLixeira;
-                        h3Element.className = 'tagFuncaoModal'
-                        h3Element.id = "aGrafico" + lixeira.idLixeira;
-                        h3Element.setAttribute("onclick", `funcaoModal(${lixeira.idLixeira})`);
-
-                        iconElement.className = "fa-solid fa-dumpster";
-                        iconElement.style.color = "red";
-
-
-                        // CÓDIGO ABAIXO TESTE A SER VALIDADO
-
-
-                        if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
-                            console.log(`NIVEL BAIXO --- VERDE`)
-
-                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
-                            h4NivelElement.innerHTML = "Nível: ";
-                            spanNivelElement.innerHTML = "Baixo";
-                            spanNivelElement.style.color = "green";
-                            iconElement.style.color = "green";
-                            baixoMetrica++;
-                            metrica_card_baixo.innerHTML = baixoMetrica;
-
-
-                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 0) {
-
-                            console.log(`NIVEL MÉDIO --- AMARELO`)
-                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
-                            h4NivelElement.innerHTML = "Nível: ";
-                            spanNivelElement.innerHTML = "Médio";
-                            spanNivelElement.style.color = "yellow";
-                            iconElement.style.color = "yellow";
-                            medioMetrica++;
-                            metrica_card_medio.innerHTML = medioMetrica;
-
-                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 1) {
-                            console.log(`NIVEL CRITICO--- VERMELHO`)
-
-                            h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
-                            spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
-                            h4NivelElement.innerHTML = "Nível: ";
-                            spanNivelElement.innerHTML = "Alto";
-                            spanNivelElement.style.color = "red";
-                            iconElement.style.color = "red";
-                            altoMetrica++;
-                            metrica_card_alto.innerHTML = altoMetrica;
-                            //Contador de lixeiras
-                            checktLixeira++;
-                        }
-
-                        // CÓDIGO ACIMA TESTE A SER VALIDADO
-
-
-                        // h4RuaElement.innerHTML = lixeira.cep;
-                        // spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Ni " + lixeira.nivelAlto;
-                        // h4NivelElement.innerHTML = "Nível: ";
-                        // spanNivelElement.innerHTML = "Alto";
-                        // spanNivelElement.style.color = "red";
-
-
-                        // Construção da hierarquia dos elementos
-                        h4NivelElement.appendChild(spanNivelElement);
-                        cardElement.appendChild(h3Element);
-                        cardElement.appendChild(iconElement);
-                        cardElement.appendChild(h4RuaElement);
-                        cardElement.appendChild(spanNumeroElement);
-                        cardElement.appendChild(h4NivelElement);
-
-
-                        // Adicionando o cardElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
-                        document.getElementById("card_pai").appendChild(cardElement);
-
-
-                    }
-
-
-                });
-            } else {
-                throw ('Houve um erro na API!');
+                modalAlert.style.display = `block`
+                setTimeout(() => modalAlert.style.display = `none`, 5000);
             }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
 
-
-        checktLixeira++;
-        if (checktLixeira > contLixeira) {
-            alert("ESTOU NO IF DO IF ")
-            modalAlert.style.display = `block`;
         } else {
-            alert("ESTOU NO ELSE DO IF ")
+
+            alert("Primeira vez")
+            primeiroValor = altoMetrica;
+
         }
-
-
-
 
         setTimeout(() => atualizarFeed(), 9000);
 

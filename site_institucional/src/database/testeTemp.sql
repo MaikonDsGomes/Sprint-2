@@ -175,7 +175,7 @@ insert into sensor values
 select * from lixeira;
 
 -- Inserção na tabela historico
- INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
 ('2024-06-02 18:30:00', 1, 4, 7);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
 ('2024-06-02 18:30:00', 1, 4, 8);
