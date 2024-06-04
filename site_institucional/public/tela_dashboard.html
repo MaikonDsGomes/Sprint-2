@@ -155,9 +155,10 @@
 
             <h1 class="titulo_grafico">Gráfico:</h1>
             <div>Data inicial: <input id="data_inicial" type="date"></div>
-            <div>Data final: <input id="data_final" type="date"> <button onclick="obterDadosGrafico()">Pesquisar</button></div>
+            <div>Data final: <input id="data_final" type="date"> <button
+                    onclick="obterDadosGrafico()">Pesquisar</button></div>
             <div>
-                
+
             </div>
             <div class="grafico_box">
                 <canvas id="myChartCanvas"></canvas>
@@ -206,7 +207,7 @@
     </div>
 </div>
 
-<div  id="modalAlert" style="display: none;">
+<div id="modalAlert" style="display: block;">
 
     <div>
         <h3>Alerta!</h3>
@@ -214,7 +215,7 @@
     <div>
         Lixeira com o cep: <span id="cepAlert"></span> <br>
         localizada no bairro: <span id="bairroAlert"></span> <br>
-        com nome: "<span id="nomeAlert" ></span>"<br>
+        com nome: "<span id="nomeAlert"></span>"<br>
         Teve seu estado alterado para CHEIO
     </div>
 </div>
@@ -602,7 +603,7 @@
     function alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira) {
 
 
-        alert("Valor: " + altoMetrica)
+       // alert("Valor: " + altoMetrica)
 
         axAlerta++
 
@@ -612,23 +613,23 @@
             segundoValor = altoMetrica;
 
             if (primeiroValor != segundoValor) {
-                
+
                 cepAlert.innerHTML = `${cepLixeira}`;
                 nomeAlert.innerHTML = `${nomeLixeira}`;
                 bairroAlert.innerHTML = `${bairroLixeira}`;
 
                 modalAlert.style.display = `block`
-                setTimeout(() => modalAlert.style.display = `none`, 5000);
+                setTimeout(() => modalAlert.style.display = `block`, 5000);
             }
 
         } else {
 
-            alert("Primeira vez")
+            // alert("Primeira vez")
             primeiroValor = altoMetrica;
 
         }
 
-       setTimeout(() => atualizarFeed(), obterDadosGrafico(), 9000);
+        setTimeout(() => atualizarFeed(), obterDadosGrafico(), 9000);
 
 
     }
@@ -659,9 +660,9 @@
         var dataInicial = data_inicial.value
         var dataFinal = data_final.value
 
-        if(dataInicial > dataFinal){
+        if (dataInicial > dataFinal) {
             alert("A data inicial do intervalo deve ser menor que a data final.")
-        }else if(dataInicial == "" && dataFinal == ""){
+        } else if (dataInicial == "" && dataFinal == "") {
             //Pegar o dia hoje - 7
         }
 
@@ -721,9 +722,9 @@
         console.log('Estes dados foram recebidos pela função "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-      var axBaixa = 0;
-      var axMedia = 0;
-      var axAlta = 0;
+        var axBaixa = 0;
+        var axMedia = 0;
+        var axAlta = 0;
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {

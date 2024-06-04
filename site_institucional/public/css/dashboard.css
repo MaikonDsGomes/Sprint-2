@@ -272,8 +272,9 @@
 #modalAlert {
     display: block;
     position: fixed;
-    right: 0;
-    bottom: 0px;
+    right: 10px;
+    bottom: 10px;
+    background-color: #703a11;
 }
 
 /* CSS MODAL */
