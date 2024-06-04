@@ -1,25 +1,16 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idEmpresa, selectValor) {
+function buscarUltimasMedidas(idEmpresa, selectValor, dataInicial, dataFinal) {
 
     var instrucaoSql = `
     
 
-
     SELECT 
     Lixeira.idLixeira, 
-    MAX(historico.DtTime) as DtTime,
+    historico.DtTime as DtTime,
     MAX(historico.nivelBaixo) as nivelBaixo, 
     MAX(historico.nivelAlto) as nivelAlto,
-    CASE 
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 1 THEN 'Domingo'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 2 THEN 'Segunda-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 3 THEN 'Terça-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 4 THEN 'Quarta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 5 THEN 'Quinta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 6 THEN 'Sexta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 7 THEN 'Sábado'
-    END AS dia
+	DATE_FORMAT(dtTime,"%d %M %Y") as dataCompleta
 FROM 
     historico 
 JOIN 
@@ -27,10 +18,12 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = ${idEmpresa} and bairro like "${selectValor}"
+    Empresa.idEmpresa = ${idEmpresa} and bairro like "${selectValor}" and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
 GROUP BY 
     Lixeira.idLixeira,
-    Empresa.nomeEmpresa;
+    Empresa.nomeEmpresa
+    
+    ORDER BY dtTime;
                     
                     
                     `;

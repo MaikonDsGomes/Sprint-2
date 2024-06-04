@@ -120,10 +120,10 @@ INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES
 
 
 INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
-('2024-05-24 18:30:00', 1, 2, 3);
+('2024-05-30 18:30:00', 1, 2, 3);
 
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-05-24 18:30:00', 0, 2, 4);
+('2024-05-30 18:30:00', 0, 2, 4);
 
 INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
 ('2024-05-23 18:30:00', 0, 3, 5);
@@ -360,21 +360,13 @@ ORDER BY
 
 
 -- -------------------------- ZONA DE TESTE AQUI EM BAIXO ------------------------ 
-
-    SELECT 
+SELECT DATE_FORMAT("2017-06-15", "%M %d %Y");
+SELECT 
     Lixeira.idLixeira, 
-    MAX(historico.DtTime) as DtTime,
+    historico.DtTime as DtTime,
     MAX(historico.nivelBaixo) as nivelBaixo, 
     MAX(historico.nivelAlto) as nivelAlto,
-    CASE 
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 1 THEN 'Domingo'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 2 THEN 'Segunda-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 3 THEN 'Terça-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 4 THEN 'Quarta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 5 THEN 'Quinta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 6 THEN 'Sexta-feira'
-        WHEN DAYOFWEEK(MAX(historico.DtTime)) = 7 THEN 'Sábado'
-    END AS dia
+	DATE_FORMAT(dtTime,"%d %M %Y") as dataCompleta
 FROM 
     historico 
 JOIN 
@@ -382,7 +374,12 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = 1
+    Empresa.idEmpresa = 12345 and bairro like "%" and DtTime > '2024-05-29' and DtTime < '2024-05-30'
+
+
 GROUP BY 
     Lixeira.idLixeira,
-    Empresa.nomeEmpresa;
+    Empresa.nomeEmpresa
+    
+    ORDER BY dtTime
+    ;
