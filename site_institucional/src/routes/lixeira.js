@@ -15,6 +15,12 @@ router.get("/listar/:idEmpresa/:selectValor", function (req, res) {
     console.log("to no routes")
 })
 
+router.get("/listarAlerta", function (req, res) {
+    lixeiraController.listarAlerta(req, res);
+    console.log("to no routes")
+})
+
+
 router.get("/listarBairro/:idEmpresa", function (req, res) {
     lixeiraController.listarBairros(req, res);
     console.log("to no routes")

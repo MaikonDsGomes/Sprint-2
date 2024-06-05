@@ -42,10 +42,19 @@ GROUP BY
     Lixeira.numero, 
     Lixeira.Complemento, 
     Empresa.nomeEmpresa
-    
     order by nivelAlto desc, nivelBaixo desc;
 
 
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+//
+function listarAlerta() {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarLixeira()");
+    var instrucaoSql = `
+    select nomeLixeira, cep, Bairro from historico join Lixeira on fkLixeira = idLixeira order by dtTime desc limit 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -64,5 +73,6 @@ function listarBairros(idEmpresa) {
 module.exports = {
     cadastrar,
     listarLixeira,
-    listarBairros
+    listarBairros,
+    listarAlerta
 };

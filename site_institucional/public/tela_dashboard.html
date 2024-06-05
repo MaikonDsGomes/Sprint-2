@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div id="modalAlert"  style="display: none;">
+<div id="modalAlert" style="display: none;">
     <div>
         <h3>Alerta!</h3>
     </div>
@@ -434,7 +434,8 @@
     var nomeLixeira = ``;
     var bairroLixeira = ``;
 
-
+    var lista_cep = [];
+    var lista_cepCOMP = [];
     function atualizarFeed() {
         // parte que coloca o nome e o tipo do usuário embaixo
         card_pai.innerHTML = "";
@@ -474,6 +475,8 @@
         var idEmpresa = sessionStorage.EMPRESAID;
 
 
+
+
         fetch(`/lixeira/listar/${idEmpresa}/${selectValor}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -487,6 +490,7 @@
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos CARD LIXEIRA: ", JSON.stringify(resposta));
 
+                    var chk = 0;
                     var feed = document.getElementById("feed_container");
                     for (let i = 0; i < resposta.length; i++) {
                         var lixeira = resposta[i];
@@ -552,8 +556,10 @@
                             metrica_card_alto.innerHTML = altoMetrica;
 
                             cepLixeira = lixeira.cep;
-                            nomeLixeira = lixeira.nomeLixeira
-                            bairroLixeira = lixeira.bairro
+                            // nomeLixeira = lixeira.nomeLixeira
+                            // bairroLixeira = lixeira.bairro
+
+
                         }
 
                         // CÓDIGO ACIMA TESTE A SER VALIDADO
@@ -597,6 +603,7 @@
 
 
 
+
     function alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira) {
 
         // alert("Valor: " + altoMetrica)
@@ -610,12 +617,15 @@
 
             if (primeiroValor != segundoValor) {
 
-                cepAlert.innerHTML = `${cepLixeira}`;
-                nomeAlert.innerHTML = `${nomeLixeira}`;
-                bairroAlert.innerHTML = `${bairroLixeira}`;
+
+
+                listarAlerta();
+
+
+
 
                 modalAlert.style.display = `block`
-                setTimeout(() => modalAlert.style.display = `block`, 9000);
+                setTimeout(() => modalAlert.style.display = `none`, 9000);
             }
 
         } else {
@@ -625,8 +635,28 @@
 
         }
 
-        setTimeout(() => atualizarFeed(), obterDadosGrafico(), 9000);
+        setTimeout(() => atualizarFeed(), obterDadosGrafico(),9000);
 
+
+    }
+
+    function listarAlerta() {
+
+        fetch("/lixeira/listarAlerta", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((estados) => {
+                    estados.forEach((registro) => {
+                        cepAlert.innerHTML = `${registro.cep}`
+                        bairroAlert.innerHTML = `${registro.Bairro}`
+                        nomeAlert.innerHTML = `${registro.nomeLixeira}`
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
 
     }
 
@@ -697,19 +727,9 @@
             labels: [],
             datasets: [
                 {
-                    label: 'Nível Baixo',
+                    label: [],
                     data: [],
-                    backgroundColor: 'green'
-                },
-                {
-                    label: 'Nível Médio',
-                    data: [],
-                    backgroundColor: 'yellow'
-                },
-                {
-                    label: 'Nível Alto',
-                    data: [],
-                    backgroundColor: 'red'
+                    backgroundColor: []
                 }
             ]
         };
@@ -722,25 +742,36 @@
         var axMedia = 0;
         var axAlta = 0;
 
+        let diasSemana = [];
+        diasSemana.forEach(dia => {
+            labels.push();
+            dados.labels.push(dia);
+            dados.datasets[0].data.push(0); // Nível Baixo
+            dados.datasets[1].data.push(0); // Nível Médio
+            dados.datasets[2].data.push(0); // Nível Alto
+        });
+
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {
             let registro = resposta[i];
 
             // Adicionando a data completa às labels
-            labels.push(registro.dataCompleta);
+            diasSemana.push(registro.dtTime);
 
             console.log(`Label adicionada: ${registro.dataCompleta}`);
 
             if (registro.nivelBaixo == 0 && registro.nivelAlto == 0) {
                 axBaixa++;
                 dados.datasets[0].data.push(axBaixa);
+                dados.datasets[0].backgroundColor.push('green');
             } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 0) {
                 axMedia++;
-                console.log(`Contagem Média: ${axMedia}`);
-                dados.datasets[1].data.push(axMedia);
+                dados.datasets[0].data.push(axMedia);
+                dados.datasets[0].backgroundColor.push('yellow');
             } else if ((registro.nivelBaixo == 1 && registro.nivelAlto == 1) || registro.nivelAlto == 1) {
                 axAlta++;
-                dados.datasets[2].data.push(axAlta);
+                dados.datasets[0].data.push(axAlta);
+                dados.datasets[0].backgroundColor.push('red');
             }
 
 
@@ -818,5 +849,5 @@
         document.getElementById('data_inicial').value = formattedPastDate;
     }
 
-    
+
 </script>
