@@ -207,16 +207,15 @@
     </div>
 </div>
 
-<div id="modalAlert" style="display: none;">
-
+<div id="modalAlert"  style="display: none;">
     <div>
         <h3>Alerta!</h3>
     </div>
-    <div>
+    <div class="move">
         Lixeira com o cep: <span id="cepAlert"></span> <br>
         localizada no bairro: <span id="bairroAlert"></span> <br>
         com nome: "<span id="nomeAlert"></span>"<br>
-        Teve seu estado alterado para CHEIO
+        Teve seu estado alterado para <span style="font-weight: 700;">CHEIO</span>
     </div>
 </div>
 
@@ -600,7 +599,7 @@
 
     function alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira) {
 
-        alert("Valor: " + altoMetrica)
+        // alert("Valor: " + altoMetrica)
 
         axAlerta++
 
@@ -621,7 +620,7 @@
 
         } else {
 
-            alert("Primeira vez")
+            // alert("Primeira vez")
             primeiroValor = altoMetrica;
 
         }

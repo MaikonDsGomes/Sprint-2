@@ -274,8 +274,39 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
-    background-color: #703a11;
+    background-color: #f0baba6e;
+    padding: 15px;
+    border-radius: 4px;
+    border: 4px solid #a00000;
+
+    animation: moverY 1s linear infinite; /* Defina a animação */
+    /* animation: moverX 2s linear infinite; Defina a animação */
+
 }
+
+@keyframes moverY {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+    50% { transform: translateY(10px); }
+  }
+
+  #modalAlert h3 {
+    color: #770707;
+    font-weight: 900;
+  }
+.move  {
+    color: #770707;
+ 
+}
+
+  /* @keyframes moverX {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(100px); }
+    50% { transform: translateX(10px); } */
+    /* 0% { transform: translateY(0); }
+    40% { transform: translateY(100px); }
+    40% { transform: translateY(10px); } */
+  /* } */
 
 /* CSS MODAL */
 
