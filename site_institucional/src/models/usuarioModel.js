@@ -9,6 +9,22 @@ function autenticar(email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function editar(nome, email, senha, telefone, idUsuario ) {
+
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, email, senha, telefone, idUsuario);
+    var instrucaoSql = `
+    UPDATE Usuario
+    SET NomeUsuario = '${nome}' , 
+        EmailUsuario = '${email}',
+        Senha = '${senha}',
+        Telefone = '${telefone}'
+    WHERE idUsuario = ${idUsuario};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 function cadastrar(nome, email, senha, codigo,cpf, telefone, tipoUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
     
@@ -24,5 +40,6 @@ function cadastrar(nome, email, senha, codigo,cpf, telefone, tipoUsuario) {
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    editar
 };

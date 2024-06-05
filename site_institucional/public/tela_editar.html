@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/tela_edicao.css">
+    <title>Tela de cadastro</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+</head>
+
+<body>
+    <div id="pai" class="register-container">
+
+        <h1>Edição de usuário</h1>
+
+
+
+        <div id="divcadastro">
+            <form class="register-form">
+
+
+                <label for="Nome">Nome:</label>
+                <input type="text" id="inp_nome" name="nome"  placeholder="Insira seu nome:"><br>
+
+                <label for="telefone">Telefone:</label>
+                <input type="number" id="inp_tel" name="telefone"   placeholder="Insira seu telefone:"><br>
+
+                <label for="email">Email:</label>
+                <input type="text" id="inp_email" name="email"  placeholder="Insira seu email:"><br>
+
+                <label for="senha">Senha:</label>
+                <input type="password" id="inp_password" name="senha"  placeholder="Insira sua senha:"><br>
+
+                <label for="Confirmar Senha" >Confirmar Senha:</label>
+                <input   type="password" id="confirmacao_senha_input" name="ConfirmarSenha"   placeholder="Confirme sua senha:"><br>
+
+
+
+
+
+                <button onclick="cadastrar()"
+                    style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;">Cadastrar</button>
+
+        </div>
+        <form class="register-form">
+
+
+
+        </form>
+
+    </div>
+
+</body>
+
+<script>
+
+
+    function cadastrar() {
+
+
+        event.preventDefault();
+
+        var nomeVar = inp_nome.value;
+        var telefoneVar = inp_tel.value;
+        var emailVar = inp_email.value;
+        var senhaVar = inp_password.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+
+        if (
+            nomeVar == "" ||
+            telefoneVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == "" ||
+            confirmacaoSenhaVar != senhaVar
+        ) {
+
+            alert("Preencha os campos devidamente, lembrando que o cpf deve ter 11 dígitos.");
+            return false;
+
+        } else {
+
+            var idUsuario = sessionStorage.ID_USUARIO;
+
+            console.log(`${idUsuario}  DEU BOM PAIZÃO`);
+
+            fetch(`/usuario/editar/${idUsuario}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+
+                    nomeServer: nomeVar,
+                    telefoneServer: telefoneVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+
+                }),
+            })
+
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        alert("Edição concluida com sucesso!")
+                        setTimeout(() => {
+                            window.location.href = "tela_login.html";
+                        }, "1000");
+
+                    } else {
+                        alert("Certifique-se que o código da empresa está correto")
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+        }
+        return false;
+    }
+
+    // function listar() {
+
+    //   fetch("/empresa/listar", {
+    //     method: "GET",
+    //   })
+    //     .then(function (resposta) {
+    //       resposta.json().then((empresas) => {
+    //         empresas.forEach((empresa) => {
+    //           select_cnpj.innerHTML += `<option value='${empresa.idEmpresa}'>${empresa.Cnpj}</option>`;
+    //         });
+    //       });
+    //     })
+    //     .catch(function (resposta) {
+    //       console.log(`#ERRO: ${resposta}`);
+    //     });
+    //   return false;
+    // }
+
+
+
+</script>
+</body>
+
+</html>
