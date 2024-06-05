@@ -35,7 +35,7 @@
             <h3>Configurações</h3>
             <ul class="menu_list">
                 <div id="div_links">
-                    
+
                 </div>
                 <a href="Visualizacao_perfil.html">
                     <li>Usuário</li>
@@ -45,7 +45,7 @@
 
             <div id="usuario" class="foto_user_box">
                 <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
-                
+
             </div>
         </div>
 
@@ -63,14 +63,14 @@
                 <div class="box">
                     <img src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-vert.png" alt="">
                     <!-- <img src="../img/perfil.png" alt=""> -->
-                    <p>Fernando Duarte Brandao</p>
+                    <p id="nome_2">Fernando Duarte Brandao</p>
                     <span>Usuario Administrador</span>
                 </div>
 
                 <div class="box">
                     <img src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-vert.png" alt="">
 
-                    <p>LimpaSP</p>
+                    <p id="empresa">LimpaSP</p>
                     <span>Empresa</span>
                 </div>
             </div>
@@ -88,14 +88,16 @@
                         </div>
 
                         <div class="resp">
-                            <h1>Fernando Duarte Brandão </h1>
-                            <h2> 11 994637199 </h2>
-                            <h3>fernando.brandao@sptech.school </h3>
+                            <h1 id="nome"></h1>
+                            <h2 id="telefone"> 11 994637199 </h2>
+                            <h3 id="email">fernando.brandao@sptech.school </h3>
                             <h4>***********</h4>
                         </div>
                     </div>
                     <div class="botao">
-                        <a href="edicao_usuario.html">
+
+                        <a href="tela_editar.html">
+
                             <button>Editar</button>
                         </a>
                     </div>
@@ -103,17 +105,32 @@
             </div>
 
         </div>
-    
+
 </body>
 
 <script>
 
+    var NOMES = sessionStorage.NOME_USUARIO;
+    var TELEPHONE = sessionStorage.TELEFONE_USUARIO;
+    var EMALAO = sessionStorage.EMAIL_USUARIO;
+    var NOMAO = sessionStorage.NOME_EMPRESA;
+
+    nome.innerHTML = `${NOMES}`;
+    telefone.innerHTML = `${TELEPHONE}`;
+    email.innerHTML = `${EMALAO}`;
+    telefone.innerHTML = `${TELEPHONE}`;
+    nome_2.innerHTML = `${NOMES}`;
+    empresa.innerHTML = `${NOMAO}`;
+
     function atualizarFeed() {
+
         function atualizarFeed() {
+
             // parte que coloca o nome e o tipo do usuário embaixo
 
             var nome = sessionStorage.NOME_USUARIO;
             var tipo = sessionStorage.TIPO_USUARIO;
+
 
             usuario.innerHTML = `<h4>${nome}</h4>
                 <h5>${tipo}</h5>`

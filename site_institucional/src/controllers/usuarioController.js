@@ -27,7 +27,9 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].EmailUsuario,
                             idEmpresa: resultadoAutenticar[0].empresaId,
                             tipoUsuario: resultadoAutenticar[0].TipoUsuario,
-                            idUsuario: resultadoAutenticar[0].idUsuario});
+                            idUsuario: resultadoAutenticar[0].idUsuario,
+                            Empresa: resultadoAutenticar[0].Empresa,
+                        });
 
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -96,9 +98,47 @@ function cadastrar(req, res) {
     }
 }
 
+function editar(req, res) {
+
+
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var telefone = req.body.telefoneServer;
+    var idUsuario = req.params.idUsuario;
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu ID está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Sua empresa está undefined!");
+    } else {
+
+        usuarioModel.editar(nome, email, senha, telefone, idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    editar
 }
