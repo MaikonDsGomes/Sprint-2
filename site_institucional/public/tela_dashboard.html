@@ -699,7 +699,7 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos GRAFICO: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+                    //resposta.reverse();
                     plotarGrafico(resposta, idEmpresa);
 
                 });
@@ -724,7 +724,7 @@
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
-            labels: [],
+            labels: labels,
             datasets: [
                 {
                     label: [],
@@ -742,21 +742,13 @@
         var axMedia = 0;
         var axAlta = 0;
 
-        let diasSemana = [];
-        diasSemana.forEach(dia => {
-            labels.push();
-            dados.labels.push(dia);
-            dados.datasets[0].data.push(0); // Nível Baixo
-            dados.datasets[1].data.push(0); // Nível Médio
-            dados.datasets[2].data.push(0); // Nível Alto
-        });
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {
             let registro = resposta[i];
 
             // Adicionando a data completa às labels
-            diasSemana.push(registro.dtTime);
+            labels.push(registro.dataCompleta);
 
             console.log(`Label adicionada: ${registro.dataCompleta}`);
 
