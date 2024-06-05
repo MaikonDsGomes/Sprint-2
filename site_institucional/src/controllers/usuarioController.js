@@ -27,7 +27,9 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].EmailUsuario,
                             idEmpresa: resultadoAutenticar[0].empresaId,
                             tipoUsuario: resultadoAutenticar[0].TipoUsuario,
-                            idUsuario: resultadoAutenticar[0].idUsuario});
+                            idUsuario: resultadoAutenticar[0].idUsuario,
+                            Empresa: resultadoAutenticar[0].Empresa,
+                        });
 
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -117,7 +119,7 @@ function editar(req, res) {
         res.status(400).send("Sua empresa está undefined!");
     } else {
 
-    usuarioModel.editar(nome, email, senha, telefone, idUsuario)
+        usuarioModel.editar(nome, email, senha, telefone, idUsuario)
         .then(
             function (resultado) {
                 res.json(resultado);

@@ -38,7 +38,14 @@ desc Usuario;
 Insert into Usuario values
 (default, 12345678901, 'Administrador', 'Ricardo', 'ricardo@gmail.com', 'Alegria54321', '11959395227' , 1);
 
-select * from Usuario;
+select * from usuario;
+
+UPDATE Usuario
+SET NomeUsuario = 'Ricardo', 
+    EmailUsuario = 'ricardo@gmail.com',
+    Senha = 'Alegria54321',
+    Telefone = '11959395227'
+WHERE idUsuario = 1;
 
 
 -- LIXEIRA
