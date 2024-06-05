@@ -41,7 +41,11 @@ GROUP BY
     Lixeira.cep, 
     Lixeira.numero, 
     Lixeira.Complemento, 
-    Empresa.nomeEmpresa;
+    Empresa.nomeEmpresa
+    
+    order by nivelAlto desc, nivelBaixo desc;
+
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

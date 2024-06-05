@@ -17,7 +17,7 @@
 </head>
 
 
-<body onload="atualizaSelectBairro(), atualizarFeed(), obterDadosGrafico()">
+<body onload="atualizaSelectBairro(), atualizarFeed(), obterDadosGrafico(), dataAutomatica()">
     <div class="content">
         <div class="menu">
             <h3>Configurações</h3>
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div id="modalAlert" style="display: block;">
+<div id="modalAlert" style="display: none;">
 
     <div>
         <h3>Alerta!</h3>
@@ -513,9 +513,7 @@
                         iconElement.className = "fa-solid fa-dumpster";
                         iconElement.style.color = "red";
 
-
                         // CÓDIGO ABAIXO TESTE A SER VALIDADO
-
 
                         if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
                             console.log(`NIVEL BAIXO --- VERDE`)
@@ -565,7 +563,7 @@
                         // h4RuaElement.innerHTML = lixeira.cep;
                         // spanNumeroElement.innerHTML = '<b>Número:</b>' + lixeira.numero + " Ni " + lixeira.nivelAlto;
                         // h4NivelElement.innerHTML = "Nível: ";
-                        // spanNivelElement.innerHTML = "Alto";
+                        // spanNivelElement.innerHTML = "Alto"; 
                         // spanNivelElement.style.color = "red";
 
 
@@ -602,8 +600,7 @@
 
     function alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira) {
 
-
-       // alert("Valor: " + altoMetrica)
+        alert("Valor: " + altoMetrica)
 
         axAlerta++
 
@@ -619,12 +616,12 @@
                 bairroAlert.innerHTML = `${bairroLixeira}`;
 
                 modalAlert.style.display = `block`
-                setTimeout(() => modalAlert.style.display = `block`, 5000);
+                setTimeout(() => modalAlert.style.display = `block`, 9000);
             }
 
         } else {
 
-            // alert("Primeira vez")
+            alert("Primeira vez")
             primeiroValor = altoMetrica;
 
         }
@@ -730,17 +727,17 @@
         for (let i = 0; i < resposta.length; i++) {
             let registro = resposta[i];
 
-
+            // Adicionando a data completa às labels
             labels.push(registro.dataCompleta);
 
-            alert(`AQUI ESTÁ MINHA LABEL: ${registro.dataCompleta}`)
+            console.log(`Label adicionada: ${registro.dataCompleta}`);
 
             if (registro.nivelBaixo == 0 && registro.nivelAlto == 0) {
                 axBaixa++;
                 dados.datasets[0].data.push(axBaixa);
             } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 0) {
                 axMedia++;
-                alert(`MINHA MÉDIA: ${axMedia}`)
+                console.log(`Contagem Média: ${axMedia}`);
                 dados.datasets[1].data.push(axMedia);
             } else if ((registro.nivelBaixo == 1 && registro.nivelAlto == 1) || registro.nivelAlto == 1) {
                 axAlta++;
@@ -799,4 +796,28 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
 
 
+
+    // dia da semanas automatico
+    function formatacao(date) {
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
+        let year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+    }
+
+    function dataAutomatica() {
+        let today = new Date();
+
+        // Data final é hoje
+        let formattedToday = formatacao(today);
+        document.getElementById('data_final').value = formattedToday;
+
+        // Data inicial é hoje menos 6 dias
+        let pastDate = new Date(today);
+        pastDate.setDate(today.getDate() - 6);
+        let formattedPastDate = formatacao(pastDate);
+        document.getElementById('data_inicial').value = formattedPastDate;
+    }
+
+    
 </script>

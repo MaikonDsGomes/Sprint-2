@@ -4,13 +4,12 @@ function buscarUltimasMedidas(idEmpresa, selectValor, dataInicial, dataFinal) {
 
     var instrucaoSql = `
     
-
     SELECT 
     Lixeira.idLixeira, 
-    historico.DtTime as DtTime,
+    MAX(historico.DtTime) as DtTime,
     MAX(historico.nivelBaixo) as nivelBaixo, 
     MAX(historico.nivelAlto) as nivelAlto,
-	DATE_FORMAT(dtTime,"%d %M %Y") as dataCompleta
+    DATE_FORMAT(MAX(historico.DtTime), "%d %M %Y") as dataCompleta
 FROM 
     historico 
 JOIN 
@@ -18,13 +17,11 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = ${idEmpresa} and bairro like "${selectValor}" and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
+    Empresa.idEmpresa = ${idEmpresa} AND bairro LIKE "${selectValor}"  and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
 GROUP BY 
-    Lixeira.idLixeira,
-    Empresa.nomeEmpresa
-    
-    ORDER BY dtTime;
-                    
+    Lixeira.idLixeira
+ORDER BY 
+    DtTime
                     
                     `;
 
