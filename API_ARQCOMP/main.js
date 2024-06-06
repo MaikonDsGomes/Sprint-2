@@ -30,7 +30,7 @@ const serial = async (
         {
             // altere!
             // Credenciais do banco de dados
-            host: '10.18.33.26',
+            host: 'localhost',
             user: 'aluno',
             password: 'Sptech#2024',
             database: 'SmartBin',
@@ -81,7 +81,7 @@ const serial = async (
             // altere!
             // Este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO historico (cheia, fkLixeira) VALUES (?, 1)',
+                'INSERT INTO historico (nivelAlto, fkLixeira, fkSensor) VALUES (?, 1, 1)',
                 [chave]
             );
             console.log("valores inseridos no banco: " + chave)
