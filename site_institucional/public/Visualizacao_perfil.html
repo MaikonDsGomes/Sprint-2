@@ -8,30 +8,9 @@
     <title>Smart Bin</title>
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed(), menu()">
     <div class="content">
         <div class="menu">
-            <h3>Bairros</h3>
-            <ul class="menu_list">
-                <a href="../html/tela_dashboard.html">
-                    <li>Todos os bairros</li>
-                </a>
-                <a href="../html/boa_vista.html">
-                    <li>Boa Vista</li>
-                </a>
-                <a href="jardim_paulista.html">
-                    <li>Jardim Paulista</li>
-                </a>
-                <a href="../html/jabaquara.html">
-                    <li>Jabaquara</li>
-                </a>
-                <a href="../html/santa_cecilia.html">
-                    <li>Santa Cecília</li>
-                </a>
-                <a href="../html/santo_amaro.html">
-                    <li>Santo Amaro</li>
-                </a>
-            </ul>
             <h3>Configurações</h3>
             <ul class="menu_list">
                 <div id="div_links">
@@ -41,7 +20,8 @@
                     <li>Usuário</li>
                 </a>
             </ul>
-            <a class="logOut" href="tela_inicio.html">Sair <img src="../img/logOut.png" alt=""></a>
+
+            <a class="logOut" href="index.html">Sair <img src="../img/logOut.png" alt=""></a>
 
             <div id="usuario" class="foto_user_box">
                 <!-- <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a>  -->
@@ -122,7 +102,38 @@
     nome_2.innerHTML = `${NOMES}`;
     empresa.innerHTML = `${NOMAO}`;
 
+    var tipo = sessionStorage.TIPO_USUARIO;
+
+    function menu(){
+        if (tipo == 'Administrador') {
+            div_links.innerHTML = `
+                    <a href="tela_dashboard.html">
+                        <li>Lixeiras</li>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Adicionar lixeira</li>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Deletar lixeira</li>
+                    </a>
+                    <a href="tela_cadastro_logado.html">
+                        <li>Adicionar Usuário</li>
+                    </a>
+                    <a href= "http://localhost:3332" >
+                    <li>Área Técnica</li>
+                </a>`
+        } else {
+            div_links.innerHTML = `
+                    <a href="tela_dashboard.html">
+                        <li>Lixeiras</li>
+                    </a>
+                </a>`
+        }
+    }
+
     function atualizarFeed() {
+
+        
 
         function atualizarFeed() {
 

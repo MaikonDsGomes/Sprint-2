@@ -23,26 +23,27 @@
 
 
                 <label for="Nome">Nome:</label>
-                <input type="text" id="inp_nome" name="nome"  placeholder="Insira seu nome:"><br>
+                <input type="text" id="inp_nome" name="nome" placeholder="Insira seu nome:"><br>
 
                 <label for="telefone">Telefone:</label>
-                <input type="number" id="inp_tel" name="telefone"   placeholder="Insira seu telefone:"><br>
+                <input type="text" id="inp_tel" name="telefone" placeholder="Insira seu telefone:"><br>
 
                 <label for="email">Email:</label>
-                <input type="text" id="inp_email" name="email"  placeholder="Insira seu email:"><br>
+                <input type="text" id="inp_email" name="email" placeholder="Insira seu email:"><br>
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="inp_password" name="senha"  placeholder="Insira sua senha:"><br>
+                <input type="password" id="inp_password" name="senha" placeholder="Insira sua senha:"><br>
 
-                <label for="Confirmar Senha" >Confirmar Senha:</label>
-                <input   type="password" id="confirmacao_senha_input" name="ConfirmarSenha"   placeholder="Confirme sua senha:"><br>
+                <label for="Confirmar Senha">Confirmar Senha:</label>
+                <input type="password" id="confirmacao_senha_input" name="ConfirmarSenha"
+                    placeholder="Confirme sua senha:"><br>
 
 
 
 
 
                 <button onclick="cadastrar()"
-                    style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;">Cadastrar</button>
+                    style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;">Editar</button>
 
         </div>
         <form class="register-form">
@@ -57,6 +58,17 @@
 
 <script>
 
+    var NOMES = sessionStorage.NOME_USUARIO;
+    var TELEPHONE = sessionStorage.TELEFONE_USUARIO;
+    var EMALAO = sessionStorage.EMAIL_USUARIO;
+    var NOMAO = sessionStorage.NOME_EMPRESA;
+    var SENHA = sessionStorage.SENHA;
+
+    inp_nome.value = `${NOMES}`;
+    inp_tel.value = `${TELEPHONE}`;
+    inp_email.value = `${EMALAO}`;
+    inp_password.value = `${SENHA}`
+    confirmacao_senha_input.value = `${SENHA}`
 
     function cadastrar() {
 

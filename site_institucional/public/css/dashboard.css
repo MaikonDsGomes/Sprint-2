@@ -47,6 +47,7 @@
 
 .menu a {
     text-decoration: none;
+    padding: 0.1rem;
     /*Retira o sublinhado do texto, por ser tag <a> de ancora, ele fica com sublinhado*/
 }
 
@@ -466,7 +467,6 @@
     color: #fff;
     font-size: large;
     font-weight: bolder;
-    margin-top: 700px;
     width: 80px;
     padding-top: 5px;
     display: flex;

@@ -33,7 +33,9 @@
 }
 
 .menu a {
-    text-decoration: none; /*Retira o sublinhado do texto, por ser tag <a> de ancora, ele fica com sublinhado*/
+    text-decoration: none;
+    padding: 0.1rem;
+    /*Retira o sublinhado do texto, por ser tag <a> de ancora, ele fica com sublinhado*/
 }
 
 .menu_list li {
