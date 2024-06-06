@@ -19,22 +19,26 @@ function listarLixeira(idEmpresa, selectValor) {
     SELECT 
     Lixeira.idLixeira, 
     MAX(historico.DtTime) as DtTime,
-    MAX(historico.nivelBaixo) as nivelBaixo, 
-    MAX(historico.nivelAlto) as nivelAlto,
+    COALESCE(SUM(COALESCE(historico.nivelBaixo, 0) + COALESCE(historico.nivelAlto, 0)), 0) as somaTotal, 
     Lixeira.nomeLixeira,
     Lixeira.cep, 
     Lixeira.numero, 
-    Lixeira.bairro,
-    Lixeira.Complemento,
+    Lixeira.Complemento, 
     Empresa.nomeEmpresa as Empresa
 FROM 
-    historico 
+    (SELECT 
+        *,
+        ROW_NUMBER() OVER (PARTITION BY fkLixeira ORDER BY idHistorico DESC) AS row_num
+    FROM historico) AS historico_numbered
 JOIN 
-    Lixeira ON historico.fkLixeira = Lixeira.idLixeira
+    Lixeira ON historico_numbered.fkLixeira = Lixeira.idLixeira
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
+JOIN
+    historico ON historico.idHistorico = historico_numbered.idHistorico
 WHERE 
-    Empresa.idEmpresa = ${idEmpresa} and Lixeira.Bairro like '${selectValor}'
+    historico_numbered.row_num <= 2
+    AND Empresa.idEmpresa = ${idEmpresa} and Lixeira.bairro like '${selectValor}'
 GROUP BY 
     Lixeira.idLixeira,
     Lixeira.nomeLixeira,
@@ -42,8 +46,7 @@ GROUP BY
     Lixeira.numero, 
     Lixeira.Complemento, 
     Empresa.nomeEmpresa
-    order by nivelAlto desc, nivelBaixo desc;
-
+    ORDER BY somaTotal DESC
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

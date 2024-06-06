@@ -45,7 +45,7 @@ select * from usuario;
 
 
 -- LIXEIRA
-create table Lixeira (
+create table Lixeira (  
 IdLixeira int primary key auto_increment,
 nomeLixeira varchar(45),
 cep char(9),

@@ -518,7 +518,7 @@
 
                         // CÓDIGO ABAIXO TESTE A SER VALIDADO
 
-                        if (lixeira.nivelBaixo == 0 && lixeira.nivelAlto == 0) {
+                        if (lixeira.somaTotal == 0 ) {
                             console.log(`NIVEL BAIXO --- VERDE`)
 
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
@@ -531,7 +531,7 @@
                             metrica_card_baixo.innerHTML = baixoMetrica;
 
 
-                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 0) {
+                        } else if (lixeira.somaTotal == 1) {
 
                             console.log(`NIVEL MÉDIO --- AMARELO`)
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
@@ -543,7 +543,7 @@
                             medioMetrica++;
                             metrica_card_medio.innerHTML = medioMetrica;
 
-                        } else if (lixeira.nivelBaixo == 1 && lixeira.nivelAlto == 1) {
+                        } else if (lixeira.somaTotal == 2) {
                             console.log(`NIVEL CRITICO--- VERMELHO`)
 
                             h4RuaElement.innerHTML = `Cep: ${lixeira.cep}, n° ${lixeira.numero}`;
@@ -596,7 +596,7 @@
             console.error(resposta);
         });
 
-        setTimeout(() => alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira), 9000);
+        setTimeout(() => alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira), 2000);
 
 
     }
@@ -625,7 +625,7 @@
 
 
                 modalAlert.style.display = `block`
-                setTimeout(() => modalAlert.style.display = `none`, 9000);
+                setTimeout(() => modalAlert.style.display = `none`, 2000);
             }
 
         } else {
@@ -635,7 +635,7 @@
 
         }
 
-        setTimeout(() => atualizarFeed(), obterDadosGrafico(),9000);
+        setTimeout(() => atualizarFeed(), obterDadosGrafico(),2000);
 
 
     }
