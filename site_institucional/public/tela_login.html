@@ -73,7 +73,9 @@ function entrar() {
                 emailServer: emailVar,
                 senhaServer: senhaVar
             })
+
         }).then(function (resultadoAutenticar) {
+
             console.log("ESTOU NO THEN DO entrar()!")
 
             if (resultadoAutenticar.ok) {
@@ -81,6 +83,7 @@ function entrar() {
 
                 resultadoAutenticar.json().then(json => {
                     console.log(json);
+
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
@@ -88,7 +91,7 @@ function entrar() {
                     sessionStorage.EMPRESAID = json.idEmpresa;
                     sessionStorage.TIPO_USUARIO = json.tipoUsuario;
                     sessionStorage.SENHA = json.senha;
-                    sessionStorage.TELEFONE_USUARIO = json.telefone;
+                    sessionStorage.TELEFONE_USUARIO = json.Telefone;
                     sessionStorage.NOME_EMPRESA = json.Empresa;
 
 
