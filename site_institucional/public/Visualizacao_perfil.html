@@ -69,8 +69,11 @@
 
                         <div class="resp">
                             <h1 id="nome"></h1>
-                            <h2 id="telefone"> 11 994637199 </h2>
+
+                            <h2 id="phone"> 11 994637199 </h2>
+
                             <h3 id="email"> fernando.brandao@sptech.school </h3>
+                            
                             <h4>***********</h4>
                         </div>
                     </div>
@@ -91,20 +94,25 @@
 <script>
 
     var NOMES = sessionStorage.NOME_USUARIO;
-    var TELEPHONE = sessionStorage.TELEFONE_USUARIO;
+    var CELLPHONE = sessionStorage.TELEFONE_USUARIO;
     var EMALAO = sessionStorage.EMAIL_USUARIO;
     var NOMAO = sessionStorage.NOME_EMPRESA;
 
     nome.innerHTML = `${NOMES}`;
-    telefone.innerHTML = `${TELEPHONE}`;
+
+    phone.innerHTML = `${CELLPHONE}`;
+
     email.innerHTML = `${EMALAO}`;
-    telefone.innerHTML = `${TELEPHONE}`;
+
     nome_2.innerHTML = `${NOMES}`;
+    
     empresa.innerHTML = `${NOMAO}`;
 
     var tipo = sessionStorage.TIPO_USUARIO;
 
+
     function menu(){
+
         if (tipo == 'Administrador') {
             div_links.innerHTML = `
                     <a href="tela_dashboard.html">
