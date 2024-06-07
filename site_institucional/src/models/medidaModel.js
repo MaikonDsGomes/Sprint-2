@@ -17,7 +17,7 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = ${idEmpresa} AND bairro LIKE "${selectValor}"  and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
+    Empresa.idEmpresa = ${idEmpresa} AND Bairro LIKE "${selectValor}"  and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
 GROUP BY 
     Lixeira.idLixeira
 ORDER BY 

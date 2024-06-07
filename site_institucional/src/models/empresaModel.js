@@ -12,8 +12,8 @@ function listar() {
   return database.executar(instrucaoSql);
 }
 
-function buscarPorCnpj(cnpj) {
-  var instrucaoSql = `SELECT * FROM Empresa WHERE cnpj = '${cnpj}'`;
+function buscarPorCnpj(Cnpj) {
+  var instrucaoSql = `SELECT * FROM Empresa WHERE Cnpj = '${Cnpj}'`;
 
   return database.executar(instrucaoSql);
 }

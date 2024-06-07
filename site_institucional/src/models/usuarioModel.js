@@ -1,14 +1,14 @@
 var database = require("../database/config")
 
 function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
+    console.log("ACESSEI O Usuario MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
 
     var instrucaoSql = `
     SELECT Usuario.idUsuario,
     Usuario.NomeUsuario, Usuario.EmailUsuario,
     Usuario.fkEmpresa as empresaId, Usuario.TipoUsuario, 
-    Usuario.telefone, Usuario.Senha, empresa.NomeEmpresa as Empresa
-    FROM Usuario join empresa on empresa.IdEmpresa = Usuario.fkEmpresa 
+    Usuario.Telefone, Usuario.Senha, Empresa.NomeEmpresa as Empresa
+    FROM Usuario join Empresa on Empresa.IdEmpresa = Usuario.fkEmpresa 
     WHERE EmailUsuario = '${email}' AND Senha = '${senha}';
 
     `;
@@ -32,13 +32,13 @@ function editar(nome, email, senha, telefone, idUsuario ) {
 }
 
 
-function cadastrar(nome, email, senha, codigo,cpf, telefone, tipoUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
+function cadastrar(nome, email, senha, codigo,cpf, telefone, TipoUsuario) {
+    console.log("ACESSEI O Usuario MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senha, fkEmpresa, cpf, telefone, TipoUsuario) VALUES ('${nome}', '${email}', '${senha}', '${codigo}', '${cpf}', '${telefone}', '${tipoUsuario}');
+        INSERT INTO Usuario (NomeUsuario, EmailUsuario, senha, fkEmpresa, cpf, telefone, TipoUsuario) VALUES ('${nome}', '${email}', '${senha}', '${codigo}', '${cpf}', '${telefone}', '${TipoUsuario}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -2,7 +2,7 @@ var database = require("../database/config");
 
 
 function cadastrar(nome, cep, num, complemento, idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_lixeira():", nome, cep, idEmpresa);
+    console.log("ACESSEI O Usuario MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_lixeira():", nome, cep, idEmpresa);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -24,7 +24,7 @@ function listarLixeira(idEmpresa, selectValor) {
     Lixeira.cep, 
     Lixeira.numero, 
     Lixeira.Complemento, 
-    Empresa.nomeEmpresa as Empresa
+    Empresa.NomeEmpresa as Empresa
 FROM 
     (SELECT 
         *,
@@ -38,14 +38,14 @@ JOIN
     historico ON historico.idHistorico = historico_numbered.idHistorico
 WHERE 
     historico_numbered.row_num <= 2
-    AND Empresa.idEmpresa = ${idEmpresa} and Lixeira.bairro like '${selectValor}'
+    AND Empresa.idEmpresa = ${idEmpresa} and Lixeira.Bairro like '${selectValor}'
 GROUP BY 
     Lixeira.idLixeira,
     Lixeira.nomeLixeira,
     Lixeira.cep, 
     Lixeira.numero, 
     Lixeira.Complemento, 
-    Empresa.nomeEmpresa
+    Empresa.NomeEmpresa
     ORDER BY somaTotal DESC
 
     `;
@@ -57,7 +57,7 @@ GROUP BY
 function listarAlerta() {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarLixeira()");
     var instrucaoSql = `
-    select nomeLixeira, cep, Bairro from historico join Lixeira on fkLixeira = idLixeira order by dtTime desc limit 1;
+    select nomeLixeira, cep, Bairro from historico join Lixeira on fkLixeira = idLixeira order by DtTime desc limit 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
