@@ -13,7 +13,7 @@ QtdLixeiras int);
 desc Empresa;
 
 insert into Empresa(Cnpj, NomeEmpresa, RazaoSocial, QtdLixeiras) values
- (012345678965412, 'Smartbin','Sustentavel', 3);
+ (012345678965412, 'MIG LIX','Sustentavel', 3);
  
  select * from Empresa;
 
