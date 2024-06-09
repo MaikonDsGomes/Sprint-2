@@ -63,6 +63,13 @@
                 </div>
             </div>
 
+            <div class="grafico_box">
+                <select id="select_bairro" onchange="atualizarFeed(), obterDadosGrafico()">
+                    <option selected value="1">Todos os Bairros</option>
+                </select>
+
+            </div>
+
             <div class="cards_grid" id="card_pai">
 
 
@@ -145,19 +152,7 @@
                 </div> -->
             </div>
 
-            <div class="grafico_box">
-                <select id="select_bairro" onchange="atualizarFeed(), obterDadosGrafico()">
-                    <option selected value="1">Todos os Bairros</option>
-                </select>
-                <!-- <select id="select_semana">
-                <option value="1">Essa semana</option>
-                <option value="2">Semana - 29/04/2024 até 05/05/2024</option>
-                <option value="3">Semana - 22/04/2024 até 28/04/2024</option>
-                <option value="4">Semana - 15/04/2024 até 21/04/2024</option>
-                <option value="5">Semana - 08/04/2024 até 14/04/2024</option>
-                <option value="6">Semana - 01/04/2024 até 07/04/2024</option>
-            </select> -->
-            </div>
+
 
             <h1 class="titulo_grafico">Gráfico:</h1>
             <div>Data inicial: <input id="data_inicial" type="date"></div>
@@ -443,10 +438,13 @@
     var lista_cep = [];
     var lista_cepCOMP = [];
     function atualizarFeed() {
+
         // parte que coloca o nome e o tipo do usuário embaixo
         card_pai.innerHTML = "";
 
-
+        metrica_card_baixo.innerHTML = "0";
+        metrica_card_medio.innerHTML = "0";
+        metrica_card_alto.innerHTML = "0";
 
         var baixoMetrica = 0;
         var medioMetrica = 0;
@@ -543,7 +541,7 @@
                             spanNivelElement.innerHTML = "Baixo";
                             spanNivelElement.style.color = "green";
                             iconElement.style.color = "green";
-                            baixoMetrica++;
+                            baixoMetrica += 1;
                             metrica_card_baixo.innerHTML = baixoMetrica;
 
 
@@ -554,8 +552,8 @@
                             spanNumeroElement.innerHTML = '<b>Complemento:</b>' + lixeira.Complemento;
                             h4NivelElement.innerHTML = "Nível: ";
                             spanNivelElement.innerHTML = "Médio";
-                            spanNivelElement.style.color = "yellow";
-                            iconElement.style.color = "yellow";
+                            spanNivelElement.style.color = "#cfcf23";
+                            iconElement.style.color = "#cfcf23";
                             medioMetrica++;
                             metrica_card_medio.innerHTML = medioMetrica;
 
@@ -612,7 +610,7 @@
             console.error(resposta);
         });
 
-        setTimeout(() => alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira), 2000);
+        setTimeout(() => alertaLixeira(idEmpresa, altoMetrica, cepLixeira, nomeLixeira, bairroLixeira), 9000);
 
 
     }
@@ -641,7 +639,7 @@
 
 
                 modalAlert.style.display = `block`
-                setTimeout(() => modalAlert.style.display = `none`, 2000);
+                setTimeout(() => modalAlert.style.display = `none`, 9000);
             }
 
         } else {
@@ -651,8 +649,8 @@
 
         }
 
-        setTimeout(() => atualizarFeed(), obterDadosGrafico(), 2000);
-
+        //setTimeout(() => atualizarFeed(), obterDadosGrafico(), 9000);
+        setTimeout(() => atualizarFeed(), 9000);
 
     }
 
@@ -741,13 +739,30 @@
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
-            datasets: [
-                {
-                    label: [],
-                    data: [],
-                    backgroundColor: []
-                }
-            ]
+            datasets: [{
+                data: [],
+                label: ['Nivel baixo'],
+                fill: false,
+                backgroundColor: 'green',
+                borderColor: 'White',
+                tension: 0.1
+            },
+            {
+                data: [],
+                label: ['Nivel medio'],
+                fill: false,
+                backgroundColor: 'yellow',
+                borderColor: 'White',
+                tension: 0.1
+            },
+            {
+                data: [],
+                label: ['Nivel alto'],
+                fill: false,
+                backgroundColor: 'red',
+                borderColor: 'White',
+                tension: 0.1
+            }]
         };
 
         console.log('----------------------------------------------')
@@ -758,30 +773,25 @@
         var axMedia = 0;
         var axAlta = 0;
 
+        //  for (var index = 0; index < 3; index++) {
+        //      let registro = resposta[index];
+        //      labels.push(registro.dataCompleta);
+
+        // }
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {
             let registro = resposta[i];
 
             // Adicionando a data completa às labels
-            labels.push(registro.dataCompleta);
 
-            console.log(`Label adicionada: ${registro.dataCompleta}`);
+            labels.push(registro.DtTimeFormatada);
 
-            if (registro.nivelBaixo == 0 && registro.nivelAlto == 0) {
-                axBaixa++;
-                dados.datasets[0].data.push(axBaixa);
-                dados.datasets[0].backgroundColor.push('green');
-            } else if (registro.nivelBaixo == 1 && registro.nivelAlto == 0) {
-                axMedia++;
-                dados.datasets[0].data.push(axMedia);
-                dados.datasets[0].backgroundColor.push('yellow');
-            } else if ((registro.nivelBaixo == 1 && registro.nivelAlto == 1) || registro.nivelAlto == 1) {
-                axAlta++;
-                dados.datasets[0].data.push(axAlta);
-                dados.datasets[0].backgroundColor.push('red');
-            }
+            console.log(`Label adicionada: ${registro.DtTimeFormatada}`);
 
+            dados.datasets[0].data.push(registro.nivelBaixo);
+            dados.datasets[1].data.push(registro.nivelMedio);
+            dados.datasets[2].data.push(registro.nivelAlto);
 
 
         }
@@ -799,22 +809,8 @@
         const config = {
             type: 'bar',
             data: dados,
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Dias da Semana'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Quantidade'
-                        }
-                    }
-                }
-            }
+
+
         };
 
         // Adicionando gráfico criado em div na tela

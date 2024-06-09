@@ -5,23 +5,31 @@ function buscarUltimasMedidas(idEmpresa, selectValor, dataInicial, dataFinal) {
     var instrucaoSql = `
     
     SELECT 
-    Lixeira.idLixeira, 
-    MAX(historico.DtTime) as DtTime,
-    MAX(historico.nivelBaixo) as nivelBaixo, 
-    MAX(historico.nivelAlto) as nivelAlto,
-    DATE_FORMAT(MAX(historico.DtTime), "%d %M %Y") as dataCompleta
-FROM 
-    historico 
-JOIN 
-    Lixeira ON historico.fkLixeira = Lixeira.idLixeira
-JOIN 
-    Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
-WHERE 
-    Empresa.idEmpresa = ${idEmpresa} AND Bairro LIKE "${selectValor}"  and DtTime > '${dataInicial}' and DtTime < '${dataFinal}'
+    DATE_FORMAT(subconsulta.DtTime, "%e de %M %Y") as DtTimeFormatada,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 1 AND subconsulta.nivelAlto = 1 THEN 1 ELSE 0 END) as nivelAlto,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 1 AND subconsulta.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelMedio,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 0 AND subconsulta.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelBaixo
+FROM (
+    SELECT 
+        Lixeira.idLixeira, 
+        historico.DtTime,
+        MAX(historico.nivelBaixo) as nivelBaixo, 
+        MAX(historico.nivelAlto) as nivelAlto
+    FROM 
+        historico 
+    JOIN 
+        Lixeira ON historico.fkLixeira = Lixeira.idLixeira
+    JOIN 
+        Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
+    WHERE 
+        Empresa.idEmpresa = ${idEmpresa} AND Bairro LIKE "${selectValor}" AND DtTime > '${dataInicial}' AND DtTime < '${dataFinal}'
+    GROUP BY 
+        Lixeira.idLixeira, historico.DtTime
+) as subconsulta
 GROUP BY 
-    Lixeira.idLixeira
+    subconsulta.DtTime
 ORDER BY 
-    DtTime
+    subconsulta.DtTime;
                     
                     `;
 

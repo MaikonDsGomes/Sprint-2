@@ -64,11 +64,11 @@ insert into Lixeira (cep, nomeLixeira,numero,Complemento, Bairro,fkEmpresa) valu
 ('123456787', 'lixeira 2','589', 'Do lado do Digital Building', 'Jabaquara', '12345'),
 ('123456788', 'lixeira 3','257', 'Em frente ao Starbucks', 'Jardim Paulista' ,  '12345');
 
+insert into Lixeira (cep, nomeLixeira,numero,Complemento, Bairro,fkEmpresa) values 
+('123456789', 'lixeira 4','2801', 'Em frente a APAE', 'Boa Vista', '12345');
 
 
 select * from lixeira;
-
-
 
 
 
@@ -91,9 +91,11 @@ insert into sensor values
 (default, 1, 1),
 (default, 0, 1);
 
+insert into sensor values
+(default, 1, 1),
+(default, 0, 1);
 
 
-select * from sensor;
 
 -- HISTÓRICO
 create table historico(
@@ -109,33 +111,70 @@ primary key pkComposta (idHistorico, fkLixeira, FkSensor)
 );
 
 
+-- DIA 3 do 6
 
 INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
-('2024-06-02 18:30:00', 1, 1, 1);
-
+('2024-06-03 18:30:00', 1, 1, 1);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-06-02 18:30:00', 1, 1, 2);
-
-
-
+('2024-06-03 18:30:00', 1, 1, 2);
 
 INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
-('2024-05-30 18:30:00', 1, 2, 3);
-
+('2024-06-03 18:30:00', 1, 2, 3);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-05-30 18:30:00', 0, 2, 4);
+('2024-06-03 18:30:00', 0, 2, 4);
 
 INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
-('2024-05-23 18:30:00', 0, 3, 5);
+('2024-06-03 18:30:00', 0, 3, 5);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-05-23 18:30:00', 0, 3, 6);
+('2024-06-03 18:30:00', 0, 3, 6);
 
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-03 18:30:00', 1, 4, 7);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2023-05-23 18:00:00', 0, 3, 6);
+('2024-06-03 18:30:00', 1, 4, 8);
+
+-- DIA 4 do 6
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 1, 1, 1);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-05-19 19:00:00', 0, 3, 6);
+('2024-06-04 18:30:00', 0, 1, 2);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 1, 2, 3);
 INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-05-18 12:00:00', 0, 3, 6);
+('2024-06-04 18:30:00', 0, 2, 4);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 0, 3, 5);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 0, 3, 6);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 1, 4, 7);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-04 18:30:00', 1, 4, 8);
+
+
+-- DIA 5 do 6
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 1, 1);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 1, 2);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 1, 2, 3);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 2, 4);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 3, 5);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 3, 6);
+INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 1, 4, 7);
+INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
+('2024-06-05 18:30:00', 0, 4, 8);
+
+
+
+
+
+
 
 insert into historico (nivelBaixo,fkLixeira, fkSensor) values 
 (1 ,1, 1);
@@ -153,7 +192,6 @@ insert into historico (nivelAlto, fkLixeira, fkSensor) values
 (0 ,3, 6);
 
 
-
 -- drop table historico;
 -- drop table Lixeira;
 -- drop table Usuario;
@@ -164,23 +202,10 @@ insert into historico (nivelAlto, fkLixeira, fkSensor) values
 -- TESTE DE ALERTA LIXEIRA NIVEL ALTO | (INSERINDO MAIS UMA NIVEL ALTO) DESCOMENTE PARA TESTAR E RODE NOVAMENTE NO RAIO
 
 -- criação lixeira
-insert into Lixeira (cep, nomeLixeira,numero,Complemento, Bairro,fkEmpresa) values 
-('123456789', 'lixeira 4','2801', 'Em frente a APAE', 'Boa Vista', '12345');
 
 -- criação dos sensores
-insert into sensor values
-(default, 1, 1),
-(default, 0, 1);
 
 select * from lixeira;
-
--- Inserção na tabela historico
-INSERT INTO historico (DtTime, nivelBaixo, fkLixeira, fkSensor) VALUES 
-('2024-06-02 18:30:00', 1, 4, 7);
-INSERT INTO historico (DtTime, nivelAlto, fkLixeira, fkSensor) VALUES 
-('2024-06-02 18:30:00', 1, 4, 8);
-
-
 
 
 
@@ -360,13 +385,11 @@ ORDER BY
 
 
 -- -------------------------- ZONA DE TESTE AQUI EM BAIXO ------------------------ 
-SELECT DATE_FORMAT("2017-06-15", "%M %d %Y");
 SELECT 
-    Lixeira.idLixeira, 
-    historico.DtTime as DtTime,
-    MAX(historico.nivelBaixo) as nivelBaixo, 
-    MAX(historico.nivelAlto) as nivelAlto,
-	DATE_FORMAT(dtTime,"%d %M %Y") as dataCompleta
+    historico.DtTime,
+    SUM(CASE WHEN historico.nivelBaixo = 0 AND historico.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelBaixo,
+    SUM(CASE WHEN historico.nivelBaixo = 1 AND historico.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelMedio,
+    SUM(CASE WHEN historico.nivelBaixo = 1 AND historico.nivelAlto = 1 THEN 1 ELSE 0 END) as nivelAlto
 FROM 
     historico 
 JOIN 
@@ -374,12 +397,37 @@ JOIN
 JOIN 
     Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
 WHERE 
-    Empresa.idEmpresa = 12345 and bairro like "%" and DtTime > '2024-05-29' and DtTime < '2024-05-30'
-
-
+    Empresa.idEmpresa = 12345 AND Bairro LIKE "%" AND DtTime >= '2024-06-03' AND DtTime < '2024-06-06'
 GROUP BY 
-    Lixeira.idLixeira,
-    Empresa.nomeEmpresa
+    historico.DtTime
+ORDER BY 
+    historico.DtTime;
     
-    ORDER BY dtTime
-    ;
+    
+    
+SELECT 
+    DATE_FORMAT(subconsulta.DtTime, "%e de %M %Y") as DtTimeFormatada,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 1 AND subconsulta.nivelAlto = 1 THEN 1 ELSE 0 END) as nivelAlto,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 1 AND subconsulta.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelMedio,
+    SUM(CASE WHEN subconsulta.nivelBaixo = 0 AND subconsulta.nivelAlto = 0 THEN 1 ELSE 0 END) as nivelBaixo
+FROM (
+    SELECT 
+        Lixeira.idLixeira, 
+        historico.DtTime,
+        MAX(historico.nivelBaixo) as nivelBaixo, 
+        MAX(historico.nivelAlto) as nivelAlto
+    FROM 
+        historico 
+    JOIN 
+        Lixeira ON historico.fkLixeira = Lixeira.idLixeira
+    JOIN 
+        Empresa ON Lixeira.fkEmpresa = Empresa.idEmpresa
+    WHERE 
+        Empresa.idEmpresa = 12345 AND Bairro LIKE "%" AND DtTime > '2024-06-01' AND DtTime < '2024-06-09'
+    GROUP BY 
+        Lixeira.idLixeira, historico.DtTime
+) as subconsulta
+GROUP BY 
+    subconsulta.DtTime
+ORDER BY 
+    subconsulta.DtTime;
