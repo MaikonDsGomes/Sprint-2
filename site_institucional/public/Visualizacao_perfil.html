@@ -44,7 +44,7 @@
                     <img src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-vert.png" alt="">
                     <!-- <img src="../img/perfil.png" alt=""> -->
                     <p id="nome_2">Fernando Duarte Brandao</p>
-                    <span>Usuario Administrador</span>
+                    <span>Usuario <span id="Nivel_user"></span></span>
                 </div>
 
                 <div class="box">
@@ -97,6 +97,9 @@
     var CELLPHONE = sessionStorage.TELEFONE_USUARIO;
     var EMALAO = sessionStorage.EMAIL_USUARIO;
     var NOMAO = sessionStorage.NOME_EMPRESA;
+    var nivel = sessionStorage.TIPO_USUARIO;
+
+    Nivel_user.innerHTML = `${nivel}`
 
     nome.innerHTML = `${NOMES}`;
 
@@ -127,11 +130,17 @@
                     <a href="tela_cadastro_logado.html">
                         <li>Adicionar Usuário</li>
                     </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Dúvida ?</li>
+                    </a>
                    `
         } else {
             div_links.innerHTML = `
                     <a href="tela_dashboard.html">
                         <li>Lixeiras</li>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@smartbin.atlassian.net&body=Olá,%20Smartbin." target="_blank">
+                        <li>Dúvida ?</li>
                     </a>
                 </a>`
         }
